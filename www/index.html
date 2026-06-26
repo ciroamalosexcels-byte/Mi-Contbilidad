@@ -3324,7 +3324,8 @@ function zeroExcedentesThroughJune2026(){
     const matches=(state.movs||[]).filter(m=>isExcedente(m)&&monthKey(m.fecha||m.venc)===ym);
     if(!matches.length)return;
     const keep=matches.find(isManualExcedente)||matches[0];
-    if(keep.monto!==0||keep.desc!==EXCEDENTE_DESC||keep.cat!==EXCEDENTE_CAT||keep.tipo!=='ingreso'||keep.fecha!==ym+'-01 00:00:00'||keep.estado!=='pago'||keep.autoExcedente!==false||keep.excedenteManual!==true){
+    // Si ya es un excedente editado manualmente por el usuario, no pisar el monto
+    if(!isManualExcedente(keep)&&(keep.monto!==0||keep.desc!==EXCEDENTE_DESC||keep.cat!==EXCEDENTE_CAT||keep.tipo!=='ingreso'||keep.fecha!==ym+'-01 00:00:00'||keep.estado!=='pago'||keep.autoExcedente!==false||keep.excedenteManual!==true)){
       setExcedenteManualZero(keep,ym);
       changed=true;
     }
