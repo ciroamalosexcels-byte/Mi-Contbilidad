@@ -1,0 +1,14 @@
+NOTIFICACIONES LOCALES
+
+Esta versión incluye @capacitor/local-notifications para Capacitor 6.
+
+Al compilar en GitHub Actions, npm install instala el plugin y npx cap sync android lo incorpora al APK.
+
+Dentro de la app:
+1. Abrir Configuración.
+2. Tocar Activar notificaciones.
+3. Aceptar el permiso de Android.
+4. Elegir la hora y los avisos.
+5. Usar Probar notificación para verificar.
+
+Se programan avisos 3 días antes y el mismo día para deudas, cuotas, gastos fijos y cobros pendientes, además del resumen mensual si está activado.

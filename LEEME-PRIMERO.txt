@@ -1,0 +1,28 @@
+VERSIÓN LIMPIA
+
+Esta versión fue preparada sin movimientos, sin gastos fijos/servicios y sin objetivos precargados.
+También usa nombres de almacenamiento nuevos, por lo que no recuperará automáticamente los datos personales de la versión anterior.
+
+PARA COMPILAR
+1. Subí/reemplazá todos estos archivos en tu repositorio de GitHub.
+2. Esperá a que Actions > Compilar APK termine en verde.
+3. Descargá el artefacto MiContabilidad-APK e instalá app-debug.apk.
+
+GOOGLE SHEETS
+1. En tu Google Sheet: Extensiones > Apps Script.
+2. Pegá el contenido de GOOGLE-SHEETS-APPS-SCRIPT.gs.
+3. Implementar > Nueva implementación > Aplicación web.
+4. Ejecutar como: Yo.
+5. Quién tiene acceso: Cualquier persona.
+6. Copiá la URL terminada en /exec y pegala en la app.
+
+IMPORTANTE
+No uses la URL de prueba que termina en /dev. Tiene que terminar exactamente en /exec.
+Cada vez que cambies el Apps Script, creá una nueva versión de la implementación.
+
+
+NOVEDAD: En Google Sheets dentro de la app ahora aparece el botón “Copiar código GS”, que copia al portapapeles el código completo de Apps Script.
+
+
+ACTUALIZACIÓN CLAUDE V9
+La app y el botón “Copiar código GS” usan ahora el puente V9 de Claude: hojas Movimientos y Config, columnas visibles y respaldo JSON por movimiento.

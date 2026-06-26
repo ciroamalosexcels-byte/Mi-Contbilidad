@@ -1,0 +1,7 @@
+SONIDOS INTEGRADOS
+
+- movement-added.mp3: al agregar un movimiento nuevo.
+- action-open.mp3: botones flotantes de anotar movimiento y micrófono.
+- navigation.mp3: botones Lista, Calendario, Métricas y Configuración.
+
+Los archivos están en www/assets/sounds y no requieren plugins adicionales.

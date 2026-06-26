@@ -1,0 +1,10 @@
+NAVEGACIÓN FIJA Y SACUDIDA
+
+- La barra inferior fija incluye: Lista, Calendario, Métricas y Configuración.
+- La sección activa cambia de color según el tema elegido.
+- Los botones flotantes quedan por encima de la barra.
+- En Configuración se puede activar o desactivar "Sacudir el teléfono".
+- Al sacudir el equipo aparece una ventana con accesos a:
+  * Cargar movimiento
+  * Cargar hablando
+- El sensor funciona en la APK instalada. En dispositivos que lo requieran, el permiso se solicita al activar la función.
