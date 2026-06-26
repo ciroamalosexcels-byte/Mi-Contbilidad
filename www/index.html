@@ -230,9 +230,9 @@ body.mosca .themebtn::after{
   --blur:saturate(150%) blur(16px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%;overflow-x:hidden}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative}
-body::before{content:'';position:fixed;inset:-10%;z-index:-1;background-color:#e7ebff;
+html,body{min-height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:-10% 0;z-index:-1;background-color:#e7ebff;
   background-image:
    radial-gradient(38% 44% at 12% 12%, rgba(124,77,255,.40), transparent 60%),
    radial-gradient(40% 46% at 88% 8%, rgba(10,165,196,.40), transparent 60%),
@@ -1500,7 +1500,7 @@ body.blob .msvg rect,body.blob .msvg path{filter:none}
 :root{--bottom-nav-h:76px;--nav-active-bg:var(--accent);--nav-active-text:#fff}
 body{padding-bottom:calc(var(--bottom-nav-h) + 28px + env(safe-area-inset-bottom))}
 .app-section-head{min-height:48px}
-.app-bottom-nav{position:fixed;left:0;right:0;bottom:0;margin:0 auto;z-index:88;width:min(100%,980px);height:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--glass);border:1px solid var(--line);border-bottom:none;box-shadow:0 -10px 30px rgba(0,0,0,.12);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.app-bottom-nav{position:fixed;left:0;right:0;bottom:0;margin:0 auto;z-index:88;width:min(100%,980px);height:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--glass);border:1px solid var(--line);border-bottom:none;box-shadow:0 -10px 30px rgba(0,0,0,.12);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);will-change:transform}
 .app-nav-item{min-width:0;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 4px;border-radius:14px;background:transparent!important;border:1px solid transparent!important;color:var(--muted)!important;box-shadow:none!important;font-size:.68rem;font-weight:900;line-height:1;transition:transform .16s ease,background .18s ease,color .18s ease,border-color .18s ease}
 .app-nav-item .ic{width:21px;height:21px;transition:transform .18s ease}
 .app-nav-item.on{background:var(--nav-active-bg)!important;color:var(--nav-active-text)!important;border-color:transparent!important;transform:translateY(-2px)}
