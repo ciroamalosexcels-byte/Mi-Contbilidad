@@ -45,7 +45,34 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Verificar APK
+        run: |
+          APK_PATH="android/app/build/outputs/apk/debug/app-debug.apk"
+
+          if [ ! -f "$APK_PATH" ]; then
+            echo "ERROR: El archivo APK no existe en $APK_PATH"
+            exit 1
+          fi
+
+          SIZE_BYTES=$(stat -c%s "$APK_PATH")
+          SIZE_MB=$(echo "scale=1; $SIZE_BYTES / 1048576" | bc)
+          echo "Tamaño del APK: ${SIZE_MB} MB ($SIZE_BYTES bytes)"
+
+          if [ "$SIZE_BYTES" -lt 2000000 ]; then
+            echo "ERROR: El APK es demasiado pequeño (${SIZE_MB} MB). El build está incompleto."
+            exit 1
+          fi
+
+          echo "=== Información del APK ==="
+          $ANDROID_HOME/build-tools/34.0.0/aapt dump badging "$APK_PATH" | head -10
+
+          echo "=== Firmado del APK ==="
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --verbose "$APK_PATH" || echo "Advertencia: no se pudo verificar la firma"
+
+          echo "APK_SIZE_MB=${SIZE_MB}" >> $GITHUB_ENV
+          echo "APK_SIZE_BYTES=${SIZE_BYTES}" >> $GITHUB_ENV
 
       - name: Renombrar APK
         run: cp android/app/build/outputs/apk/debug/app-debug.apk MiContabilidad.apk
@@ -55,6 +82,13 @@ jobs:
         with:
           tag_name: latest-build
           name: "Última versión"
-          body: "APK generado automáticamente desde la rama main."
+          body: |
+            APK generado automáticamente desde la rama main.
+
+            **Tamaño:** ${{ env.APK_SIZE_MB }} MB
+            **Requiere:** Android 5.1 o superior (API 22+)
+            **Tipo:** Debug (no requiere Play Store)
+
+            ⚠️ Antes de instalar: activá "Fuentes desconocidas" en Ajustes → Seguridad
           files: MiContabilidad.apk
           make_latest: true
