@@ -4736,7 +4736,6 @@ function renderMetrics(ym){
   const catsSel=Object.keys(byCatSel)
     .map(k=>({cat:k,monto:byCatSel[k].monto,cant:byCatSel[k].cant}))
     .sort((a,b)=>b.cant-a.cant || b.monto-a.monto || a.cat.localeCompare(b.cat));
-  const totCatSel=catsSel.reduce((s,x)=>s+x.monto,0);
   const topCat=catsSel[0];
 
   const msCurrent=state.movs.filter(m=>monthKey(m.venc||m.fecha)===currentYm&&isOutflow(m));
@@ -4788,16 +4787,6 @@ function renderMetrics(ym){
     '<line x1="'+left+'" y1="'+top+'" x2="'+left+'" y2="'+base+'" style="stroke:var(--line)" stroke-width="1"/>'+
     '<line x1="'+left+'" y1="'+base+'" x2="'+(W-right)+'" y2="'+base+'" style="stroke:var(--line)" stroke-width="1"/>';
   const svg='<svg class="msvg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'+grid+axis+bars+'</svg>';
-
-  let catHtml;
-  if(catsSel.length){
-    catHtml=catsSel.map(c=>{
-      const pc=totCatSel?Math.round(c.monto/totCatSel*100):0;
-      return '<div class="catrow"><div class="top"><span>'+esc(c.cat)+'</span><span>'+money(c.monto)+' · '+pc+'%</span></div><div class="sub" style="margin-bottom:5px">'+c.cant+' movimiento'+(c.cant===1?'':'s')+' en el mes</div></div>';
-    }).join('');
-  } else {
-    catHtml='<div class="sub">Sin gastos en '+labelMonth(selectedYm)+'.</div>';
-  }
 
   let pieHtml='';
   if(catsCurrent.length && totCurrent>0){
@@ -4876,8 +4865,6 @@ function renderMetrics(ym){
     '<div class="sub" style="margin-bottom:10px">Ventana mostrada: '+months.map(labelMonth).join(' · ')+'</div>'+
     '<div class="mlegend"><span><i style="background:var(--chart-ing)"></i>Ingresos</span><span><i style="background:var(--chart-gas)"></i>Salidas</span><span><i style="background:var(--chart-fixed)"></i>Gastos fijos</span></div>'+
     svg+
-    '<div class="mh" style="margin-top:14px">Gastos por categoría · '+labelMonth(selectedYm)+'</div>'+
-    catHtml+
     pieHtml+
     annualHtml;
 
