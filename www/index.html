@@ -40,7 +40,6 @@ body.mosca{
   background:linear-gradient(180deg,#d9d9d9 0%,#ececec 100%);
   image-rendering:pixelated;
   isolation:isolate;
-  overflow-x:hidden!important;
 }
 body.mosca::before{
   content:'';
@@ -231,7 +230,7 @@ body.mosca .themebtn::after{
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100%}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative}
 body::before{content:'';position:fixed;inset:-10% 0;z-index:-1;background-color:#e7ebff;
   background-image:
    radial-gradient(38% 44% at 12% 12%, rgba(124,77,255,.40), transparent 60%),
@@ -1206,7 +1205,7 @@ body.blob{
   text-transform:none;
 }
 body.blob,body.blob *{font-family:'Plus Jakarta Sans',system-ui,sans-serif!important}
-body.blob{isolation:isolate;overflow-x:hidden!important}
+body.blob{isolation:isolate}
 body.blob::before{
   inset:0!important;
   background:#f5f1e6!important;
