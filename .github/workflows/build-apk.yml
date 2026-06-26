@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +29,7 @@ jobs:
       - name: Instalar Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Instalar componentes Android necesarios
+      - name: Instalar componentes Android
         run: |
           sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
@@ -38,21 +41,20 @@ jobs:
           npx cap add android
           npx cap sync android
 
-      - name: Compilar APK debug
+      - name: Compilar APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -100
+          ./gradlew assembleDebug --no-daemon
 
-      - name: Verificar APK generado
-        run: |
-          APK=android/app/build/outputs/apk/debug/app-debug.apk
-          ls -lh $APK
-          file $APK
+      - name: Renombrar APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk MiContabilidad.apk
 
-      - name: Publicar APK
-        uses: actions/upload-artifact@v4
+      - name: Publicar como GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: MiContabilidad-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+          tag_name: latest-build
+          name: "Última versión"
+          body: "APK generado automáticamente desde la rama main."
+          files: MiContabilidad.apk
+          make_latest: true
