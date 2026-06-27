@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Bois</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgo8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNBNkUwNEIiLz48c3RvcCBvZmZzZXQ9IjAuNTUiIHN0b3AtY29sb3I9IiMyODVGQ0QiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4QTUxRUIiLz4KPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjgiIGZpbGw9InVybCgjZykiLz4KPHRleHQgeD0iMTYiIHk9IjIzLjUiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMSIgZm9udC13ZWlnaHQ9IjkwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiI+JDwvdGV4dD4KPC9zdmc+">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +40,7 @@ body.mosca{
   background:linear-gradient(180deg,#d9d9d9 0%,#ececec 100%);
   image-rendering:pixelated;
   isolation:isolate;
+  overflow-x:clip;
 }
 body.mosca::before{
   content:'';
@@ -394,7 +395,7 @@ body.dark .al button{color:#04231a}
 .year-month:hover{border-color:var(--chart-gas);transform:translateY(-1px)}
 .year-month.selected{border:2px solid var(--chart-gas);padding:11px;background:var(--glass)}
 .year-month-name{font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:900}
-.year-month-value{font-size:.9rem;font-weight:900;color:var(--txt);line-height:1.2}
+.year-month-value{font-size:.9rem;font-weight:900;color:var(--c-gas);line-height:1.2}
 .year-month.empty .year-month-value{color:var(--muted)}
 .year-month-bar{height:7px;border-radius:999px;background:var(--line);overflow:hidden}
 .year-month-bar>i{display:block;height:100%;border-radius:999px;background:var(--chart-gas);min-width:0}
@@ -1522,7 +1523,7 @@ body.neo .app-nav-item{border-radius:10px!important}
 body.blob{--nav-active-bg:#3b3b5c;--nav-active-text:#fff}
 body.blob .app-bottom-nav{background:rgba(255,255,255,.94)!important;border-color:rgba(59,59,92,.09)!important;border-radius:24px 24px 0 0!important;box-shadow:0 -12px 28px rgba(59,59,92,.10)!important}
 body.mosca{--bottom-nav-h:84px}
-body.mosca .app-bottom-nav{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:hidden}
+body.mosca .app-bottom-nav{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:clip}
 body.mosca .list,body.mosca .cards,body.mosca .goal,body.mosca .alerts{overflow-x:hidden}
 .shake-settings{margin:8px 0 4px;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--glass2)}
 .shake-help,.shake-status{font-size:.79rem;color:var(--muted);font-weight:700;text-transform:none;letter-spacing:0;line-height:1.45}
@@ -4849,7 +4850,7 @@ function renderMetrics(ym){
     const monthName=MESES[Number(d.k.slice(5,7))-1];
     return '<button type="button" class="year-month '+(d.k===selectedYm?'selected ':'')+(d.gas===0&&d.ing===0?'empty':'')+'" data-ym="'+d.k+'">'+
       '<span class="year-month-name">'+esc(monthName)+'</span>'+
-      '<span class="year-month-value">'+money(d.gas)+'</span>'+
+      '<span class="year-month-value">'+(d.gas>0?'-'+money(d.gas):money(d.gas))+'</span>'+
       '<span class="year-month-ing'+(d.ing===0?' empty':'')+'">+'+(d.ing>0?money(d.ing):'–')+'</span>'+
       '<span class="year-month-bar"><i style="width:'+pct+'%"></i></span>'+
       '<span class="year-month-bar-ing"><i style="width:'+pctIng+'%"></i></span>'+
