@@ -41,6 +41,22 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Copiar ícono de la app (launcher)
+        run: |
+          for dir in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
+            mkdir -p android/app/src/main/res/$dir
+          done
+          convert Icono-app.png -resize 48x48   android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+          convert Icono-app.png -resize 72x72   android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+          convert Icono-app.png -resize 96x96   android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+          convert Icono-app.png -resize 144x144 android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+          convert Icono-app.png -resize 192x192 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+
+      - name: Copiar ícono de notificación
+        run: |
+          mkdir -p android/app/src/main/res/drawable
+          convert www/assets/ic_notification.png -fuzz 5% -transparent white -fill white -opaque black android/app/src/main/res/drawable/ic_notification.png
+
       - name: Compilar APK
         run: |
           cd android

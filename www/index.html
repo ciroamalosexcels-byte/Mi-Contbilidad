@@ -1659,7 +1659,6 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
       <button id="shakeToggleBtn" onclick="toggleShakeFeature()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 5 7l3 3"/><path d="m16 4 3 3-3 3"/><path d="M5 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4"/><path d="M4 17h4"/><path d="M16 17h4"/></svg> Activar sacudida</button>
       <div id="shakeSettings" class="shake-settings" style="display:none">
         <div class="sub" style="font-weight:800">Sacudir el teléfono</div>
-        <div class="shake-help">Al detectar una sacudida se abre el minijuego Mosca 8 Bit. La mosca se controla inclinando el teléfono.</div>
         <div id="shakeStatus" class="shake-status">Disponible en la APK instalada.</div>
       </div>
             <button id="notifToggleBtn" onclick="toggleLocalNotifications()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> Activar notificaciones</button>
@@ -4418,7 +4417,13 @@ function openVoice(){
   $('#ovVoice').classList.add('show');
   setTimeout(()=>{try{$('#speechTxt').focus();}catch(e){}},60);
 }
-function openVoiceAndListen(){openVoice();setTimeout(()=>{if(typeof toggleMic==='function')toggleMic();},80);}
+async function openVoiceAndListen(){
+  openVoice();
+  micWanted=true;micRetryCount=0;micStatusText='Solicitando permiso…';updateMic();
+  const allowed=await requestMicAccess();
+  if(!allowed){micWanted=false;updateMic();$('#micState').textContent='Habilitá el permiso de micrófono para esta aplicación y volvé a intentar.';return;}
+  startMicRecognition();
+}
 function closeVoice(){if(typeof stopVoiceListening==='function')stopVoiceListening(false);$('#ovVoice').classList.remove('show');}
 function setMTipo(t){
   mTipo=t;
