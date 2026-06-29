@@ -231,7 +231,7 @@ body.mosca .themebtn::after{
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100%}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body::before{content:'';position:fixed;inset:-10% 0;z-index:-1;background-color:#e7ebff;
   background-image:
    radial-gradient(38% 44% at 12% 12%, rgba(124,77,255,.40), transparent 60%),
@@ -1006,10 +1006,15 @@ body.neo .kpi.ingblanco .lab{background:#d9f6d1!important}
 body.neo .kpi.gasblanco .lab{background:#ffdad6!important;color:#6f0007!important}
 body.neo .kpi.bal .lab{background:#bee9ff!important}
 body.neo .kpi.deb .lab{background:#e3e3dc!important}
-body.neo .kpi.ing .val,body.neo .kpi.ingblanco .val{color:#406839!important}
-body.neo .kpi.gas .val,body.neo .kpi.gasblanco .val{color:#ba1a1a!important}
-body.neo .kpi.bal .val{color:#0d6683!important}
-body.neo .kpi.deb .val{color:#725c00!important}
+body.neo .kpi.ing .val,body.neo .kpi.ingblanco .val{color:#c1efb4!important}
+body.neo .kpi.gas .val,body.neo .kpi.gasblanco .val{color:#ffdad6!important}
+body.neo .kpi.bal .val{color:#bee9ff!important}
+body.neo .kpi.deb .val{color:#ffdb6e!important}
+body.neo .dot.ingreso{background:#c1efb4!important}
+body.neo .dot.gasto{background:#ffdad6!important}
+body.neo .dot.deuda{background:#ffdb6e!important}
+body.neo .dot.medeben{background:#bee9ff!important}
+body.neo .item .amt.in{color:#c1efb4!important}
 
 /* Encabezados de ventanas usando la estructura ya existente */
 body.neo .goal{overflow:visible;padding:0 16px 15px!important}
