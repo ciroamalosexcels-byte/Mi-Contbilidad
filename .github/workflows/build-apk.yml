@@ -41,6 +41,11 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Agregar permisos en AndroidManifest
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          grep -q "RECORD_AUDIO" $MANIFEST || sed -i 's|<application|<uses-permission android:name="android.permission.RECORD_AUDIO"/>\n    <application|' $MANIFEST
+
       - name: Instalar ImageMagick
         run: sudo apt-get install -y imagemagick
 

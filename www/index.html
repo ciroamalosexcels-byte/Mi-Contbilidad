@@ -4556,16 +4556,36 @@ async function requestMicPermission(){
   const btn=$('#micPermBtn');
   const status=$('#micPermStatus');
   if(status)status.style.display='block';
-  if(btn){btn.disabled=true;}
+  if(btn)btn.disabled=true;
   if(status)status.textContent='Solicitando permiso…';
-  try{
-    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    stream.getTracks().forEach(t=>t.stop());
-    if(status)status.textContent='✓ Micrófono habilitado. Ya podés usar la carga por voz.';
-  }catch(e){
-    if(status)status.textContent='Permiso denegado. Andá a Ajustes → Apps → Mi Contabilidad → Permisos → Micrófono.';
-    if(btn)btn.disabled=false;
+  // Intentar con getUserMedia (dispara el diálogo nativo de Android)
+  if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      stream.getTracks().forEach(t=>t.stop());
+      if(status)status.textContent='✓ Micrófono habilitado. Ya podés usar la carga por voz.';
+      if(btn)btn.disabled=false;
+      return;
+    }catch(e){}
   }
+  // Fallback: intentar con SpeechRecognition
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(SR){
+    const r=new SR();
+    r.onstart=()=>{r.stop();if(status)status.textContent='✓ Micrófono habilitado.';if(btn)btn.disabled=false;};
+    r.onerror=e=>{
+      if(e.error==='not-allowed'||e.error==='service-not-allowed'){
+        if(status)status.textContent='Permiso denegado. Andá a Ajustes → Apps → Mi Contabilidad → Permisos → Micrófono.';
+      }else{
+        if(status)status.textContent='✓ Micrófono habilitado.';
+      }
+      if(btn)btn.disabled=false;
+    };
+    try{r.start();}catch(e){if(btn)btn.disabled=false;}
+    return;
+  }
+  if(status)status.textContent='Este dispositivo no soporta el micrófono.';
+  if(btn)btn.disabled=false;
 }
 async function requestMicAccess(){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return true;
