@@ -4511,7 +4511,7 @@ function addVoice(){
 }
 
 /* ====== Micrófono (Web Speech API) ====== */
-let rec=null,listening=false,micWanted=false,micRetryCount=0,micRestartTimer=0,micStopTimer=0,micInterpretOnEnd=false,micStatusText='';
+let rec=null,listening=false,micWanted=false,micRetryCount=0,micRestartTimer=0,micStopTimer=0,micInterpretOnEnd=false,micStatusText='',micErrorMsg='';
 function clearMicTimers(){clearTimeout(micRestartTimer);clearTimeout(micStopTimer);micRestartTimer=0;micStopTimer=0;}
 function initRec(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -4533,15 +4533,17 @@ function initRec(){
   r.onerror=e=>{
     const retryable=e.error==='no-speech'||e.error==='network'||e.error==='audio-capture';
     if(retryable&&micWanted){micStatusText='No te escuché. Sigo intentando…';updateMic();return;}
-    listening=false;micWanted=false;clearMicTimers();updateMic();
-    if(e.error==='not-allowed'||e.error==='service-not-allowed')$('#micState').textContent='Necesito permiso para usar el micrófono. Habilitalo en los permisos de la aplicación.';
-    else if(e.error!=='aborted')$('#micState').textContent='No pude usar el micrófono ('+e.error+'). Podés escribir y tocar Interpretar.';
+    listening=false;micWanted=false;clearMicTimers();
+    if(e.error==='not-allowed'||e.error==='service-not-allowed')micErrorMsg='Sin permiso de micrófono. Usá el botón "Permiso de micrófono" en Configuración.';
+    else if(e.error!=='aborted')micErrorMsg='No pude usar el micrófono ('+e.error+'). Podés escribir y tocar Interpretar.';
+    updateMic();
   };
   r.onend=()=>{
     listening=false;
     const hasText=$('#speechTxt').value.trim().length>0;
     if(micWanted&&!hasText&&micRetryCount<3){micRetryCount++;micStatusText='Escuchando… intento '+(micRetryCount+1)+' de 4';updateMic();micRestartTimer=setTimeout(startMicRecognition,280);return;}
     const shouldInterpret=hasText&&(micInterpretOnEnd||micWanted);
+    if(!hasText&&!shouldInterpret&&!micErrorMsg)micErrorMsg='No te escuché. Intentá hablar más cerca o escribí el movimiento.';
     micWanted=false;micInterpretOnEnd=false;clearMicTimers();updateMic();
     if(shouldInterpret)interpret();
   };
@@ -4550,7 +4552,7 @@ function initRec(){
 function updateMic(){
   const b=$('#micBtn');if(!b)return;
   const active=listening||micWanted;b.classList.toggle('live',active);b.innerHTML=(active?IC.stop:IC.mic)+(active?' Detener':' Hablar');
-  $('#micState').textContent=active?(micStatusText||'Activando micrófono…'):'';
+  $('#micState').textContent=active?(micStatusText||'Activando micrófono…'):(micErrorMsg||'');
 }
 async function requestMicPermission(){
   const btn=$('#micPermBtn');
@@ -4606,7 +4608,7 @@ function stopVoiceListening(interpretAfter=true){
 async function toggleMic(){
   if(listening||micWanted){stopVoiceListening(true);return;}
   $('#speechTxt').value='';$('#speechTxt').dataset.finalText='';$('#preview').innerHTML='';
-  micWanted=true;micInterpretOnEnd=false;micRetryCount=0;micStatusText='Solicitando permiso…';updateMic();
+  micErrorMsg='';micWanted=true;micInterpretOnEnd=false;micRetryCount=0;micStatusText='Solicitando permiso…';updateMic();
   const allowed=await requestMicAccess();
   if(!allowed){micWanted=false;updateMic();$('#micState').textContent='Habilitá el permiso de micrófono para esta aplicación y volvé a intentar.';return;}
   startMicRecognition();
