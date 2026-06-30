@@ -1615,6 +1615,13 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
 .onb-dot{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .18s}
 .onb-dot.onb-dot-active{background:var(--accent)}
 .onb-btns{display:flex;gap:10px}
+.onb-cat-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;min-height:36px}
+.onb-chip{display:flex;align-items:center;gap:5px;background:var(--glass2);border:1px solid var(--line);border-radius:20px;padding:5px 10px 5px 12px;font-size:.82rem;font-weight:700}
+.onb-chip button{background:none;border:none;cursor:pointer;padding:0;color:var(--muted);display:flex;align-items:center;line-height:1}
+.onb-chip button:hover{color:var(--danger,#e53e3e)}
+.onb-cat-add{display:flex;gap:8px}
+.onb-cat-add input{flex:1;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--glass2);color:var(--txt);font-size:.86rem;font-weight:700;outline:none}
+.onb-cat-add button{padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center}
 /* === PRINT === */
 @media print{
   body>*{display:none!important}
@@ -1796,10 +1803,21 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
       <div class="onb-title">Seguí tus finanzas</div>
       <div class="onb-body">En Metricas ves graficos de gastos e ingresos. Activa notificaciones en Configuracion para recordatorios de deudas y avisos de actividad.</div>
     </div>
+    <div id="onb3" class="onb-slide">
+      <div class="onb-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3h9a2 2 0 0 1 2 2v.5l2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 8h7"/><path d="M7 12h10"/><path d="M7 16h6"/></svg></div>
+      <div class="onb-title">Tus categorias</div>
+      <div class="onb-body" style="margin-bottom:10px">Agregá o quitá las que quieras. Siempre podés cambiarlas en Configuracion.</div>
+      <div id="onbCatChips" class="onb-cat-chips"></div>
+      <div class="onb-cat-add">
+        <input id="onbCatInput" type="text" placeholder="Nueva categoria…" maxlength="40" autocomplete="off" onkeydown="if(event.key==='Enter')onbCatAdd()">
+        <button type="button" onclick="onbCatAdd()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
+      </div>
+    </div>
     <div class="onb-dots">
       <div class="onb-dot onb-dot-active" id="odot0"></div>
       <div class="onb-dot" id="odot1"></div>
       <div class="onb-dot" id="odot2"></div>
+      <div class="onb-dot" id="odot3"></div>
     </div>
     <div class="onb-btns">
       <button class="save secondary" style="flex:1;margin:0" onclick="closeOnboarding()">Saltar</button>
@@ -5180,25 +5198,53 @@ function showOnboarding(){
   $('#ovOnboarding').classList.add('show');
 }
 function nextOnboarding(){
-  if(onbSlide<2){onbSlide++;updateOnbSlide();}
+  if(onbSlide<3){onbSlide++;updateOnbSlide();}
   else{closeOnboarding();}
 }
 function updateOnbSlide(){
-  [0,1,2].forEach(i=>{
+  [0,1,2,3].forEach(i=>{
     const s=$('#onb'+i),d=$('#odot'+i);
     if(s)s.classList.toggle('onb-active',i===onbSlide);
     if(d)d.classList.toggle('onb-dot-active',i===onbSlide);
   });
   const btn=$('#onbNextBtn');
-  if(btn)btn.textContent=onbSlide===2?'¡Empezar!':'Siguiente →';
+  if(btn)btn.textContent=onbSlide===3?'Empezar':'Siguiente';
+  if(onbSlide===3)renderOnbCats();
 }
 function closeOnboarding(){
   localStorage.setItem(ONB_KEY,'1');
   const ov=$('#ovOnboarding');
   if(ov)ov.classList.remove('show');
+  fillCats('#fCat',tipo);
+  render();
 }
 function maybeShowOnboarding(){
   if(!localStorage.getItem(ONB_KEY))setTimeout(showOnboarding,600);
+}
+function renderOnbCats(){
+  const el=$('#onbCatChips');
+  if(!el)return;
+  const cats=getCats().filter(c=>c!==EXCEDENTE_CAT);
+  el.innerHTML=cats.map(c=>
+    '<div class="onb-chip">'+esc(c)+
+    '<button type="button" onclick="onbCatDel(\''+esc(c).replace(/'/g,"\\'")+'\')" title="Quitar">'+
+    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'+
+    '</button></div>'
+  ).join('');
+}
+function onbCatDel(cat){
+  const i=state.cats.indexOf(cat);
+  if(i>-1){state.cats.splice(i,1);save();}
+  renderOnbCats();
+}
+function onbCatAdd(){
+  const inp=$('#onbCatInput');
+  if(!inp)return;
+  const val=inp.value.trim();
+  if(!val)return;
+  if(!state.cats.includes(val)){state.cats.push(val);save();}
+  inp.value='';
+  renderOnbCats();
 }
 
 /* ============ RECORDATORIOS INTELIGENTES ============ */
