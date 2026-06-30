@@ -1608,7 +1608,7 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
 .onb-modal{max-width:320px;width:92%;padding:28px 22px 22px}
 .onb-slide{display:none}
 .onb-slide.onb-active{display:block}
-.onb-icon{font-size:2.4rem;text-align:center;margin-bottom:10px}
+.onb-icon{display:flex;justify-content:center;margin-bottom:14px;color:var(--accent)}
 .onb-title{font-size:1.12rem;font-weight:900;text-align:center;margin-bottom:8px}
 .onb-body{font-size:.86rem;line-height:1.55;text-align:center;color:var(--muted);margin-bottom:18px}
 .onb-dots{display:flex;justify-content:center;gap:7px;margin-bottom:16px}
@@ -1691,7 +1691,7 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
     <div class="search-wrap">
       <svg class="search-ic ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="search" id="searchInput" placeholder="Buscar movimiento…" oninput="onSearch(this.value)" autocomplete="off">
-      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+      <button class="search-clear" id="searchClear" onclick="clearSearch()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
     </div>
   </div>
   <div id="items"></div>
@@ -1782,19 +1782,19 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
 <div class="ov" id="ovOnboarding">
   <div class="modal onb-modal">
     <div id="onb0" class="onb-slide onb-active">
-      <div class="onb-icon">💰</div>
+      <div class="onb-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/><path d="M14 15h4"/></svg></div>
       <div class="onb-title">Bienvenido a Mi Contabilidad</div>
       <div class="onb-body">Registrá ingresos, gastos, deudas y cobros. Todo queda en tu teléfono, sin cuenta, sin nube.</div>
     </div>
     <div id="onb1" class="onb-slide">
-      <div class="onb-icon">🎙️</div>
+      <div class="onb-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg></div>
       <div class="onb-title">Cargá movimientos por voz</div>
-      <div class="onb-body">Tocá el botón de micrófono y decí algo como "gasté 5000 en supermercado". La app lo interpreta y te muestra el formulario listo para guardar.</div>
+      <div class="onb-body">Tocá el botón de micrófono y decí algo como "gaste 5000 en supermercado". La app lo interpreta y te muestra el formulario listo para guardar.</div>
     </div>
     <div id="onb2" class="onb-slide">
-      <div class="onb-icon">📊</div>
+      <div class="onb-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 17v-5"/><path d="M13 17V8"/><path d="M18 17v-3"/></svg></div>
       <div class="onb-title">Seguí tus finanzas</div>
-      <div class="onb-body">En Métricas ves gráficos de gastos e ingresos. Activá notificaciones en Configuración para recordatorios de deudas y avisos de actividad.</div>
+      <div class="onb-body">En Metricas ves graficos de gastos e ingresos. Activa notificaciones en Configuracion para recordatorios de deudas y avisos de actividad.</div>
     </div>
     <div class="onb-dots">
       <div class="onb-dot onb-dot-active" id="odot0"></div>
@@ -1803,7 +1803,7 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
     </div>
     <div class="onb-btns">
       <button class="save secondary" style="flex:1;margin:0" onclick="closeOnboarding()">Saltar</button>
-      <button class="save" style="flex:1;margin:0" id="onbNextBtn" onclick="nextOnboarding()">Siguiente →</button>
+      <button class="save" style="flex:1;margin:0" id="onbNextBtn" onclick="nextOnboarding()">Siguiente</button>
     </div>
   </div>
 </div>
@@ -3655,7 +3655,7 @@ function showCatDeletePanel(cat){
     '<div class="cat-action-help">¿A qué categoría deberían migrar sus movimientos?</div>'+
     '<div class="cat-action-help">'+detail+'</div>'+
     '<div id="catTargetList" class="cat-target-list">'+
-      otras.map(c=>'<button type="button" class="cat-target-option" data-target="'+esc(c)+'"><span>'+esc(c)+'</span><span class="cat-target-check">✓</span></button>').join('')+
+      otras.map(c=>'<button type="button" class="cat-target-option" data-target="'+esc(c)+'"><span>'+esc(c)+'</span><span class="cat-target-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></button>').join('')+
     '</div>'+
     '<div id="catActionStatus" class="cat-status">Seleccioná una categoría para continuar.</div>'+
     '<div class="cat-action-row">'+
@@ -4663,7 +4663,7 @@ async function requestMicPermission(){
     try{
       const stream=await navigator.mediaDevices.getUserMedia({audio:true});
       stream.getTracks().forEach(t=>t.stop());
-      if(status)status.textContent='✓ Micrófono habilitado. Ya podés usar la carga por voz.';
+      if(status)status.textContent='Microfono habilitado. Ya podés usar la carga por voz.';
       if(btn)btn.disabled=false;
       return;
     }catch(e){}
@@ -4672,12 +4672,12 @@ async function requestMicPermission(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(SR){
     const r=new SR();
-    r.onstart=()=>{r.stop();if(status)status.textContent='✓ Micrófono habilitado.';if(btn)btn.disabled=false;};
+    r.onstart=()=>{r.stop();if(status)status.textContent='Microfono habilitado.';if(btn)btn.disabled=false;};
     r.onerror=e=>{
       if(e.error==='not-allowed'||e.error==='service-not-allowed'){
         if(status)status.textContent='Permiso denegado. Andá a Ajustes → Apps → Mi Contabilidad → Permisos → Micrófono.';
       }else{
-        if(status)status.textContent='✓ Micrófono habilitado.';
+        if(status)status.textContent='Microfono habilitado.';
       }
       if(btn)btn.disabled=false;
     };
@@ -4788,7 +4788,7 @@ function render(){
       }).join('');
     alHtml+='<div class="alert-head" style="margin-top:'+(pend.length?'14px':'0')+'">'+IC.bell+' Por cobrar <span class="badge" style="background:var(--ok)">'+cobrar.length+'</span></div>'+body;
   }
-  if(!alHtml && !aldiaCerrado)alHtml='<div class="empty-ok"><span>'+IC.check+'Estás al día. No hay vencimientos ni cobros próximos.</span><button class="aldia-x" title="Cerrar" onclick="aldiaCerrado=true;render()">✕</button></div>';
+  if(!alHtml && !aldiaCerrado)alHtml='<div class="empty-ok"><span>'+IC.check+'Estás al día. No hay vencimientos ni cobros próximos.</span><button class="aldia-x" title="Cerrar" onclick="aldiaCerrado=true;render()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>';
   alE.innerHTML=alHtml;
 
   updateSearchBar();
@@ -5219,7 +5219,7 @@ async function scheduleSmartNotifications(){
       await LN.cancel({notifications:[{id:9001}]});
       await LN.schedule({notifications:[{
         id:9001,
-        title:'¿Todo bien, Ciro? 👀',
+        title:'Sin movimientos registrados',
         body:'Llevás '+diffDays+' días sin registrar movimientos.',
         schedule:{at:new Date(Date.now()+3600000)},
         smallIcon:'ic_notification'
@@ -5238,7 +5238,7 @@ async function scheduleSmartNotifications(){
         await LN.cancel({notifications:[{id:9002}]});
         await LN.schedule({notifications:[{
           id:9002,
-          title:'Fin de mes 📅',
+          title:'Fin de mes',
           body:'Quedan '+daysLeft+' días: '+missing.slice(0,2).map(f=>f.desc).join(', ')+(missing.length>2?' y más':'')+' sin cargar.',
           schedule:{at:new Date(Date.now()+7200000)},
           smallIcon:'ic_notification'
