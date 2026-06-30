@@ -1584,6 +1584,50 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
   .movement-datetime input{padding-left:12px;padding-right:10px;font-size:clamp(.9rem,4vw,1rem)}
 }
 @media(max-width:370px){.movement-datetime{grid-template-columns:1fr}}
+
+/* === SEARCH BAR === */
+#searchBar{display:none;padding:0 0 10px}
+#searchBar.active{display:block}
+.search-wrap{position:relative}
+.search-wrap input[type="search"]{width:100%;padding:9px 36px 9px 38px;border-radius:12px;border:1px solid var(--line);background:var(--glass2);color:var(--txt);font-size:.9rem;font-weight:700;box-sizing:border-box;outline:none}
+.search-wrap .search-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-wrap .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:2px;font-size:.85rem;display:none}
+.search-wrap .search-clear.show{display:block}
+/* === FEATURE TOGGLES === */
+.settings-feat-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:800;padding:8px 0 4px}
+.feature-toggles{display:flex;flex-direction:column;gap:8px;padding:4px 0 8px}
+.feat-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:.88rem;cursor:pointer;user-select:none}
+.feat-label{flex:1}
+.toggle-sw{position:relative;width:42px;height:24px;flex-shrink:0;display:inline-block}
+.toggle-sw input{opacity:0;width:0;height:0;position:absolute}
+.toggle-sw .sw-track{position:absolute;inset:0;background:var(--line);border-radius:12px;transition:background .18s}
+.toggle-sw .sw-track:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-sw input:checked+.sw-track{background:var(--accent)}
+.toggle-sw input:checked+.sw-track:before{transform:translateX(18px)}
+/* === ONBOARDING === */
+.onb-modal{max-width:320px;width:92%;padding:28px 22px 22px}
+.onb-slide{display:none}
+.onb-slide.onb-active{display:block}
+.onb-icon{font-size:2.4rem;text-align:center;margin-bottom:10px}
+.onb-title{font-size:1.12rem;font-weight:900;text-align:center;margin-bottom:8px}
+.onb-body{font-size:.86rem;line-height:1.55;text-align:center;color:var(--muted);margin-bottom:18px}
+.onb-dots{display:flex;justify-content:center;gap:7px;margin-bottom:16px}
+.onb-dot{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .18s}
+.onb-dot.onb-dot-active{background:var(--accent)}
+.onb-btns{display:flex;gap:10px}
+/* === PRINT === */
+@media print{
+  body>*{display:none!important}
+  #printContainer{display:block!important;position:fixed;inset:0;background:#fff;padding:24px;color:#000;font-family:system-ui,sans-serif;font-size:13px;overflow:auto}
+  .ph{font-weight:900;font-size:15px;margin-bottom:14px;border-bottom:2px solid #000;padding-bottom:8px}
+  .pi{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee;gap:8px}
+  .pi-d{flex:1}
+  .pi-cat{font-size:10px;background:#eee;border-radius:4px;padding:1px 5px;margin-left:5px}
+  .pi-a{font-weight:700;white-space:nowrap}
+  .pi-a.in{color:#15803d}
+  .pi-a.out{color:#b91c1c}
+  .pt{display:flex;gap:20px;flex-wrap:wrap;font-weight:900;padding-top:12px;margin-top:8px;border-top:2px solid #000}
+}
 </style>
 </head>
 <body>
@@ -1643,6 +1687,13 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
     <span id="currentViewTitle">Lista de movimientos</span>
     <span class="sub" id="listCount"></span>
   </div>
+  <div id="searchBar">
+    <div class="search-wrap">
+      <svg class="search-ic ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" id="searchInput" placeholder="Buscar movimiento…" oninput="onSearch(this.value)" autocomplete="off">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
   <div id="items"></div>
   <div id="calendar" style="display:none"></div>
   <div class="calleg" id="calleg" style="display:none">
@@ -1684,11 +1735,23 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
         <div id="notifStatus" class="notif-status">Las notificaciones se programan únicamente en la APK instalada.</div>
       </div>
       <div class="settings-separator"></div>
+      <div class="settings-feat-title">Funciones extras</div>
+      <div class="feature-toggles" id="featureToggles">
+        <label class="feat-toggle"><span class="feat-label">Gráficos extendidos (6 meses)</span><label class="toggle-sw"><input type="checkbox" id="ft-graficosExt" onchange="toggleFeature('graficosExt',this.checked)"><span class="sw-track"></span></label></label>
+        <label class="feat-toggle"><span class="feat-label">Buscar en movimientos</span><label class="toggle-sw"><input type="checkbox" id="ft-busqueda" onchange="toggleFeature('busqueda',this.checked)"><span class="sw-track"></span></label></label>
+        <label class="feat-toggle"><span class="feat-label">Exportar reporte PDF</span><label class="toggle-sw"><input type="checkbox" id="ft-pdf" onchange="toggleFeature('pdf',this.checked)"><span class="sw-track"></span></label></label>
+        <label class="feat-toggle"><span class="feat-label">Recordatorios de actividad</span><label class="toggle-sw"><input type="checkbox" id="ft-notifInteligentes" onchange="toggleFeature('notifInteligentes',this.checked)"><span class="sw-track"></span></label></label>
+      </div>
+      <button id="exportPdfBtn" onclick="exportPDF()" style="display:none"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg> Exportar PDF del mes</button>
+      <button onclick="showOnboarding()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Ver tutorial de nuevo</button>
+      <div class="settings-separator"></div>
       <button class="danger-option" onclick="confirmWipe()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Borrar todos los datos</button>
     </div>
   </div>
 </div>
 </div>
+
+<div id="printContainer" style="display:none"></div>
 
 <footer class="app-footer-info">
   <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restore(event)">
@@ -1714,6 +1777,36 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
     <span>Configuración</span>
   </button>
 </nav>
+
+<!-- MODAL ONBOARDING -->
+<div class="ov" id="ovOnboarding">
+  <div class="modal onb-modal">
+    <div id="onb0" class="onb-slide onb-active">
+      <div class="onb-icon">💰</div>
+      <div class="onb-title">Bienvenido a Mi Contabilidad</div>
+      <div class="onb-body">Registrá ingresos, gastos, deudas y cobros. Todo queda en tu teléfono, sin cuenta, sin nube.</div>
+    </div>
+    <div id="onb1" class="onb-slide">
+      <div class="onb-icon">🎙️</div>
+      <div class="onb-title">Cargá movimientos por voz</div>
+      <div class="onb-body">Tocá el botón de micrófono y decí algo como "gasté 5000 en supermercado". La app lo interpreta y te muestra el formulario listo para guardar.</div>
+    </div>
+    <div id="onb2" class="onb-slide">
+      <div class="onb-icon">📊</div>
+      <div class="onb-title">Seguí tus finanzas</div>
+      <div class="onb-body">En Métricas ves gráficos de gastos e ingresos. Activá notificaciones en Configuración para recordatorios de deudas y avisos de actividad.</div>
+    </div>
+    <div class="onb-dots">
+      <div class="onb-dot onb-dot-active" id="odot0"></div>
+      <div class="onb-dot" id="odot1"></div>
+      <div class="onb-dot" id="odot2"></div>
+    </div>
+    <div class="onb-btns">
+      <button class="save secondary" style="flex:1;margin:0" onclick="closeOnboarding()">Saltar</button>
+      <button class="save" style="flex:1;margin:0" id="onbNextBtn" onclick="nextOnboarding()">Siguiente →</button>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL ACCIONES POR SACUDIDA -->
 <div class="ov" id="ovShake">
@@ -2043,12 +2136,15 @@ let state=load();
 (state.movs||[]).forEach(m=>{if(!m.fiscal)m.fiscal='negro';});
 (state.fijos||[]).forEach(f=>{if(!f.fiscal)f.fiscal='negro';});
 if(state.useFiscal===undefined)state.useFiscal=true;
+if(!state.features)state.features={graficosExt:true,busqueda:true,pdf:true,notifInteligentes:true};
 localStorage.setItem(KEY,JSON.stringify(state));
 let tipo='gasto';
 let editId=null;
 let view='list';
 let cloudUrl='';
 let pushTimer=null;
+let searchQuery='';
+let onbSlide=0;
 const IC={mic:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>',stop:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',bell:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',check:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',pencil:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',trash:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',repeat:'<svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>'};
 
 
@@ -2925,6 +3021,7 @@ function openSettings(){
   updateFiscalUI();
   updateNotificationSettingsUI();
   updateShakeSettingsUI();
+  updateFeaturesUI();
   setView('settings');
   const list=document.querySelector('.list');
   if(list)list.scrollIntoView({behavior:'smooth',block:'start'});
@@ -4058,6 +4155,7 @@ function setView(v){
   const count=$('#listCount');
   if(count)count.style.display=v==='settings'?'none':'';
   updateBottomNav(v);
+  updateSearchBar();
   render();
 }
 
@@ -4693,12 +4791,14 @@ function render(){
   if(!alHtml && !aldiaCerrado)alHtml='<div class="empty-ok"><span>'+IC.check+'Estás al día. No hay vencimientos ni cobros próximos.</span><button class="aldia-x" title="Cerrar" onclick="aldiaCerrado=true;render()">✕</button></div>';
   alE.innerHTML=alHtml;
 
-  $('#listCount').textContent=labelMonth(ym)+' · '+movs.length+' registros';
+  updateSearchBar();
+  const displayMovs=filterBySearch(movs);
+  $('#listCount').textContent=labelMonth(ym)+' · '+(searchQuery?displayMovs.length+' de '+movs.length:movs.length)+' registros';
 
   if(view==='cal'){renderCalendar(ym);return;}
   if(view==='met'){renderMetrics(ym);return;}
 
-  $('#items').innerHTML = movs.length?movs.map(m=>{
+  $('#items').innerHTML = displayMovs.length?displayMovs.map(m=>{
     const inSide=incomeSide(m);
     const sign=inSide?'+':'−';
     let vtxt='Cargado '+fmtDMTime(m.fecha);
@@ -4710,7 +4810,7 @@ function render(){
     else if(m.tipo==='medeben')status='<button class="pill '+(m.estado==='pago'?'cobrado':'cobrar')+'" onclick="togglePago(\''+m.id+'\')">'+(m.estado==='pago'?'Cobrado':'Cobrar')+'</button>';
     else if(m.tipo==='gasto')status='<span class="pill pago">Pagado</span>';
     return '<div class="item"><div class="item-top"><span class="dot '+m.tipo+'"></span><div class="d1">'+m.desc+' '+(m.fijo?IC.repeat:'')+'</div></div><div class="d2"><div><span class="cat-tag">'+m.cat+'</span>'+fiscalTagHtml(m)+manualTag+'</div><span class="vtxt">'+vtxt+'</span></div><div class="item-foot"><div class="acts">'+status+'<button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button><button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div><div class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</div></div></div>';
-  }).join(''):'<div style="padding:30px;text-align:center;color:var(--muted);font-weight:700">Sin movimientos este mes. Cargá uno arriba</div>';
+  }).join(''):'<div style="padding:30px;text-align:center;color:var(--muted);font-weight:700">'+(searchQuery?'Sin resultados para "'+esc(searchQuery)+'"':'Sin movimientos este mes. Cargá uno arriba')+'</div>';
 }
 
 function renderCalendar(ym){
@@ -4757,7 +4857,7 @@ function selectMetricMonth(ym){
 function renderMetrics(ym){
   const selectedYm=ym||todayYM();
   const currentYm=todayYM();
-  const months=lastNMonthsEndingAt(selectedYm,3);
+  const months=lastNMonthsEndingAt(selectedYm,(state.features&&state.features.graficosExt)?6:3);
   const data=months.map(k=>{
     const ms=state.movs.filter(m=>monthKey(m.venc||m.fecha)===k);
     const ing=ms.filter(isIncome).reduce((s,m)=>s+m.monto,0);
@@ -5003,6 +5103,151 @@ function confirmWipe(){
   if(second)wipe();
 }
 
+/* ============ FEATURES ============ */
+function toggleFeature(name,val){
+  if(!state.features)state.features={};
+  state.features[name]=!!val;
+  save();
+  updateFeaturesUI();
+  render();
+}
+function updateFeaturesUI(){
+  const f=state.features||{};
+  ['graficosExt','busqueda','pdf','notifInteligentes'].forEach(k=>{
+    const el=$('#ft-'+k);
+    if(el)el.checked=f[k]!==false;
+  });
+  const pdfBtn=$('#exportPdfBtn');
+  if(pdfBtn)pdfBtn.style.display=(f.pdf!==false)?'':'none';
+  updateSearchBar();
+}
+function updateSearchBar(){
+  const sb=$('#searchBar');
+  if(!sb)return;
+  const on=(state.features&&state.features.busqueda)!==false&&view==='list';
+  sb.classList.toggle('active',!!on);
+}
+
+/* ============ SEARCH ============ */
+function onSearch(v){
+  searchQuery=v;
+  const clr=$('#searchClear');
+  if(clr)clr.classList.toggle('show',v.length>0);
+  render();
+}
+function clearSearch(){
+  searchQuery='';
+  const inp=$('#searchInput');
+  if(inp)inp.value='';
+  const clr=$('#searchClear');
+  if(clr)clr.classList.remove('show');
+  render();
+}
+function filterBySearch(movs){
+  if(!searchQuery.trim())return movs;
+  const q=searchQuery.toLowerCase();
+  return movs.filter(m=>(m.desc||'').toLowerCase().includes(q)||(m.cat||'').toLowerCase().includes(q));
+}
+
+/* ============ PDF ============ */
+function exportPDF(){
+  const ym=$('#monthSel')?$('#monthSel').value||todayYM():todayYM();
+  const movs=state.movs.filter(m=>monthKey(m.venc||m.fecha)===ym).sort((a,b)=>movSortTime(b)-movSortTime(a));
+  const ing=movs.filter(isIncome).reduce((s,m)=>s+m.monto,0);
+  const gas=movs.filter(isOutflow).reduce((s,m)=>s+m.monto,0);
+  const pc=$('#printContainer');
+  if(!pc)return;
+  pc.innerHTML=
+    '<div class="ph">Mi Contabilidad — '+esc(labelMonth(ym))+'</div>'+
+    movs.map(m=>{
+      const inSide=incomeSide(m);
+      return '<div class="pi"><span class="pi-d">'+esc(m.desc)+'<span class="pi-cat">'+esc(m.cat)+'</span></span><span class="pi-a '+(inSide?'in':'out')+'">'+(inSide?'+':'−')+money(m.monto)+'</span></div>';
+    }).join('')+
+    '<div class="pt">'+
+      '<span style="color:#15803d">Ingresos: +'+money(ing)+'</span>'+
+      '<span style="color:#b91c1c">Gastos: −'+money(gas)+'</span>'+
+      '<span>Balance: '+(ing-gas>=0?'+':'')+money(ing-gas)+'</span>'+
+    '</div>';
+  pc.style.display='block';
+  setTimeout(()=>{window.print();setTimeout(()=>{pc.style.display='none';},500);},50);
+}
+
+/* ============ ONBOARDING ============ */
+const ONB_KEY='bois_onboarded_v1';
+function showOnboarding(){
+  onbSlide=0;
+  updateOnbSlide();
+  $('#ovOnboarding').classList.add('show');
+}
+function nextOnboarding(){
+  if(onbSlide<2){onbSlide++;updateOnbSlide();}
+  else{closeOnboarding();}
+}
+function updateOnbSlide(){
+  [0,1,2].forEach(i=>{
+    const s=$('#onb'+i),d=$('#odot'+i);
+    if(s)s.classList.toggle('onb-active',i===onbSlide);
+    if(d)d.classList.toggle('onb-dot-active',i===onbSlide);
+  });
+  const btn=$('#onbNextBtn');
+  if(btn)btn.textContent=onbSlide===2?'¡Empezar!':'Siguiente →';
+}
+function closeOnboarding(){
+  localStorage.setItem(ONB_KEY,'1');
+  const ov=$('#ovOnboarding');
+  if(ov)ov.classList.remove('show');
+}
+function maybeShowOnboarding(){
+  if(!localStorage.getItem(ONB_KEY))setTimeout(showOnboarding,600);
+}
+
+/* ============ RECORDATORIOS INTELIGENTES ============ */
+async function scheduleSmartNotifications(){
+  if(state.features&&state.features.notifInteligentes===false)return;
+  const LN=localNotificationsPlugin();
+  if(!LN)return;
+  try{
+    const perm=await LN.checkPermissions();
+    if(!perm||perm.display!=='granted')return;
+  }catch(e){return;}
+  const movs=state.movs||[];
+  if(!movs.length)return;
+  const lastDate=movs.map(m=>new Date(m.fecha)).sort((a,b)=>b-a)[0];
+  const diffDays=Math.floor((Date.now()-lastDate.getTime())/86400000);
+  if(diffDays>=3){
+    try{
+      await LN.cancel({notifications:[{id:9001}]});
+      await LN.schedule({notifications:[{
+        id:9001,
+        title:'¿Todo bien, Ciro? 👀',
+        body:'Llevás '+diffDays+' días sin registrar movimientos.',
+        schedule:{at:new Date(Date.now()+3600000)},
+        smallIcon:'ic_notification'
+      }]});
+    }catch(e){}
+  }
+  const now=new Date();
+  const daysLeft=new Date(now.getFullYear(),now.getMonth()+1,0).getDate()-now.getDate();
+  if(daysLeft<=4){
+    const ym=todayYM();
+    const fijos=state.fijos||[];
+    const thisMonthDescs=new Set((state.movs||[]).filter(m=>monthKey(m.venc||m.fecha)===ym).map(m=>m.desc.toLowerCase()));
+    const missing=fijos.filter(f=>!thisMonthDescs.has((f.desc||'').toLowerCase()));
+    if(missing.length){
+      try{
+        await LN.cancel({notifications:[{id:9002}]});
+        await LN.schedule({notifications:[{
+          id:9002,
+          title:'Fin de mes 📅',
+          body:'Quedan '+daysLeft+' días: '+missing.slice(0,2).map(f=>f.desc).join(', ')+(missing.length>2?' y más':'')+' sin cargar.',
+          schedule:{at:new Date(Date.now()+7200000)},
+          smallIcon:'ic_notification'
+        }]});
+      }catch(e){}
+    }
+  }
+}
+
 /* ============ INIT ============ */
 let initChanged=false;if(migrateToBaseCategories())initChanged=true;ensureCats();migrate();cleanV3();noSeguro();hist2();if(ensureDateTimes())initChanged=true;if(zeroExcedentesThroughJune2026())initChanged=true;if(initChanged)save();
 fillCats('#fCat','ingreso');
@@ -5021,6 +5266,9 @@ mcBootstrap();
 initLocalNotifications();
 initShakeFeature();
 updateBottomNav(view);
+updateFeaturesUI();
+maybeShowOnboarding();
+scheduleSmartNotifications();
 </script>
 </body>
 </html>
