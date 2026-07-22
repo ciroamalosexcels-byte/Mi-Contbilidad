@@ -65,7 +65,8 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 
 ## Micrófono / Voz
 - Modal se llama "Carga por voz"; campo de texto grande sin placeholder; botones Hablar e Interpretar del mismo tamaño; sin botón Cerrar (solo la X)
-- `openVoiceAndListen` es async, llama `requestMicAccess` sin setTimeout (el setTimeout rompía el contexto de gesto de usuario en Android)
+- `openVoiceAndListen` inicia `SpeechRecognition` directamente dentro del toque, igual que `mobile-crm`; no interponer `getUserMedia`, promesas ni `setTimeout` porque se pierde el contexto de gesto en Android
+- Mientras escucha muestra un indicador circular con pulso y barras; `onsoundstart`/`onspeechstart` activan el estado de voz y `onend` interpreta automáticamente la transcripción final
 - En Configuración hay botón "Permiso de micrófono" → llama `requestMicPermission()` que dispara `getUserMedia` y como fallback inicia `SpeechRecognition` para forzar el diálogo nativo de Android
 - `RECORD_AUDIO` se agrega al `AndroidManifest.xml` en el workflow (sin esto Android no muestra el diálogo de permiso)
 
@@ -81,3 +82,4 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 - `user-scalable=no` en viewport meta (zoom accidental en mobile)
 - `zeroExcedentesThroughJune2026()` ya no pisa excedentes con `excedenteManual:true`
 - Resumen anual: gastos en rojo `-$X`, ingresos en verde `+$X`
+- El intérprete elimina cualquier coma o punto entre dígitos antes de leer montos (`5,0000` y `5.0000` → `50000`)

@@ -439,6 +439,17 @@ footer button:hover{color:var(--txt);border-color:var(--accent)}
 .micbtn{color:#fff;padding:12px 20px;font-size:.95rem;background:linear-gradient(120deg,var(--accent2),var(--c-gas))}
 .micbtn.live{animation:pulse 1s infinite;background:var(--rojo)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.voice-indicator{display:none;position:relative;width:80px;height:80px;border-radius:50%;margin:0 auto 16px;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,var(--accent2),var(--c-gas));box-shadow:0 0 0 0 color-mix(in srgb,var(--accent2) 42%,transparent)}
+.voice-indicator.active{display:flex;animation:voicePulse 1s ease-in-out infinite}
+.voice-indicator.speaking{animation-duration:.46s}
+.voice-indicator>svg{width:30px;height:30px;transform:translateY(-5px)}
+.voice-vu{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);height:13px;display:flex;align-items:center;gap:3px}
+.voice-vu span{display:block;width:3px;height:5px;border-radius:2px;background:currentColor;opacity:.82;transform-origin:center}
+.voice-indicator.speaking .voice-vu span{animation:voiceVu .38s ease-in-out infinite alternate}
+.voice-indicator.speaking .voice-vu span:nth-child(2),.voice-indicator.speaking .voice-vu span:nth-child(4){animation-duration:.52s;animation-delay:-.18s}
+.voice-indicator.speaking .voice-vu span:nth-child(3){animation-duration:.32s;animation-delay:-.1s}
+@keyframes voicePulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--accent2) 42%,transparent)}50%{transform:scale(1.12);box-shadow:0 0 0 12px transparent}}
+@keyframes voiceVu{from{transform:scaleY(.55)}to{transform:scaleY(2.35)}}
 .interpbtn{color:#fff;padding:12px 20px;font-size:.95rem;background:linear-gradient(120deg,var(--accent),var(--accent2))}
 .pv{margin-top:12px;padding:11px 13px;border-radius:12px;font-weight:700;font-size:.92rem;line-height:1.4;border:1px solid var(--line)}
 .pv.ok{background:var(--glass2)}
@@ -1878,6 +1889,10 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
 <div class="ov" id="ovVoice">
   <div class="modal">
     <h3 style="margin:0 0 10px"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg> Carga por voz</h3>
+    <div class="voice-indicator" id="voiceIndicator" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v3"/></svg>
+      <span class="voice-vu"><span></span><span></span><span></span><span></span><span></span></span>
+    </div>
     <span class="sub" id="micState" style="display:block;min-height:18px;margin-bottom:6px"></span>
     <textarea id="speechTxt" placeholder="" style="min-height:140px"></textarea>
     <div class="row" style="margin-top:10px;gap:10px">
@@ -4494,7 +4509,7 @@ function extractVenc(t,ym){
 
 function parseMovement(raw){
   if(!raw||!raw.trim())return null;
-  const clean=(raw||'').replace(/[.,;]/g,' ').replace(/\s+/g,' ').trim();
+  const clean=String(raw).replace(/(\d)[.,](?=\d)/g,'$1').replace(/[.,;]/g,' ').replace(/\s+/g,' ').trim();
   const t=' '+clean.toLowerCase()+' ';
   const MED=['me deben','me debe','me tienen que pagar','me tiene que pagar','me van a pagar','me va a pagar','me adeudan','me queda por cobrar','tengo que cobrar','voy a cobrar','quedaron de pagarme','por cobrar'];
   const ING=['cobré','cobre','cobra','entró','entro','gané','gane','vendí','vendi','venta','vendido','sueldo','recibí','recibi','ingreso','changa','aguinaldo','deposit'];
@@ -4524,14 +4539,10 @@ function openVoice(){
   updateFiscalUI();resetFiscalChoice('m');resetVoiceOpts();setMovementDateTimeFields('m');
   micStatusText='';if(typeof updateMic==='function')updateMic();
   $('#ovVoice').classList.add('show');
-  setTimeout(()=>{try{$('#speechTxt').focus();}catch(e){}},60);
 }
-async function openVoiceAndListen(){
+function openVoiceAndListen(){
   openVoice();
-  micWanted=true;micRetryCount=0;micStatusText='Solicitando permiso…';updateMic();
-  const allowed=await requestMicAccess();
-  if(!allowed){micWanted=false;updateMic();$('#micState').textContent='Habilitá el permiso de micrófono para esta aplicación y volvé a intentar.';return;}
-  startMicRecognition();
+  beginMicRecognition();
 }
 function closeVoice(){if(typeof stopVoiceListening==='function')stopVoiceListening(false);$('#ovVoice').classList.remove('show');}
 function setMTipo(t){
@@ -4627,47 +4638,56 @@ function addVoice(){
 }
 
 /* ====== Micrófono (Web Speech API) ====== */
-let rec=null,listening=false,micWanted=false,micRetryCount=0,micRestartTimer=0,micStopTimer=0,micInterpretOnEnd=false,micStatusText='',micErrorMsg='';
-function clearMicTimers(){clearTimeout(micRestartTimer);clearTimeout(micStopTimer);micRestartTimer=0;micStopTimer=0;}
+let rec=null,listening=false,micWanted=false,micCancelled=false,micInterpretOnEnd=false,micStatusText='',micErrorMsg='';
 function initRec(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR)return null;
   const r=new SR();
-  r.lang='es-AR';r.continuous=true;r.interimResults=true;r.maxAlternatives=1;
+  r.lang='es-AR';r.continuous=false;r.interimResults=true;r.maxAlternatives=1;
+  let finalTranscript='';
   r.onstart=()=>{listening=true;micStatusText='Escuchando… hablá ahora';updateMic();};
-  r.onspeechstart=()=>{micStatusText='Te estoy escuchando…';updateMic();};
+  r.onsoundstart=()=>setVoiceSpeaking(true);
+  r.onsoundend=()=>setVoiceSpeaking(false);
+  r.onspeechstart=()=>{micStatusText='Te estoy escuchando…';setVoiceSpeaking(true);updateMic();};
+  r.onspeechend=()=>{micStatusText='Interpretando…';setVoiceSpeaking(false);updateMic();};
   r.onresult=e=>{
-    let finalText='',interimText='';
-    for(let i=e.resultIndex;i<e.results.length;i++){const part=e.results[i][0].transcript||'';if(e.results[i].isFinal)finalText+=part+' ';else interimText+=part;}
-    const existing=$('#speechTxt').dataset.finalText||'';
-    if(finalText.trim()){
-      const combined=(existing+' '+finalText).replace(/\s+/g,' ').trim();
-      $('#speechTxt').dataset.finalText=combined;$('#speechTxt').value=combined;micRetryCount=0;
-      clearTimeout(micStopTimer);micStopTimer=setTimeout(()=>stopVoiceListening(true),900);
-    }else if(interimText.trim())$('#speechTxt').value=(existing+' '+interimText).replace(/\s+/g,' ').trim();
+    let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const part=e.results[i][0].transcript||'';
+      if(e.results[i].isFinal)finalTranscript+=(finalTranscript?' ':'')+part;
+      else interim+=(interim?' ':'')+part;
+    }
+    const text=(finalTranscript+' '+interim).replace(/\s+/g,' ').trim();
+    $('#speechTxt').value=text;
+    if(finalTranscript.trim())$('#speechTxt').dataset.finalText=finalTranscript.trim();
   };
   r.onerror=e=>{
-    const retryable=e.error==='no-speech'||e.error==='network'||e.error==='audio-capture';
-    if(retryable&&micWanted){micStatusText='No te escuché. Sigo intentando…';updateMic();return;}
-    listening=false;micWanted=false;clearMicTimers();
+    setVoiceSpeaking(false);
+    if(e.error==='aborted')return;
+    micCancelled=true;
     if(e.error==='not-allowed'||e.error==='service-not-allowed')micErrorMsg='Sin permiso de micrófono. Usá el botón "Permiso de micrófono" en Configuración.';
     else if(e.error!=='aborted')micErrorMsg='No pude usar el micrófono ('+e.error+'). Podés escribir y tocar Interpretar.';
-    updateMic();
   };
   r.onend=()=>{
+    setVoiceSpeaking(false);
+    const text=($('#speechTxt').dataset.finalText||$('#speechTxt').value||'').trim();
+    const shouldInterpret=!micCancelled&&!!text&&(micInterpretOnEnd||!!finalTranscript.trim());
     listening=false;
-    const hasText=$('#speechTxt').value.trim().length>0;
-    if(micWanted&&!hasText&&micRetryCount<3){micRetryCount++;micStatusText='Escuchando… intento '+(micRetryCount+1)+' de 4';updateMic();micRestartTimer=setTimeout(startMicRecognition,280);return;}
-    const shouldInterpret=hasText&&(micInterpretOnEnd||micWanted);
-    if(!hasText&&!shouldInterpret&&!micErrorMsg)micErrorMsg='No te escuché. Intentá hablar más cerca o escribí el movimiento.';
-    micWanted=false;micInterpretOnEnd=false;clearMicTimers();updateMic();
+    micWanted=false;rec=null;
+    if(!text&&!micCancelled&&!micErrorMsg)micErrorMsg='No te escuché. Intentá hablar más cerca o escribí el movimiento.';
+    micInterpretOnEnd=false;micCancelled=false;updateMic();
     if(shouldInterpret)interpret();
   };
   return r;
 }
+function setVoiceSpeaking(speaking){
+  const indicator=$('#voiceIndicator');
+  if(indicator)indicator.classList.toggle('speaking',!!speaking);
+}
 function updateMic(){
   const b=$('#micBtn');if(!b)return;
   const active=listening||micWanted;b.classList.toggle('live',active);b.innerHTML=(active?IC.stop:IC.mic)+(active?' Detener':' Hablar');
+  const indicator=$('#voiceIndicator');if(indicator){indicator.classList.toggle('active',active);if(!active)indicator.classList.remove('speaking');}
   $('#micState').textContent=active?(micStatusText||'Activando micrófono…'):(micErrorMsg||'');
 }
 async function requestMicPermission(){
@@ -4705,29 +4725,26 @@ async function requestMicPermission(){
   if(status)status.textContent='Este dispositivo no soporta el micrófono.';
   if(btn)btn.disabled=false;
 }
-async function requestMicAccess(){
-  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return true;
-  try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});stream.getTracks().forEach(t=>t.stop());return true;}
-  catch(e){if(e&&(['NotAllowedError','PermissionDeniedError'].includes(e.name)))return false;return true;}
-}
 function startMicRecognition(){
-  clearTimeout(micRestartTimer);if(!micWanted)return;if(!rec)rec=initRec();
+  if(!micWanted)return;
+  rec=initRec();
   if(!rec){micWanted=false;updateMic();$('#micState').textContent='Este dispositivo no tiene disponible el reconocimiento de voz. Podés escribir y tocar Interpretar.';return;}
   micStatusText='Escuchando… hablá ahora';updateMic();
-  try{rec.start();}catch(e){if(e&&e.name==='InvalidStateError')return;listening=false;if(micWanted&&micRetryCount<3){micRetryCount++;micRestartTimer=setTimeout(startMicRecognition,300);}else{micWanted=false;updateMic();}}
+  try{rec.start();}catch(e){rec=null;listening=false;micWanted=false;micErrorMsg='No pude iniciar el micrófono. Intentá de nuevo.';updateMic();}
 }
 function stopVoiceListening(interpretAfter=true){
-  micInterpretOnEnd=!!interpretAfter;micWanted=false;clearMicTimers();
-  if(rec&&listening){try{rec.stop();return;}catch(e){}}
+  micInterpretOnEnd=!!interpretAfter;micCancelled=!interpretAfter;micWanted=false;
+  if(rec){try{rec.stop();return;}catch(e){rec=null;}}
   listening=false;updateMic();if(interpretAfter&&$('#speechTxt').value.trim())interpret();
 }
-async function toggleMic(){
-  if(listening||micWanted){stopVoiceListening(true);return;}
+function beginMicRecognition(){
   $('#speechTxt').value='';$('#speechTxt').dataset.finalText='';$('#preview').innerHTML='';
-  micErrorMsg='';micWanted=true;micInterpretOnEnd=false;micRetryCount=0;micStatusText='Solicitando permiso…';updateMic();
-  const allowed=await requestMicAccess();
-  if(!allowed){micWanted=false;updateMic();$('#micState').textContent='Habilitá el permiso de micrófono para esta aplicación y volvé a intentar.';return;}
+  micErrorMsg='';micCancelled=false;micWanted=true;micInterpretOnEnd=false;micStatusText='Activando micrófono…';updateMic();
   startMicRecognition();
+}
+function toggleMic(){
+  if(rec||listening||micWanted){stopVoiceListening(true);return;}
+  beginMicRecognition();
 }
 
 function toggleAlertsBox(){
