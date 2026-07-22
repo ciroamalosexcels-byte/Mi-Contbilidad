@@ -352,6 +352,7 @@ body.dark .al button{color:#04231a}
 .pill.cobrado{background:rgba(12,157,107,.16);color:var(--ok)}
 .pill.cobrar{background:rgba(10,165,196,.16);color:var(--c-md)}
 .ico{background:var(--glass2);color:var(--muted);width:32px;height:32px;border-radius:10px;border:1px solid var(--line)}
+.ico.service-link{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
 .ico:hover{color:var(--txt);border-color:var(--accent)}
 .cat-tag{font-size:.68rem;font-weight:800;background:var(--glass2);color:var(--muted);padding:2px 8px;border-radius:99px;border:1px solid var(--line)}
 .due-badge{font-size:.65rem;font-weight:900;background:rgba(224,69,123,.16);color:var(--rojo);padding:2px 7px;border-radius:99px;border:1px solid rgba(224,69,123,.3);white-space:nowrap}
@@ -450,6 +451,7 @@ footer button:hover{color:var(--txt);border-color:var(--accent)}
 .voice-indicator.speaking .voice-vu span:nth-child(3){animation-duration:.32s;animation-delay:-.1s}
 @keyframes voicePulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--accent2) 42%,transparent)}50%{transform:scale(1.12);box-shadow:0 0 0 12px transparent}}
 @keyframes voiceVu{from{transform:scaleY(.55)}to{transform:scaleY(2.35)}}
+.service-link-field{grid-column:1/-1}
 .interpbtn{color:#fff;padding:12px 20px;font-size:.95rem;background:linear-gradient(120deg,var(--accent),var(--accent2))}
 .pv{margin-top:12px;padding:11px 13px;border-radius:12px;font-weight:700;font-size:.92rem;line-height:1.4;border:1px solid var(--line)}
 .pv.ok{background:var(--glass2)}
@@ -1935,6 +1937,7 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
         </div>
         <div class="opts-panel" id="mRepeatPanel" style="display:none">
           <div><label>Día del mes</label><input id="mRepeatDay" type="number" min="1" max="31" placeholder="10"></div>
+          <div class="service-link-field"><label>Enlace del servicio (opcional)</label><input id="mServiceLink" type="url" inputmode="url" autocomplete="url" placeholder="https://sitio-del-servicio.com"></div>
           <div class="opts-hint sub">Se va a generar solo cada mes.</div>
         </div>
         <div class="opts-panel" id="mCuotasPanel" style="display:none">
@@ -1986,6 +1989,7 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
             <option value="only">Solo este movimiento</option>
           </select>
         </div>
+        <div class="service-link-field"><label>Enlace del servicio (opcional)</label><input id="eServiceLink" type="url" inputmode="url" autocomplete="url" placeholder="https://sitio-del-servicio.com"></div>
         <div class="opts-hint sub" style="grid-column:1/-1">Podés cambiar el monto, nombre, categoría y día de renovación sin volver a crear el servicio.</div>
       </div>
       <button class="save" onclick="saveEdit()">Guardar cambios</button>
@@ -2052,6 +2056,7 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
   </div>
   <div class="opts-panel" id="repeatPanel" style="display:none">
     <div><label>Día del mes</label><input id="fRepeatDay" type="number" min="1" max="31" placeholder="10"></div>
+    <div class="service-link-field"><label>Enlace del servicio (opcional)</label><input id="fServiceLink" type="url" inputmode="url" autocomplete="url" placeholder="https://sitio-del-servicio.com"></div>
     <div class="opts-hint sub" id="repeatHint">Se va a generar solo cada mes.</div>
   </div>
   <div class="opts-panel" id="cuotasPanel" style="display:none">
@@ -2180,6 +2185,8 @@ let searchQuery='';
 let onbSlide=0;
 const IC={mic:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>',stop:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',bell:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',check:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',pencil:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',trash:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',repeat:'<svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>'};
 
+
+const SERVICE_LINK_ICON='<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>';
 
 function load(){
   const raw=localStorage.getItem(KEY);
@@ -3218,8 +3225,11 @@ function ensureFijos(ym){
       const dd=String(f.dia).padStart(2,'0');
       if(!f.id)f.id=id();
       const safeDay=safeDayForMonth(ym,parseInt(f.dia,10)||1);
-      state.movs.push({id:id(),tipo:genTipo,monto:f.monto,desc:f.desc,cat:f.cat,
-        fecha:ym+'-01 00:00:00',venc:ym+'-'+String(safeDay).padStart(2,'0'),estado:'impago',fijo:true,fijoId:f.id,fiscal:f.fiscal||'negro'});
+      const generated={id:id(),tipo:genTipo,monto:f.monto,desc:f.desc,cat:f.cat,
+        fecha:ym+'-01 00:00:00',venc:ym+'-'+String(safeDay).padStart(2,'0'),estado:'impago',fijo:true,fijoId:f.id,fiscal:f.fiscal||'negro'};
+      const serviceLink=normalizeServiceLink(f.link);
+      if(serviceLink)generated.link=serviceLink;
+      state.movs.push(generated);
       changed=true;
     }
   });
@@ -3375,6 +3385,7 @@ function resetVoiceOpts(){
   if($('#mRepeat'))$('#mRepeat').checked=false;
   if($('#mCuotas'))$('#mCuotas').checked=false;
   if($('#mRepeatDay'))$('#mRepeatDay').value='';
+  if($('#mServiceLink'))$('#mServiceLink').value='';
   if($('#mCuotasN'))$('#mCuotasN').value='';
   if($('#mCuotasStart'))$('#mCuotasStart').value='';
   toggleVoiceOpts();
@@ -4202,11 +4213,14 @@ function addMov(){
   const income=(t==='ingreso'||t==='medeben');
   const repeat=$('#fRepeat')&&$('#fRepeat').checked;
   const cuotas=$('#fCuotas')&&$('#fCuotas').checked;
+  const rawServiceLink=repeat&&$('#fServiceLink')?$('#fServiceLink').value.trim():'';
+  const serviceLink=normalizeServiceLink(rawServiceLink);
   const fechaInput=$('#fVenc')?$('#fVenc').value:'';
   const esExcedente=(cat===EXCEDENTE_CAT||desc===EXCEDENTE_DESC);
   const fiscal=state.useFiscal?fiscalValue(getFiscalChoice('f')):'negro';
   const movementStamp=movementStampFromFields('f');
   let jumpYM=null;
+  if(rawServiceLink&&!serviceLink){alert('Ingresá un enlace válido, por ejemplo https://sitio.com');$('#fServiceLink').focus();return;}
 
   if(cuotas && !esExcedente){
     const n=parseInt($('#fCuotasN').value)||0;
@@ -4225,22 +4239,26 @@ function addMov(){
       venc:(t==='deuda'||t==='medeben')?(fechaInput||''):'',
       estado:(t==='deuda'||t==='medeben')?'impago':'pago',
       fijo:!!repeat,fiscal};
+    if(repeat&&serviceLink)m.link=serviceLink;
     if(esExcedente){m.tipo='ingreso';m.estado='pago';m.venc='';m.fijo=false;m.autoExcedente=false;m.excedenteManual=true;}
     state.movs.push(m);
     jumpYM=monthKey(m.venc||m.fecha);
     if(repeat && !esExcedente){
       const dia=$('#fRepeatDay').value?parseInt($('#fRepeatDay').value):(m.venc?parseInt(m.venc.slice(8,10)):new Date().getDate());
       const ftipo=income?'ingreso':'gasto';
-      const exist=state.fijos.find(f=>f.desc.toLowerCase()===desc.toLowerCase());
-      if(exist){if(!exist.id)exist.id=id();exist.tipo=ftipo;exist.cat=cat;exist.monto=monto;exist.dia=dia;exist.fiscal=fiscal;}
-      else state.fijos.push({id:id(),tipo:ftipo,desc,cat,monto,dia,fiscal});
+      let fijo=state.fijos.find(f=>f.desc.toLowerCase()===desc.toLowerCase());
+      if(!fijo){fijo={id:id()};state.fijos.push(fijo);}
+      if(!fijo.id)fijo.id=id();
+      fijo.tipo=ftipo;fijo.desc=desc;fijo.cat=cat;fijo.monto=monto;fijo.dia=dia;fijo.fiscal=fiscal;
+      if(serviceLink)fijo.link=serviceLink;else delete fijo.link;
+      m.fijoId=fijo.id;
     }
   }
   save();
   playAppSound('movement');
   $('#fMonto').value='';$('#fDesc').value='';if($('#fVenc'))$('#fVenc').value='';
   if($('#fRepeat'))$('#fRepeat').checked=false;if($('#fCuotas'))$('#fCuotas').checked=false;
-  if($('#fRepeatDay'))$('#fRepeatDay').value='';if($('#fCuotasN'))$('#fCuotasN').value='';if($('#fCuotasStart'))$('#fCuotasStart').value='';resetFiscalChoice('f');
+  if($('#fRepeatDay'))$('#fRepeatDay').value='';if($('#fServiceLink'))$('#fServiceLink').value='';if($('#fCuotasN'))$('#fCuotasN').value='';if($('#fCuotasStart'))$('#fCuotasStart').value='';resetFiscalChoice('f');
   toggleOpts();
   $('#preview').innerHTML='';$('#speechTxt').value='';
   buildMonths();if(jumpYM)$('#monthSel').value=jumpYM;
@@ -4297,6 +4315,26 @@ function findFijoForMov(m){
   if(!m)return null;
   return (state.fijos||[]).find(f=>(m.fijoId&&f.id===m.fijoId)||(!m.fijoId&&f.desc.toLowerCase()===m.desc.toLowerCase()))||null;
 }
+function normalizeServiceLink(value){
+  let link=String(value||'').trim();
+  if(!link)return '';
+  if(/^[a-z][a-z0-9+.-]*:/i.test(link)&&!/^https?:/i.test(link))return '';
+  if(!/^https?:\/\//i.test(link))link='https://'+link;
+  try{const url=new URL(link);return url.hostname&&(url.protocol==='http:'||url.protocol==='https:')?url.href:'';}catch(e){return '';}
+}
+function movementServiceLink(m){
+  const own=normalizeServiceLink(m&&m.link);
+  if(own)return own;
+  const fijo=findFijoForMov(m);
+  return normalizeServiceLink(fijo&&fijo.link);
+}
+function openServiceLink(mid){
+  const m=state.movs.find(x=>x.id===mid);
+  const link=movementServiceLink(m);
+  if(!link)return;
+  const opened=window.open(link,'_blank','noopener,noreferrer');
+  if(opened)opened.opener=null;
+}
 function toggleEditRepeat(){
   const on=$('#eRepeat').checked;
   $('#eRepeatPanel').style.display=on?'grid':'none';
@@ -4317,6 +4355,7 @@ function openEdit(mid){
   $('#eVencWrap').style.display=(m.tipo==='deuda'||m.tipo==='medeben')?'block':'none';
   $('#eRepeat').checked=!!(fijo||m.fijo);
   $('#eRepeatDay').value=fijo&&fijo.dia?fijo.dia:((m.venc||m.fecha||'').slice(8,10)||'');
+  $('#eServiceLink').value=m.link||(fijo&&fijo.link)||'';
   $('#eRepeatScope').value='future';
   if($('#eFiscal'))$('#eFiscal').value=fiscalValue(m.fiscal);
   toggleEditRepeat();
@@ -4335,10 +4374,13 @@ function saveEdit(){
   const newFiscal=state.useFiscal?fiscalValue($('#eFiscal')?$('#eFiscal').value:'negro'):fiscalValue(m.fiscal);
   const repeat=$('#eRepeat').checked;
   const scope=$('#eRepeatScope').value;
+  const rawServiceLink=repeat?$('#eServiceLink').value.trim():'';
+  const newServiceLink=normalizeServiceLink(rawServiceLink);
   const rawDay=parseInt($('#eRepeatDay').value,10);
   const day=Number.isFinite(rawDay)?Math.max(1,Math.min(31,rawDay)):0;
   if(!newDesc){alert('Escribí una descripción.');return;}
   if(repeat&&!day){alert('Indicá el día del mes en que se renueva.');return;}
+  if(rawServiceLink&&!newServiceLink){alert('Ingresá un enlace válido, por ejemplo https://sitio.com');$('#eServiceLink').focus();return;}
 
   m.monto=amount;m.tipo=newTipo;m.desc=newDesc;m.cat=newCat;m.fiscal=newFiscal;
   m.venc=(newTipo==='deuda'||newTipo==='medeben')?$('#eVenc').value:'';
@@ -4346,13 +4388,14 @@ function saveEdit(){
   else if(oldTipo==='ingreso'||oldTipo==='gasto')m.estado='impago';
 
   if(wasExcedente||m.cat===EXCEDENTE_CAT||m.desc===EXCEDENTE_DESC){
-    m.autoExcedente=false;m.excedenteManual=true;m.tipo='ingreso';m.estado='pago';m.venc='';m.fijo=false;delete m.fijoId;
+    m.autoExcedente=false;m.excedenteManual=true;m.tipo='ingreso';m.estado='pago';m.venc='';m.fijo=false;delete m.fijoId;delete m.link;
   }else if(repeat){
     if(scope==='future'){
       let fijo=oldFijo;
       if(!fijo){fijo={id:id()};state.fijos.push(fijo);}
       if(!fijo.id)fijo.id=id();
       fijo.tipo=recurringBaseType(newTipo);fijo.desc=newDesc;fijo.cat=newCat;fijo.monto=amount;fijo.dia=day;fijo.fiscal=newFiscal;
+      if(newServiceLink)fijo.link=newServiceLink;else delete fijo.link;
       const fid=fijo.id;
       const currentYM=monthKey(m.venc||m.fecha)||todayYM();
       state.movs.forEach(x=>{
@@ -4360,6 +4403,7 @@ function saveEdit(){
         const xym=monthKey(x.venc||x.fecha);
         if(!linked||xym<currentYM)return;
         x.fijo=true;x.fijoId=fid;x.desc=newDesc;x.cat=newCat;x.monto=amount;x.fiscal=newFiscal;
+        if(newServiceLink)x.link=newServiceLink;else delete x.link;
         if(x.id!==m.id){
           x.tipo=fijo.tipo==='ingreso'?'medeben':'deuda';
           const d=safeDayForMonth(xym,day);x.venc=xym+'-'+String(d).padStart(2,'0');
@@ -4370,6 +4414,7 @@ function saveEdit(){
     }else{
       m.fijo=!!oldFijo;
       if(oldFijoId)m.fijoId=oldFijoId;
+      if(newServiceLink)m.link=newServiceLink;else delete m.link;
     }
   }else{
     if(scope==='future'&&oldFijo){
@@ -4382,7 +4427,7 @@ function saveEdit(){
         return !(linked&&monthKey(x.venc||x.fecha)>=currentYM&&x.estado==='impago');
       });
     }
-    m.fijo=false;delete m.fijoId;
+    m.fijo=false;delete m.fijoId;delete m.link;
   }
   save();$('#ov').classList.remove('show');buildMonths();render();
 }
@@ -4603,10 +4648,13 @@ function addVoice(){
   const income=(mTipo==='ingreso'||mTipo==='medeben');
   const repeat=$('#mRepeat')&&$('#mRepeat').checked;
   const cuotas=$('#mCuotas')&&$('#mCuotas').checked;
+  const rawServiceLink=repeat&&$('#mServiceLink')?$('#mServiceLink').value.trim():'';
+  const serviceLink=normalizeServiceLink(rawServiceLink);
   const fechaInput=$('#mVenc')?$('#mVenc').value:'';
   const fiscal=state.useFiscal?fiscalValue(getFiscalChoice('m')):'negro';
   const movementStamp=movementStampFromFields('m');
   let jumpYM=null;
+  if(rawServiceLink&&!serviceLink){alert('Ingresá un enlace válido, por ejemplo https://sitio.com');$('#mServiceLink').focus();return;}
   if(cuotas){
     const n=parseInt($('#mCuotasN').value,10)||0;
     if(n<2){$('#mCuotasN').focus();return;}
@@ -4620,14 +4668,18 @@ function addVoice(){
     jumpYM=monthKey(start);
   }else{
     const m={id:id(),tipo:mTipo,monto,desc,cat,fecha:movementStamp,venc:(mTipo==='deuda'||mTipo==='medeben')?(fechaInput||''):'',estado:(mTipo==='deuda'||mTipo==='medeben')?'impago':'pago',fijo:!!repeat,fiscal};
+    if(repeat&&serviceLink)m.link=serviceLink;
     state.movs.push(m);
     jumpYM=monthKey(m.venc||m.fecha);
     if(repeat){
       const dia=$('#mRepeatDay').value?parseInt($('#mRepeatDay').value,10):((m.venc||todayISO()).slice(8,10)||String(new Date().getDate()));
       const ftipo=income?'ingreso':'gasto';
-      const exist=state.fijos.find(f=>f.desc.toLowerCase()===desc.toLowerCase());
-      if(exist){if(!exist.id)exist.id=id();exist.tipo=ftipo;exist.cat=cat;exist.monto=monto;exist.dia=dia;exist.fiscal=fiscal;}
-      else state.fijos.push({id:id(),tipo:ftipo,desc,cat,monto,dia,fiscal});
+      let fijo=state.fijos.find(f=>f.desc.toLowerCase()===desc.toLowerCase());
+      if(!fijo){fijo={id:id()};state.fijos.push(fijo);}
+      if(!fijo.id)fijo.id=id();
+      fijo.tipo=ftipo;fijo.desc=desc;fijo.cat=cat;fijo.monto=monto;fijo.dia=dia;fijo.fiscal=fiscal;
+      if(serviceLink)fijo.link=serviceLink;else delete fijo.link;
+      m.fijoId=fijo.id;
     }
   }
   save();
@@ -4844,7 +4896,9 @@ function render(){
     if(m.tipo==='deuda')status='<button class="pill '+m.estado+'" onclick="togglePago(\''+m.id+'\')">'+(m.estado==='pago'?'Pagado':'Impago')+'</button>';
     else if(m.tipo==='medeben')status='<button class="pill '+(m.estado==='pago'?'cobrado':'cobrar')+'" onclick="togglePago(\''+m.id+'\')">'+(m.estado==='pago'?'Cobrado':'Cobrar')+'</button>';
     else if(m.tipo==='gasto')status='<span class="pill pago">Pagado</span>';
-    return '<div class="item"><div class="item-top"><span class="dot '+m.tipo+'"></span><div class="d1">'+m.desc+' '+(m.fijo?IC.repeat:'')+'</div></div><div class="d2"><div><span class="cat-tag">'+m.cat+'</span>'+fiscalTagHtml(m)+manualTag+'</div><span class="vtxt">'+vtxt+'</span></div><div class="item-foot"><div class="acts">'+status+'<button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button><button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div><div class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</div></div></div>';
+    const serviceLink=movementServiceLink(m);
+    const linkButton=serviceLink?'<button class="ico service-link" type="button" title="Abrir enlace del servicio" aria-label="Abrir enlace del servicio" onclick="openServiceLink(\''+m.id+'\')">'+SERVICE_LINK_ICON+'</button>':'';
+    return '<div class="item"><div class="item-top"><span class="dot '+m.tipo+'"></span><div class="d1">'+m.desc+' '+(m.fijo?IC.repeat:'')+'</div></div><div class="d2"><div><span class="cat-tag">'+m.cat+'</span>'+fiscalTagHtml(m)+manualTag+'</div><span class="vtxt">'+vtxt+'</span></div><div class="item-foot"><div class="acts">'+status+'<button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div><div class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</div></div></div>';
   }).join(''):'<div style="padding:30px;text-align:center;color:var(--muted);font-weight:700">'+(searchQuery?'Sin resultados para "'+esc(searchQuery)+'"':'Sin movimientos este mes. Cargá uno arriba')+'</div>';
 }
 

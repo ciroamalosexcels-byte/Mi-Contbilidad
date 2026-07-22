@@ -12,6 +12,7 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 ## Funciones clave
 - Movimientos: `ingreso`, `gasto`, `deuda`, `medeben`
 - Gastos fijos/recurrentes, metas, calendario, métricas, voz, notificaciones, sacudida, Google Sheets sync, export/import JSON
+- Los servicios recurrentes aceptan un `link` opcional; si existe, la lista muestra un botón de enlace junto a Editar. Sólo se admiten URLs HTTP/HTTPS y se agrega `https://` cuando falta
 - Excedente del mes: lleva el sobrante al mes siguiente. Si el usuario lo edita, tiene `excedenteManual:true`.
 - Búsqueda en tiempo real sobre la lista (filtra por desc/cat)
 - Export PDF del mes (`window.print()` con `@media print` dedicado)
