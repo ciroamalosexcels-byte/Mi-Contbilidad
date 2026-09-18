@@ -45,20 +45,51 @@ jobs:
         run: |
           MANIFEST="android/app/src/main/AndroidManifest.xml"
           grep -q "RECORD_AUDIO" $MANIFEST || sed -i 's|<application|<uses-permission android:name="android.permission.RECORD_AUDIO"/>\n    <application|' $MANIFEST
+          grep -q "MODIFY_AUDIO_SETTINGS" $MANIFEST || sed -i 's|<application|<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>\n    <application|' $MANIFEST
+          grep -q "WRITE_EXTERNAL_STORAGE" $MANIFEST || sed -i 's|<application|<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>\n    <application|' $MANIFEST
+
+      - name: Registrar el widget de carga por voz en el Manifest
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          grep -q "QuickVoiceWidgetProvider" $MANIFEST || sed -i 's|</application>|    <receiver android:name=".QuickVoiceWidgetProvider" android:exported="false">\n            <intent-filter>\n                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>\n            </intent-filter>\n            <meta-data android:name="android.appwidget.provider" android:resource="@xml/quick_voice_widget_info"/>\n        </receiver>\n    </application>|' $MANIFEST
+
+      - name: Instalar puente nativo de Descargas
+        run: |
+          cp native/downloads/MainActivity.java android/app/src/main/java/com/bois/micontabilidad/MainActivity.java
+          cp native/downloads/DownloadsPlugin.java android/app/src/main/java/com/bois/micontabilidad/DownloadsPlugin.java
+
+      - name: Instalar widget de carga por voz
+        run: |
+          cp native/widget/QuickVoiceWidgetProvider.java android/app/src/main/java/com/bois/micontabilidad/QuickVoiceWidgetProvider.java
+          mkdir -p android/app/src/main/res/layout android/app/src/main/res/xml android/app/src/main/res/drawable
+          cp native/widget/widget_quick_voice.xml android/app/src/main/res/layout/widget_quick_voice.xml
+          cp native/widget/quick_voice_widget_info.xml android/app/src/main/res/xml/quick_voice_widget_info.xml
+          cp native/widget/bg_widget_circle.xml android/app/src/main/res/drawable/bg_widget_circle.xml
+          cp native/widget/ic_widget_mic.xml android/app/src/main/res/drawable/ic_widget_mic.xml
+          cp native/widget/ic_widget_mic_dark.xml android/app/src/main/res/drawable/ic_widget_mic_dark.xml
+          for t in claro oscuro win matrix neo blob mosca; do
+            cp native/widget/bg_widget_$t.xml android/app/src/main/res/drawable/bg_widget_$t.xml
+          done
 
       - name: Instalar ImageMagick
         run: sudo apt-get install -y imagemagick
 
       - name: Copiar ícono de la app (launcher)
         run: |
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
           for dir in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi; do
             mkdir -p android/app/src/main/res/$dir
           done
-          convert Icono-app.png -resize 48x48   android/app/src/main/res/mipmap-mdpi/ic_launcher.png
-          convert Icono-app.png -resize 72x72   android/app/src/main/res/mipmap-hdpi/ic_launcher.png
-          convert Icono-app.png -resize 96x96   android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
-          convert Icono-app.png -resize 144x144 android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
-          convert Icono-app.png -resize 192x192 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          convert Logo-App.jpg -resize 48x48   android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+          convert Logo-App.jpg -resize 72x72   android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+          convert Logo-App.jpg -resize 96x96   android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+          convert Logo-App.jpg -resize 144x144 android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+          convert Logo-App.jpg -resize 192x192 android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          cp android/app/src/main/res/mipmap-mdpi/ic_launcher.png android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png
+          cp android/app/src/main/res/mipmap-hdpi/ic_launcher.png android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png
+          cp android/app/src/main/res/mipmap-xhdpi/ic_launcher.png android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png
+          cp android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png
+          cp android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
 
       - name: Copiar ícono de notificación
         run: |

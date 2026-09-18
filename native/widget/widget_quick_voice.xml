@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+    <ImageButton
+        android:id="@+id/widget_mic_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_widget_circle"
+        android:src="@drawable/ic_widget_mic"
+        android:scaleType="centerInside"
+        android:contentDescription="Carga por voz"
+        android:padding="18dp" />
+</FrameLayout>

@@ -3,13 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Bois</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgo8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNBNkUwNEIiLz48c3RvcCBvZmZzZXQ9IjAuNTUiIHN0b3AtY29sb3I9IiMyODVGQ0QiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM4QTUxRUIiLz4KPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHg9IjEiIHk9IjEiIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgcng9IjgiIGZpbGw9InVybCgjZykiLz4KPHRleHQgeD0iMTYiIHk9IjIzLjUiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMSIgZm9udC13ZWlnaHQ9IjkwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiI+JDwvdGV4dD4KPC9zdmc+">
+<title>FlyFinanzas</title>
+<link rel="icon" type="image/jpeg" href="assets/logo-app.jpg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style id="coolvetica-font">
+@font-face{font-family:'Coolvetica';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/coolvetica.otf') format('opentype');}
+body:not(.win):not(.matrix):not(.neo):not(.blob):not(.mosca),
+body:not(.win):not(.matrix):not(.neo):not(.blob):not(.mosca) :is(h1,h2,h3,button,input,select,textarea){
+  font-family:'Coolvetica','Poppins',system-ui,sans-serif!important;
+  letter-spacing:1.1px!important;
+}
+body:not(.win):not(.matrix):not(.neo):not(.blob):not(.mosca) *{letter-spacing:1.1px}
+body:not(.win):not(.matrix):not(.neo):not(.blob):not(.mosca) h1{letter-spacing:1.4px!important}
+body:not(.win):not(.matrix):not(.neo):not(.blob):not(.mosca) .kpi .val{letter-spacing:1.4px!important}
+</style>
 <style id="pixel-fonts">
 /* === Fuentes pixel embebidas (tema Windows): Pixelify Sans + VT323 === */
 @font-face{font-family:'Pixelify Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(data:font/woff2;base64,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) format('woff2');}
@@ -231,7 +242,8 @@ body.mosca .themebtn::after{
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100%}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{overflow-x:hidden;max-width:100vw}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--txt);padding:18px;max-width:980px;margin:0 auto;-webkit-font-smoothing:antialiased;position:relative;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:-10% 0;z-index:-1;background-color:#e7ebff;
   background-image:
    radial-gradient(38% 44% at 12% 12%, rgba(124,77,255,.40), transparent 60%),
@@ -259,8 +271,13 @@ h1{font-size:1.5rem;font-weight:900;letter-spacing:-.5px}
 .sub{color:var(--muted);font-size:.85rem;font-weight:600}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .between{justify-content:space-between}
-button{font-family:inherit;cursor:pointer;border:none;border-radius:12px;font-weight:800;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:7px}
-button:active{transform:scale(.97)}
+*{-webkit-tap-highlight-color:transparent}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:12px;font-weight:800;transition:transform .15s cubic-bezier(.34,1.56,.64,1);display:inline-flex;align-items:center;justify-content:center;gap:7px;position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button:active{transform:scale(.93)}
+button.btn-pop{animation:btnPop .32s cubic-bezier(.34,1.56,.64,1)}
+@keyframes btnPop{0%{transform:scale(.93)}55%{transform:scale(1.06)}100%{transform:scale(1)}}
+.btn-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);pointer-events:none;animation:btnRipple .5s ease-out forwards}
+@keyframes btnRipple{to{transform:scale(2.6);opacity:0}}
 input,select,textarea{font-family:inherit;background:var(--glass2);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);color:var(--txt);padding:11px 12px;border-radius:12px;font-size:.95rem;font-weight:700;width:100%}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
 select option{background:#ffffff;color:#1e2440;font-weight:700}
@@ -278,19 +295,19 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:14p
 .navm{width:36px}.themebtn{width:46px}
 .navm:hover,.themebtn:hover{border-color:var(--accent)}
 
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.kpi{border-radius:var(--r);padding:15px}
-.kpi .lab{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:800;margin-bottom:6px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+.kpi{border-radius:var(--r);padding:8px 15px}
+.kpi .lab{font-size:.92rem;text-transform:none;letter-spacing:.2px;color:var(--txt);font-weight:900;margin-bottom:4px}
 .kpi .val{font-size:1.35rem;font-weight:900;letter-spacing:-.5px}
 .kpi.ing .val{color:var(--c-ing)} .kpi.gas .val{color:var(--c-gas)}
 .kpi.bal .val{color:var(--azul)}
 .kpi.deb .val{color:var(--rojo)}
 
-.goal{border-radius:var(--r);padding:14px 16px;margin-bottom:16px}
-.bar{height:9px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:9px}
+.goal{border-radius:var(--r);padding:2px 16px;margin-bottom:12px}
+.bar{height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:2px}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:.4s}
 
-.alerts{margin-bottom:16px}
+.alerts{margin-bottom:12px}
 .alert-head{font-weight:900;font-size:1rem;margin-bottom:9px;display:flex;align-items:center;gap:8px;color:var(--txt)}
 .alert-head.toggle{cursor:pointer;user-select:none;background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px;padding:11px 14px}
 .alert-head.toggle .chev{margin-left:auto;font-size:.9rem;color:var(--muted);transition:.15s}
@@ -331,21 +348,31 @@ body.dark .al button{color:#04231a}
 .opts-hint{align-self:center;font-size:.78rem;line-height:1.35}
 
 .list{border-radius:var(--r);overflow:hidden}
-.lh{padding:13px 16px;font-weight:900;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.lh{padding:12px 16px;font-weight:900;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .vbtn{background:var(--glass2);color:var(--muted);border:1px solid var(--line);padding:7px 13px;font-size:.85rem}
 .vbtn.on{background:linear-gradient(120deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
-.item{display:flex;flex-direction:column;align-items:stretch;padding:12px 16px;border-bottom:1px solid var(--line)}
-.item-top{display:flex;align-items:center;gap:12px}
-.item-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px}
+.item{display:flex;flex-direction:row;align-items:flex-start;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line);position:relative}
+.item-avatar-col{display:flex;flex-direction:column;align-items:center;gap:5px;flex:none}
+.item-avatar{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;position:relative}
+.item-avatar-meta{position:absolute;left:26px;bottom:11px;width:42px;height:34px;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+.item-avatar-meta .time{display:inline-flex;align-items:center;gap:3px;font-size:.86rem;font-weight:800;color:var(--txt);white-space:nowrap}
+.item-avatar-meta .time svg{width:17px;height:17px}
+.pay-badge{position:absolute;right:-3px;bottom:-3px;width:18px;height:18px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:var(--line);color:transparent;border:2px solid transparent}
+.pay-badge.paid{background:#fff;border-color:var(--ok);color:var(--ok)}
+.pay-badge svg{width:10px;height:10px}
+.item-body{flex:1;min-width:0;display:flex;flex-direction:column;align-items:stretch;margin-top:10px}
+.item-top{display:flex;align-items:center;gap:8px}
+.item-foot{display:flex;align-items:center;margin-top:8px;gap:8px}
+.item-amt-col{flex:none;align-self:center;display:flex;align-items:center;margin-left:auto;padding-left:8px;margin-top:10px}
 .item:last-child{border-bottom:none}
 .dot{width:10px;height:10px;border-radius:50%;flex:none}
 .dot.ingreso{background:var(--c-ing)}.dot.gasto{background:var(--c-gas)}.dot.deuda{background:var(--c-deb)}.dot.medeben{background:var(--c-md)}
 .item .d1{font-weight:800;line-height:1.2;display:flex;align-items:center;gap:6px}
 .item .d2{font-size:.74rem;color:var(--muted);font-weight:700;margin-top:5px;display:flex;flex-direction:column;gap:5px;align-self:stretch;width:100%;box-sizing:border-box}
 .item .d2 .vtxt{font-size:.7rem}
-.item .amt{font-weight:900;white-space:nowrap}
+.item .amt{font-weight:900;white-space:nowrap;font-size:1.08rem}
 .item .amt.in{color:var(--c-ing)}.item .amt.out{color:var(--txt)}
-.acts{display:flex;gap:6px;align-items:center}
+.acts{display:flex;gap:2px;align-items:center;margin-left:15px}
 .pill{font-size:.7rem;font-weight:900;padding:5px 10px;border-radius:99px;border:1px solid transparent;white-space:nowrap}
 .pill.pago{background:rgba(12,157,107,.16);color:var(--ok)}
 .pill.impago{background:rgba(224,69,123,.16);color:var(--rojo)}
@@ -416,10 +443,34 @@ footer button{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdr
 footer button:hover{color:var(--txt);border-color:var(--accent)}
 .app-credit{width:100%;text-align:center;margin-top:4px;font-size:.78rem;color:var(--muted);font-weight:700}
 .settings-list{display:grid;gap:10px}
-.settings-list button{width:100%;display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:13px 14px;background:var(--glass2);border:1px solid var(--line);color:var(--txt);font-weight:800}
-.settings-list button:hover{border-color:var(--accent)}
+.settings-fold-panel>button{width:100%;display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:13px 14px;background:var(--glass2);border:1px solid var(--line);color:var(--txt);font-weight:800}
+.settings-fold-panel>button:hover{border-color:var(--accent)}
 .settings-separator{height:1px;background:var(--line);margin:4px 0}
 .settings-list .danger-option{color:var(--rojo);border-color:color-mix(in srgb,var(--rojo) 35%,transparent);margin-top:4px}
+.settings-fold-head .settings-fold-chevron{margin-left:auto;transition:transform .18s;color:var(--muted)}
+.settings-fold-head[aria-expanded="true"] .settings-fold-chevron{transform:rotate(180deg)}
+.settings-fold-panel{display:grid;gap:10px;padding:2px 0 4px}
+.settings-fold-panel[hidden]{display:none!important}
+.settings-group{margin-bottom:20px}
+.settings-group-label{font-size:.7rem;font-weight:800;letter-spacing:.07em;color:var(--txt);text-transform:uppercase;margin:0 0 8px 3px}
+.settings-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+body.dark .settings-card,body.matrix .settings-card,body.win .settings-card{background:var(--glass2)}
+.settings-row{width:100%;display:flex;align-items:center;gap:10px;padding:13px 14px;background:transparent;border:none;border-radius:0;color:var(--txt);font-weight:800;text-align:left}
+.settings-row:not(:last-child){border-bottom:1px solid var(--line)}
+.settings-row:hover{border-color:var(--line)}
+.settings-row span:first-of-type{flex:1;min-width:0}
+.settings-row .srow-val{margin-left:auto;font-weight:700;color:var(--muted);font-size:.82rem;white-space:nowrap}
+.settings-row .srow-chev{color:var(--muted);flex:none}
+.settings-row .toggle-sw{margin-left:auto}
+.settings-card .settings-fold-panel{padding:4px 14px 14px;border-top:1px solid var(--line);background:var(--glass2)}
+.settings-group .danger-row{color:var(--rojo)}
+.settings-group .settings-fold-panel{margin-top:8px}
+.monthly-pdf-reminder{padding:13px;border:1px solid var(--line);border-radius:14px;background:var(--glass2)}
+.monthly-pdf-reminder .notif-check{margin-bottom:12px}
+.monthly-pdf-reminder-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.monthly-pdf-result{padding:13px;border:1px solid color-mix(in srgb,var(--ok) 45%,var(--line));border-radius:14px;background:color-mix(in srgb,var(--ok) 10%,var(--glass2))}
+.monthly-pdf-result strong{display:block;margin-bottom:4px}
+.monthly-pdf-result .save{margin-top:10px}
 
 
 .ov{position:fixed;inset:0;background:rgba(10,12,25,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;place-items:center;padding:18px;z-index:70}
@@ -650,7 +701,11 @@ body.dark:not(.win){
   --rojo:#ff8f89; --naranja:#ffad75; --amar:#e6c261; --ok:#4edea3; --c-warn:#e6c261;
   background:#000;
 }
-body.dark:not(.win)::before{background:#000;background-image:none}
+body.dark:not(.win)::before{
+  background-color:#000;
+  background-image:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('assets/dark-bg.png');
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
 body:not(.win) h1,body:not(.win) h2,body:not(.win) h3,
 body:not(.win) button,body:not(.win) input,body:not(.win) select,body:not(.win) textarea{
   font-family:'Poppins',system-ui,sans-serif;
@@ -665,7 +720,7 @@ body:not(.win) input,body:not(.win) select,body:not(.win) textarea,
 body:not(.win) .navm,body:not(.win) .themebtn,
 body:not(.win) .tabs button,body:not(.win) .vbtn,body:not(.win) .ico,
 body:not(.win) .catbtn,body:not(.win) footer button,
-body:not(.win) .settings-list button,body:not(.win) .dayrow,
+body:not(.win) .settings-fold-panel>button,body:not(.win) .dayrow,
 body:not(.win) .mstat,body:not(.win) .cc{
   background:var(--glass2);backdrop-filter:none;-webkit-backdrop-filter:none;
 }
@@ -687,7 +742,7 @@ body:not(.win) .tabs button.on[data-t=deuda],
 body:not(.win) .tabs button.on[data-t=medeben]{background:var(--glass2);color:var(--txt);border-color:var(--accent)}
 body:not(.win) .bar>i,body:not(.win) .catrow .tr>i{background:linear-gradient(90deg,#10b981,#4edea3)}
 body:not(.win) .item:hover,body:not(.win) .cc.has:hover,
-body:not(.win) .settings-list button:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+body:not(.win) .settings-row:hover,body:not(.win) .settings-fold-panel>button:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
 body:not(.win) .item .amt.in,body:not(.win) .goalTxt strong,
 body:not(.win) .cc.today .cnum{color:var(--accent)}
 body:not(.win) .pill.pago,body:not(.win) .pill.cobrado{background:rgba(16,185,129,.12);color:var(--ok)}
@@ -721,6 +776,14 @@ body.win{ --k-ing:#00a800; --k-gas:#c00000; --k-bal:#0000aa; --k-amar:#a07a00; -
 .cat-row .cat-name{flex:1;font-weight:800}
 .cat-row .cat-count{font-size:.72rem;color:var(--muted);font-weight:800;white-space:nowrap}
 .cat-row .cat-del{background:transparent;border:none;color:var(--k-gas);cursor:pointer;padding:4px;display:flex}
+.cat-avatar{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;border:none;cursor:pointer;padding:0}
+.icon-grid{display:flex;flex-wrap:wrap;gap:8px}
+.icon-opt{width:38px;height:38px;border-radius:50%;background:var(--glass2);border:1px solid var(--line);color:var(--muted);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
+.icon-opt.selected{border-color:transparent}
+.color-grid{display:flex;flex-wrap:wrap;gap:8px}
+.color-opt{width:26px;height:26px;border-radius:50%;border:2px solid transparent;padding:0;cursor:pointer}
+.color-opt.selected{border-color:var(--txt)}
+.date-sep{padding:12px 16px 4px;font-size:.72rem;font-weight:800;color:var(--muted)}
 .reassign-box{border:1px dashed var(--line);border-radius:12px;padding:12px;margin-bottom:12px;display:flex;flex-direction:column;gap:9px}
 .cat-action-title{font-weight:900;line-height:1.35}
 .cat-action-help{font-size:.8rem;color:var(--muted);font-weight:700;line-height:1.4}
@@ -741,11 +804,15 @@ body.win .cat-target-option.selected{background:#d6d6ee!important;box-shadow:ins
 </style>
 
 <style id="ui-request-fixes">
-.topbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-bottom:18px}
-.header-left{justify-self:start}.header-center{justify-self:center;width:100%;display:flex;justify-content:center}.header-right-spacer{width:42px;height:42px}
-.monthsel.monthpill{background:var(--glass2);border:1px solid var(--line);border-radius:999px;padding:4px 8px;gap:4px;box-shadow:var(--shadow);max-width:340px;width:100%;justify-content:center;height:46px}
-.monthsel.monthpill select{background:transparent;border:none;box-shadow:none;text-align:center;font-weight:800;padding:9px 10px;min-width:170px;flex:1}
-.monthsel.monthpill .navm{background:transparent;border:none;box-shadow:none;width:34px;height:34px;border-radius:999px}
+.topbar{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;margin-bottom:18px}
+.header-left{justify-self:start;min-width:0}.header-center{justify-self:center;width:100%;min-width:0;display:flex;justify-content:center}.header-right-spacer{width:42px;height:42px}
+.monthsel.monthpill{min-width:0}
+.monthsel.monthpill{background:var(--glass2);border:1px solid var(--line);border-radius:999px;padding:4px 8px;gap:4px;box-shadow:var(--shadow);width:100%;justify-content:center;height:46px;overflow:hidden}
+.monthsel-wrap{position:relative;flex:1;min-width:0;display:flex;align-items:center;justify-content:center}
+.monthsel-label{display:flex;align-items:center;gap:6px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;letter-spacing:normal!important}
+.monthsel-label .ic{flex:none}
+.monthsel-wrap select{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:none;padding:0;cursor:pointer}
+.monthsel.monthpill .navm{background:transparent;border:none;box-shadow:none;width:34px;height:34px;border-radius:999px;flex:none}
 .monthsel.monthpill .navm:hover{background:var(--glass)}
 .quick-modal .add{margin:0;box-shadow:none;border:none;background:transparent;padding:0}
 .quick-modal{max-width:980px}
@@ -835,7 +902,7 @@ body.matrix .sub,body.matrix label,body.matrix .d2,body.matrix .cat-tag,body.mat
 body.matrix .mlegend,body.matrix .calleg{color:rgba(0,255,65,.54)!important}
 body.matrix .kpi,body.matrix .goal,body.matrix .add,body.matrix .list,body.matrix .modal,
 body.matrix .alert-head.toggle,body.matrix .al,body.matrix .empty-ok,body.matrix .voicetrigger,
-body.matrix .settings-list button,body.matrix .dayrow,body.matrix .mstat,body.matrix .cc,
+body.matrix .settings-card,body.matrix .settings-row,body.matrix .settings-fold-panel>button,body.matrix .dayrow,body.matrix .mstat,body.matrix .cc,
 body.matrix .pv,body.matrix .reassign-box,body.matrix .cat-row{
   background:rgba(0,10,3,.92)!important;
   border:1px solid rgba(0,255,65,.42)!important;
@@ -994,7 +1061,7 @@ body.neo .mlegend,body.neo .calleg{color:#526068!important}
 /* Ventanas principales */
 body.neo .kpi,body.neo .goal,body.neo .add,body.neo .list,body.neo .modal,
 body.neo .alert-head.toggle,body.neo .al,body.neo .empty-ok,body.neo .voicetrigger,
-body.neo .settings-list button,body.neo .dayrow,body.neo .mstat,body.neo .cc,
+body.neo .settings-card,body.neo .settings-row,body.neo .settings-fold-panel>button,body.neo .dayrow,body.neo .mstat,body.neo .cc,
 body.neo .pv,body.neo .reassign-box,body.neo .cat-row{
   background:#fff!important;
   border:2px solid #000!important;
@@ -1261,7 +1328,7 @@ body.blob .cat-count,body.blob .mlegend,body.blob .calleg{color:rgba(59,59,92,.5
 /* Superficies redondeadas */
 body.blob .kpi,body.blob .goal,body.blob .add,body.blob .list,body.blob .modal,
 body.blob .alert-head.toggle,body.blob .al,body.blob .empty-ok,body.blob .voicetrigger,
-body.blob .settings-list button,body.blob .dayrow,body.blob .mstat,body.blob .cc,
+body.blob .settings-card,body.blob .settings-row,body.blob .settings-fold-panel>button,body.blob .dayrow,body.blob .mstat,body.blob .cc,
 body.blob .pv,body.blob .reassign-box,body.blob .cat-row{
   background:#fff!important;
   border:0!important;
@@ -1271,8 +1338,8 @@ body.blob .pv,body.blob .reassign-box,body.blob .cat-row{
   -webkit-backdrop-filter:none!important;
 }
 body.blob .cards{gap:14px!important}
-body.blob .kpi{padding:20px!important;min-height:104px;display:flex;flex-direction:column;justify-content:center}
-body.blob .kpi .lab{color:rgba(59,59,92,.42)!important;font-weight:800!important;letter-spacing:.12em!important}
+body.blob .kpi{padding:10px 20px!important;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+body.blob .kpi .lab{color:#3b3b5c!important;font-weight:900!important;letter-spacing:.2px!important}
 body.blob .kpi .val{font-weight:800!important}
 body.blob .kpi.ing .val,body.blob .kpi.ingblanco .val{color:#f9a63d!important}
 body.blob .kpi.gas .val,body.blob .kpi.gasblanco .val{color:#f27c6d!important}
@@ -1293,6 +1360,7 @@ body.blob .monthsel.monthpill{border-radius:999px!important;padding:5px 9px!impo
 body.blob .monthsel.monthpill select,
 body.blob .monthsel.monthpill .navm{background:transparent!important;border:0!important;box-shadow:none!important;color:#3b3b5c!important}
 body.blob .monthsel.monthpill .navm:hover{background:#f2ecdf!important}
+body.blob .navm .ic{stroke-width:2.8!important}
 body.blob .thememenu{
   background:#fff!important;
   color:#3b3b5c!important;
@@ -1318,7 +1386,7 @@ body.blob .goal-menu{background:#fff!important;border:0!important;box-shadow:0 1
 
 /* Alertas y estado */
 body.blob .alert-head.toggle{background:#ece5d5!important;color:#3b3b5c!important}
-body.blob .empty-ok{background:#f9a63d!important;color:#fff!important}
+body.blob .empty-ok{background:#3b3b5c!important;color:#fff!important}
 body.blob .al{background:#fff!important;border-left:0!important}
 body.blob .al.r{box-shadow:inset 6px 0 0 #f27c6d,0 10px 30px -10px rgba(59,59,92,.16)!important}
 body.blob .al.o{box-shadow:inset 6px 0 0 #f9a63d,0 10px 30px -10px rgba(59,59,92,.16)!important}
@@ -1337,6 +1405,7 @@ body.blob input,body.blob select,body.blob textarea{
 body.blob input:focus,body.blob select:focus,body.blob textarea:focus{
   outline:none!important;box-shadow:0 0 0 2px rgba(249,166,61,.52)!important
 }
+body.blob .search-wrap input[type="search"]{background:#fff!important;border:1.8px solid rgba(59,59,92,.16)!important;color:#3b3b5c!important;border-radius:12px!important}
 body.blob select option{background:#fff!important;color:#3b3b5c!important}
 body.blob .tabs button,body.blob .vbtn,body.blob .catbtn,body.blob .ico,
 body.blob footer button,body.blob .seg-tabs button{
@@ -1390,14 +1459,12 @@ body.blob .app-credit{color:rgba(59,59,92,.48)!important}
 body.blob ::selection{background:#f9a63d;color:#fff}
 
 @media(max-width:720px){
-  body.blob .kpi{padding:17px!important;min-height:94px}
+  body.blob .kpi{padding:9px 17px!important;min-height:0}
   body.blob .goal,body.blob .modal{padding:18px!important}
-  body.blob .monthsel.monthpill{max-width:310px!important}
 }
 
 @media(max-width:720px){
-  .topbar{grid-template-columns:auto 1fr auto;gap:8px}
-  .header-right-spacer{width:40px}
+  .topbar{grid-template-columns:auto 1fr;gap:8px}
   .monthsel.monthpill{max-width:none}
   .monthsel.monthpill select{min-width:0}
   .seg-tabs button{min-width:0;width:100%}
@@ -1583,7 +1650,7 @@ body.win .notification-settings,body.win .notification-settings .notif-check{bor
 .movement-datetime{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.85fr);gap:10px;margin-top:12px;width:100%}
 .movement-datetime>div{min-width:0;width:100%}
 .movement-datetime input{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box}
-.settings-page{display:none;padding:4px 0 2px}
+.settings-page{display:none;padding:4px 14px 10px}
 .settings-page-card{padding:4px 0 8px}
 .settings-page-card>h3{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:1.05rem}
 .settings-page .settings-list{max-width:100%;gap:12px}
@@ -1599,24 +1666,51 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
 @media(max-width:370px){.movement-datetime{grid-template-columns:1fr}}
 
 /* === SEARCH BAR === */
-#searchBar{display:none;padding:0 0 10px}
+#searchBar{display:none;padding:10px 14px 10px}
 #searchBar.active{display:block}
 .search-wrap{position:relative}
-.search-wrap input[type="search"]{width:100%;padding:9px 36px 9px 38px;border-radius:12px;border:1px solid var(--line);background:var(--glass2);color:var(--txt);font-size:.9rem;font-weight:700;box-sizing:border-box;outline:none}
-.search-wrap .search-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-wrap input[type="search"]{width:100%;padding:8px 34px 8px 36px;border-radius:12px;border:1.8px solid rgba(160,166,182,.25);background:#fff;color:var(--txt);font-size:.86rem;font-weight:700;box-sizing:border-box;outline:none}
+.search-wrap input[type="search"]::placeholder{color:var(--muted);opacity:.58}
+.search-wrap .search-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;opacity:.5;stroke-width:3.4}
 .search-wrap .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:2px;font-size:.85rem;display:none}
 .search-wrap .search-clear.show{display:block}
+.empty-ok{font-size:.8rem;line-height:1.15;gap:6px;padding-top:12px;padding-bottom:12px}
 /* === FEATURE TOGGLES === */
 .settings-feat-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:800;padding:8px 0 4px}
-.feature-toggles{display:flex;flex-direction:column;gap:8px;padding:4px 0 8px}
-.feat-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:.88rem;cursor:pointer;user-select:none}
-.feat-label{flex:1}
+.feature-toggles{display:flex;flex-direction:column;gap:11px;padding:7px 4px}
+#featureSettings{padding:2px 10px 7px}
+.feat-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px;margin:0;font-weight:700;font-size:.78rem;line-height:1.22;text-transform:none!important;letter-spacing:0!important;cursor:pointer;user-select:none}
+.feat-label{flex:1;padding-right:6px}
 .toggle-sw{position:relative;width:42px;height:24px;flex-shrink:0;display:inline-block}
 .toggle-sw input{opacity:0;width:0;height:0;position:absolute}
 .toggle-sw .sw-track{position:absolute;inset:0;background:var(--line);border-radius:12px;transition:background .18s}
 .toggle-sw .sw-track:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .toggle-sw input:checked+.sw-track{background:var(--accent)}
 .toggle-sw input:checked+.sw-track:before{transform:translateX(18px)}
+/* === MONTHLY METRICS === */
+.monthly-pdf-modal{max-width:410px}
+.monthly-pdf-modal h3{font-size:1rem;line-height:1.15;margin-bottom:10px}
+.monthly-pdf-modal .g{gap:9px}
+.monthly-pdf-modal .monthly-pdf-intro{font-size:.78rem;line-height:1.25!important}
+.monthly-pdf-modal label{margin-bottom:5px;color:#151515!important;font-size:.78rem;line-height:1.2;text-transform:none!important;letter-spacing:0!important}
+body.dark .monthly-pdf-modal label{color:#f2f2f2!important}
+body.matrix .monthly-pdf-modal label{color:#00ff41!important}
+.monthly-month-select{position:relative}
+.monthly-month-select select{appearance:none;-webkit-appearance:none;text-align:center;text-align-last:center;padding:10px 44px;font-size:.87rem}
+.monthly-select-chevron{position:absolute;left:calc(50% + 72px);top:50%;transform:translateY(-50%);display:flex;color:var(--muted);pointer-events:none}
+.monthly-select-chevron svg{width:15px;height:15px}
+.monthly-pdf-reminder{padding:12px;margin:2px 0}
+.monthly-reminder-toggle{display:flex!important;align-items:center;justify-content:space-between;gap:14px;margin:0 0 11px!important;font-size:.78rem!important;line-height:1.2!important}
+.monthly-reminder-toggle>span:first-child{flex:1}
+.monthly-reminder-toggle .toggle-sw{margin:0}
+.monthly-pdf-reminder-fields{grid-template-columns:minmax(0,1fr) minmax(0,.78fr)!important;gap:8px}
+.monthly-pdf-reminder-fields label{display:flex;align-items:center;gap:5px}
+.monthly-pdf-reminder-fields label .ic{width:14px;height:14px;color:var(--muted)}
+.monthly-pdf-reminder-fields input{padding:9px 10px;font-size:.8rem;min-width:0}
+body .monthly-pdf-modal .monthly-save-reminder{margin-top:10px!important;background:var(--accent)!important;color:#fff!important;border:1px solid color-mix(in srgb,var(--accent) 72%,#000)!important;box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 22%,transparent)!important}
+body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important;color:#fff!important;border-color:#3b3b5c!important;box-shadow:0 8px 20px -10px rgba(59,59,92,.7)!important}
+#monthlyPdfReminderStatus{font-size:.74rem;line-height:1.22!important;margin-top:7px!important}
+@media(max-width:370px){.monthly-select-chevron{left:calc(50% + 66px)}.monthly-pdf-reminder-fields{grid-template-columns:minmax(0,1fr) minmax(0,.82fr)!important}}
 /* === ONBOARDING === */
 .onb-modal{max-width:320px;width:92%;padding:28px 22px 22px}
 .onb-slide{display:none}
@@ -1672,11 +1766,13 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
   <div class="header-center">
     <div class="monthsel monthpill">
       <button class="navm" onclick="shiftMonth(-1)" title="Mes anterior"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <select id="monthSel" onchange="render()"></select>
+      <div class="monthsel-wrap">
+        <span class="monthsel-label"><span id="monthSelLabel"></span><svg class="ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        <select id="monthSel" onchange="render()"></select>
+      </div>
       <button class="navm" onclick="shiftMonth(1)" title="Mes siguiente"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
     </div>
   </div>
-  <div class="header-right-spacer"></div>
 </header>
 
 <div class="cards" id="cards"></div>
@@ -1725,48 +1821,88 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
   <div class="metrics" id="metrics" style="display:none"></div>
 <div class="settings-page" id="settingsPage" style="display:none">
   <div class="settings-page-card">
-    <div class="settings-list">
-      <button onclick="backup()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Descargar copia</button>
-      <button onclick="document.getElementById('restoreFile').click()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 9l5-5 5 5"/><path d="M12 4v12"/></svg> Restaurar copia</button>
-      <button onclick="exportCSV()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Exportar CSV</button>
-      <button onclick="openCloud()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg> Google Sheets</button>
-      <button id="toggleFiscalBtn" onclick="toggleFiscalFeature()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h8"/></svg> </button>
-      <button onclick="openCatManager()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3h9a2 2 0 0 1 2 2v.5l2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 8h7"/><path d="M7 12h10"/><path d="M7 16h6"/></svg> Administrar categorías</button>
-      <button id="shakeToggleBtn" onclick="toggleShakeFeature()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 5 7l3 3"/><path d="m16 4 3 3-3 3"/><path d="M5 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4"/><path d="M4 17h4"/><path d="M16 17h4"/></svg> Activar giroscopio</button>
-      <button id="micPermBtn" onclick="requestMicPermission()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg> Permiso de micrófono</button>
-      <div id="micPermStatus" class="shake-status" style="display:none;padding:6px 0;font-size:.8rem"></div>
-            <button id="notifToggleBtn" onclick="toggleLocalNotifications()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> Activar notificaciones</button>
-      <div id="notificationSettings" class="notification-settings" style="display:none">
-        <div class="sub" style="font-weight:800">Recordatorios del teléfono</div>
-        <div class="notif-grid">
-          <div class="notif-time"><div><label>Hora de los avisos</label><input id="notifTime" type="time" value="09:00" onchange="saveNotificationSettings()"></div></div>
-          <div><label>Anticipación</label><input type="text" value="3 días antes y el mismo día" readonly></div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Preferencias</div>
+      <div class="settings-card">
+        <button class="settings-row" type="button" onclick="toggleThemeMenu(event)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg><span>Apariencia</span><span class="srow-val" id="themeStatusTxt">Claro</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row" type="button" onclick="openCatManager()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3h9a2 2 0 0 1 2 2v.5l2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 8h7"/><path d="M7 12h10"/><path d="M7 16h6"/></svg><span>Categorías</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row settings-fold-head" id="notifFoldBtn" type="button" aria-expanded="false" onclick="toggleSettingsFold('notificationSettings',this)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span>Recordatorios</span><svg class="settings-fold-chevron srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div id="notificationSettings" class="settings-fold-panel" hidden>
+          <button id="notifToggleBtn" onclick="toggleLocalNotifications()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> Activar notificaciones</button>
+          <div id="notificationOptions" class="notification-settings" style="display:none">
+            <div class="notif-grid">
+              <div class="notif-time"><div><label>Hora de los avisos</label><input id="notifTime" type="time" value="09:00" onchange="saveNotificationSettings()"></div></div>
+              <div><label>Anticipación</label><input type="text" value="3 días antes y el mismo día" readonly></div>
+            </div>
+            <div class="notif-checks">
+              <label class="notif-check"><input id="notifBefore" type="checkbox" onchange="saveNotificationSettings()"> Avisar 3 días antes del vencimiento</label>
+              <label class="notif-check"><input id="notifToday" type="checkbox" onchange="saveNotificationSettings()"> Avisar el mismo día</label>
+              <label class="notif-check"><input id="notifReceivables" type="checkbox" onchange="saveNotificationSettings()"> Recordar cobros de “Me deben”</label>
+              <label class="notif-check"><input id="notifMonthly" type="checkbox" onchange="saveNotificationSettings()"> Enviar resumen de gastos al finalizar el mes</label>
+            </div>
+            <div class="notif-actions">
+              <button class="save secondary" type="button" onclick="testLocalNotification()">Probar notificación</button>
+              <button class="save secondary" type="button" onclick="syncLocalNotifications(true)">Actualizar recordatorios</button>
+            </div>
+            <div id="notifStatus" class="notif-status">Las notificaciones se programan únicamente en la APK instalada.</div>
+          </div>
         </div>
-        <div class="notif-checks">
-          <label class="notif-check"><input id="notifBefore" type="checkbox" onchange="saveNotificationSettings()"> Avisar 3 días antes del vencimiento</label>
-          <label class="notif-check"><input id="notifToday" type="checkbox" onchange="saveNotificationSettings()"> Avisar el mismo día</label>
-          <label class="notif-check"><input id="notifReceivables" type="checkbox" onchange="saveNotificationSettings()"> Recordar cobros de “Me deben”</label>
-          <label class="notif-check"><input id="notifMonthly" type="checkbox" onchange="saveNotificationSettings()"> Enviar resumen de gastos al finalizar el mes</label>
-        </div>
-        <div class="notif-actions">
-          <button class="save secondary" type="button" onclick="testLocalNotification()">Probar notificación</button>
-          <button class="save secondary" type="button" onclick="syncLocalNotifications(true)">Actualizar recordatorios</button>
-        </div>
-        <div id="notifStatus" class="notif-status">Las notificaciones se programan únicamente en la APK instalada.</div>
       </div>
-      <div class="settings-separator"></div>
-      <div class="settings-feat-title">Funciones extras</div>
-      <div class="feature-toggles" id="featureToggles">
-        <label class="feat-toggle"><span class="feat-label">Gráficos extendidos (6 meses)</span><label class="toggle-sw"><input type="checkbox" id="ft-graficosExt" onchange="toggleFeature('graficosExt',this.checked)"><span class="sw-track"></span></label></label>
-        <label class="feat-toggle"><span class="feat-label">Buscar en movimientos</span><label class="toggle-sw"><input type="checkbox" id="ft-busqueda" onchange="toggleFeature('busqueda',this.checked)"><span class="sw-track"></span></label></label>
-        <label class="feat-toggle"><span class="feat-label">Exportar reporte PDF</span><label class="toggle-sw"><input type="checkbox" id="ft-pdf" onchange="toggleFeature('pdf',this.checked)"><span class="sw-track"></span></label></label>
-        <label class="feat-toggle"><span class="feat-label">Recordatorios de actividad</span><label class="toggle-sw"><input type="checkbox" id="ft-notifInteligentes" onchange="toggleFeature('notifInteligentes',this.checked)"><span class="sw-track"></span></label></label>
-      </div>
-      <button id="exportPdfBtn" onclick="exportPDF()" style="display:none"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg> Exportar PDF del mes</button>
-      <button onclick="showOnboarding()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg> Ver tutorial de nuevo</button>
-      <div class="settings-separator"></div>
-      <button class="danger-option" onclick="confirmWipe()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Borrar todos los datos</button>
     </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Integraciones y permisos</div>
+      <div class="settings-card">
+        <button class="settings-row" type="button" onclick="openCloud()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg><span>Google Sheets</span><span class="srow-val" id="cloudStatusRow">No conectado</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row" id="micPermBtn" type="button" onclick="requestMicPermission()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg><span>Micrófono</span><span class="srow-val" id="micStatusRow">No solicitado</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+      <div id="micPermStatus" class="shake-status" style="display:none;padding:6px 3px 0;font-size:.8rem"></div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Datos</div>
+      <div class="settings-card">
+        <button class="settings-row" type="button" onclick="exportCSV()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span>Exportar datos</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row settings-fold-head" id="backupFoldBtn" type="button" aria-expanded="false" onclick="toggleSettingsFold('backupSettings',this)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg><span>Copias de seguridad</span><svg class="settings-fold-chevron srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div id="backupSettings" class="settings-fold-panel" hidden>
+          <button onclick="backup()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Descargar copia</button>
+          <button onclick="document.getElementById('restoreFile').click()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 9l5-5 5 5"/><path d="M12 4v12"/></svg> Restaurar copia</button>
+        </div>
+        <button id="exportPdfBtn" class="settings-row" type="button" onclick="openMonthlyMetrics()" style="display:none"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 17v-3"/><path d="M12 17v-6"/><path d="M16 17v-4"/></svg><span>Métricas mensuales</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Funciones avanzadas</div>
+      <div class="settings-card">
+        <label class="settings-row"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 5 7l3 3"/><path d="m16 4 3 3-3 3"/><path d="M5 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4"/><path d="M4 17h4"/><path d="M16 17h4"/></svg><span>Giroscopio</span><span class="toggle-sw"><input type="checkbox" id="shakeToggleInput" onchange="toggleShakeFeature()"><span class="sw-track"></span></span></label>
+        <button class="settings-row settings-fold-head" id="featuresFoldBtn" type="button" aria-expanded="false" onclick="toggleSettingsFold('featureSettings',this)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg><span>Funciones adicionales</span><svg class="settings-fold-chevron srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div id="featureSettings" class="settings-fold-panel" hidden>
+          <div class="feature-toggles" id="featureToggles">
+            <label class="feat-toggle"><span class="feat-label">Gráficos extendidos (6 meses)</span><span class="toggle-sw"><input type="checkbox" id="ft-graficosExt" onchange="toggleFeature('graficosExt',this.checked)"><span class="sw-track"></span></span></label>
+            <label class="feat-toggle"><span class="feat-label">Buscar en movimientos</span><span class="toggle-sw"><input type="checkbox" id="ft-busqueda" onchange="toggleFeature('busqueda',this.checked)"><span class="sw-track"></span></span></label>
+            <label class="feat-toggle"><span class="feat-label">Métricas mensuales en PDF</span><span class="toggle-sw"><input type="checkbox" id="ft-pdf" onchange="toggleFeature('pdf',this.checked)"><span class="sw-track"></span></span></label>
+            <label class="feat-toggle"><span class="feat-label">Recordatorios de actividad</span><span class="toggle-sw"><input type="checkbox" id="ft-notifInteligentes" onchange="toggleFeature('notifInteligentes',this.checked)"><span class="sw-track"></span></span></label>
+            <label class="feat-toggle"><span class="feat-label">Modo blanco / negro</span><span class="toggle-sw"><input type="checkbox" id="ft-fiscal" onchange="toggleFiscalFeature()"><span class="sw-track"></span></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">Ayuda</div>
+      <div class="settings-card">
+        <button class="settings-row" type="button" onclick="showOnboarding()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Ver tutorial de nuevo</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-card">
+        <button class="settings-row danger-row" type="button" onclick="confirmWipe()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg><span>Borrar todos los datos</span></button>
+      </div>
+    </div>
+
   </div>
 </div>
 </div>
@@ -1835,6 +1971,32 @@ body.neo .settings-page-card,body.blob .settings-page-card{background:transparen
     <div class="onb-btns">
       <button class="save secondary" style="flex:1;margin:0" onclick="closeOnboarding()">Saltar</button>
       <button class="save" style="flex:1;margin:0" id="onbNextBtn" onclick="nextOnboarding()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MÉTRICAS MENSUALES -->
+<div class="ov" id="ovMonthlyPdf">
+  <div class="modal monthly-pdf-modal">
+    <h3><svg class="ic" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 17v-3"/><path d="M12 17v-6"/><path d="M16 17v-4"/></svg> Métricas mensuales</h3>
+    <div class="g">
+      <p class="sub monthly-pdf-intro">Generá un informe con ingresos, salidas, balance, categorías y movimientos. En la APK se guardará en Descargas.</p>
+      <div><label>Mes del informe</label><div class="monthly-month-select"><select id="monthlyPdfMonth"></select><span class="monthly-select-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div></div>
+      <div class="monthly-pdf-reminder">
+        <label class="monthly-reminder-toggle"><span>Recordarme generar la métrica mensual</span><span class="toggle-sw"><input id="monthlyPdfReminder" type="checkbox" onchange="toggleMonthlyPdfReminderFields()"><span class="sw-track"></span></span></label>
+        <div class="monthly-pdf-reminder-fields" id="monthlyPdfReminderFields">
+          <div><label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M3 11h18"/></svg> Fecha del primer aviso</label><input id="monthlyPdfDate" type="date"></div>
+          <div><label><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Hora</label><input id="monthlyPdfTime" type="time" value="09:00"></div>
+        </div>
+        <button class="save secondary monthly-save-reminder" type="button" onclick="saveMonthlyPdfReminder()">Guardar recordatorio</button>
+        <div class="sub" id="monthlyPdfReminderStatus" style="margin-top:8px;line-height:1.4"></div>
+      </div>
+      <button class="save" id="generateMonthlyPdfBtn" type="button" onclick="generateMonthlyPdf()">Generar PDF</button>
+      <div class="monthly-pdf-result" id="monthlyPdfResult" hidden>
+        <strong>El archivo está listo</strong>
+        <div class="sub" id="monthlyPdfResultText"></div>
+        <button class="save secondary" type="button" onclick="openMonthlyPdfFile()">Ver archivo</button>
+      </div>
     </div>
   </div>
 </div>
@@ -2183,7 +2345,77 @@ let cloudUrl='';
 let pushTimer=null;
 let searchQuery='';
 let onbSlide=0;
-const IC={mic:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>',stop:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',bell:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',check:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',pencil:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',trash:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',repeat:'<svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>'};
+const IC={mic:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>',stop:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>',bell:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',check:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',pencil:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',trash:'<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',repeat:'<svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>',clock:'<svg class="ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>'};
+
+const CAT_ICONS={
+  cart:'<path d="M2 4h2l2.6 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="9" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/>',
+  utensils:'<path d="M6 2v6a2 2 0 0 0 4 0V2"/><path d="M8 2v20"/><path d="M17 2c-2 0-3 3-3 6s1 3 3 3v11"/>',
+  home:'<path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/>',
+  bank:'<path d="M3 21h18"/><path d="M5 21V10"/><path d="M9 21V10"/><path d="M15 21V10"/><path d="M19 21V10"/><path d="M2 10l10-6 10 6"/>',
+  health:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>',
+  bus:'<rect x="3" y="6" width="18" height="11" rx="2"/><path d="M3 12h18"/><circle cx="7.5" cy="19.5" r="1.5"/><circle cx="16.5" cy="19.5" r="1.5"/>',
+  family:'<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 21v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2"/><path d="M14 14h1a5 5 0 0 1 5 5v2"/>',
+  gift:'<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 9V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3"/><path d="M12 5v16"/><path d="M12 5c-1.5-3-6-3-6 0s4.5 0 6 0Z"/><path d="M12 5c1.5-3 6-3 6 0s-4.5 0-6 0Z"/>',
+  plane:'<path d="M2 12 21 4l-7 19-3-8-8-3Z"/>',
+  paw:'<circle cx="6" cy="10" r="2"/><circle cx="11" cy="7" r="2"/><circle cx="16" cy="7" r="2"/><circle cx="19" cy="11" r="2"/><path d="M6 20c-1.5 0-2.5-1.5-1.5-3.5S8 13 12 13s6.5 1 7.5 3.5S17.5 20 16 20c-1.5 0-2.5-1-4-1s-2.5 1-4 1Z"/>',
+  car:'<path d="M5 16V9l2-4h10l2 4v7"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/>',
+  drop:'<path d="M12 2s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12Z"/>',
+  beauty:'<rect x="9" y="2" width="6" height="7" rx="1"/><path d="M10 9h4l-1 4h-2z"/><rect x="8" y="13" width="8" height="9" rx="2"/>',
+  muscle:'<rect x="2" y="9" width="3" height="6" rx="1"/><rect x="19" y="9" width="3" height="6" rx="1"/><path d="M5 12h1"/><path d="M18 12h1"/><rect x="6" y="7" width="3" height="10" rx="1"/><rect x="15" y="7" width="3" height="10" rx="1"/><path d="M9 12h6"/>',
+  phone:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',
+  bill:'<path d="M6 2h12v20l-3-2-3 2-3-2-3 2Z"/><path d="M9 7h6"/><path d="M9 11h6"/>',
+  wifi:'<path d="M2 8.5a16 16 0 0 1 20 0"/><path d="M5 12.5a11 11 0 0 1 14 0"/><path d="M8.5 16.5a6 6 0 0 1 7 0"/><path d="M12 20h.01"/>',
+  briefcase:'<rect x="2" y="7" width="20" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M2 12h20"/>',
+  piggy:'<path d="M4 10a6 6 0 0 1 12 0v1h2l1 3-1 1h-1v2l-2 1v-1H8v1l-2-1v-2H4Z"/><circle cx="14" cy="10" r=".6" fill="currentColor"/>',
+  book:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22Z"/><path d="M4 4.5v15A2.5 2.5 0 0 1 6.5 17H20"/>',
+  coffee:'<path d="M4 3h13v9a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Z"/><path d="M17 6h2a2 2 0 0 1 0 4h-2"/><path d="M4 20h13"/>',
+  question:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 5.8 1c-.6 1.3-2.4 1.6-2.9 3"/><path d="M12 17h.01"/>',
+  tag:'<path d="M12 2 22 12l-10 10L2 12V2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/>'
+};
+const CAT_ICON_ORDER=['cart','utensils','home','bank','health','bus','family','gift','plane','paw','car','drop','beauty','muscle','phone','bill','wifi','briefcase','piggy','book','coffee','question','tag'];
+const CAT_COLORS=['#5b8dfc','#28c76f','#ff9f43','#ea5455','#7367f0','#00cfe8','#20c997','#ff6b9d','#f7b924','#82868b'];
+function catIconSvg(key,size){
+  const k=CAT_ICONS[key]?key:'tag';
+  const s=size||17;
+  return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+CAT_ICONS[k]+'</svg>';
+}
+function defaultCatIconKey(name){
+  const n=String(name||'').toLowerCase();
+  if(/ingreso|sueldo|salario/.test(n))return 'briefcase';
+  if(/vivienda|alquiler|servicio|luz|gas|agua|internet|wifi|electricidad/.test(n))return 'home';
+  if(/comida|supermercado|almuerzo|verduler|carnicer|kiosco|delivery/.test(n))return 'utensils';
+  if(/restaurant|bar|caf[eé]/.test(n))return 'coffee';
+  if(/transporte|colectivo|uber|taxi|combustible|nafta/.test(n))return 'bus';
+  if(/auto|moto|coche/.test(n))return 'car';
+  if(/salud|m[eé]dic|farmacia|doctor/.test(n))return 'health';
+  if(/gimnasio|gym|deporte/.test(n))return 'muscle';
+  if(/compra/.test(n))return 'cart';
+  if(/mascota|perro|gato|veterinari/.test(n))return 'paw';
+  if(/viaje|vuelo|avi[oó]n|vacacion/.test(n))return 'plane';
+  if(/regalo/.test(n))return 'gift';
+  if(/banco|ahorro|inversi[oó]n/.test(n))return 'piggy';
+  if(/telefono|tel[eé]fono|celular/.test(n))return 'phone';
+  if(/factura|impuesto|tasa/.test(n))return 'bill';
+  if(/belleza|est[eé]tica|peluquer/.test(n))return 'beauty';
+  if(/libro|curso|educaci[oó]n|colegio|escuela/.test(n))return 'book';
+  if(/agua/.test(n))return 'drop';
+  if(/familia|hijo/.test(n))return 'family';
+  return 'tag';
+}
+function defaultCatColor(name){
+  const s=String(name||'');
+  let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;
+  return CAT_COLORS[h%CAT_COLORS.length];
+}
+function catMetaOf(cat){
+  const m=state.catMeta&&state.catMeta[cat];
+  if(m&&m.icon&&m.color)return m;
+  return {icon:defaultCatIconKey(cat),color:defaultCatColor(cat)};
+}
+function setCatMeta(cat,icon,color){
+  if(!state.catMeta)state.catMeta={};
+  state.catMeta[cat]={icon:icon,color:color};
+}
 
 
 const SERVICE_LINK_ICON='<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>';
@@ -2250,9 +2482,10 @@ async function mcBootstrap(){
 
 /* ===== Notificaciones locales del teléfono ===== */
 const NOTIF_KEY='bois_local_notifications_v1';
-const NOTIF_DEFAULTS={enabled:false,time:'09:00',before:true,today:true,receivables:true,monthly:true};
+const NOTIF_DEFAULTS={enabled:false,time:'09:00',before:true,today:true,receivables:true,monthly:true,pdfReminder:false,pdfDay:1,pdfTime:'09:00',pdfStart:''};
 let notifScheduleTimer=null;
 let notifSyncRunning=false;
+let monthlyPdfNotificationListenerReady=false;
 
 function localNotificationsPlugin(){
   try{
@@ -2340,7 +2573,24 @@ function buildLocalNotifications(cfg){
     const total=(state.movs||[]).filter(x=>monthKey(x.venc||x.fecha)===ym&&isOutflow(x)).reduce((s,x)=>s+(Number(x.monto)||0),0);
     notifications.push({id:notificationId('monthly|'+ym),title:'Resumen de '+MESES[m],body:'Gastaste '+money(total)+' durante el mes.',schedule:{at,allowWhileIdle:true},extra:{kind:'monthly',month:ym}});
   }
-  return notifications.filter(n=>n.schedule&&n.schedule.at>now).slice(0,200);
+  if(cfg.pdfReminder){
+    const day=Math.min(28,Math.max(1,Number(cfg.pdfDay)||1));
+    const parts=String(cfg.pdfTime||'09:00').split(':').map(Number);
+    const start=notificationDate(cfg.pdfStart,0,cfg.pdfTime);
+    for(let i=0;i<18;i++){
+      const at=new Date(now.getFullYear(),now.getMonth()+i,day,parts[0]||0,parts[1]||0,0,0);
+      if(at<=now||(start&&at<start))continue;
+      const ym=at.getFullYear()+'-'+String(at.getMonth()+1).padStart(2,'0');
+      notifications.push({
+        id:notificationId('monthly-pdf|'+ym),
+        title:'Ya está lista tu métrica de '+MESES[at.getMonth()],
+        body:'Abrí Mi Contabilidad para generar el PDF de '+labelMonth(ym)+'.',
+        schedule:{at,allowWhileIdle:true},
+        extra:{kind:'monthlyPdf',month:ym}
+      });
+    }
+  }
+  return notifications.filter(n=>n.schedule&&n.schedule.at>now).sort((a,b)=>a.schedule.at-b.schedule.at).slice(0,200);
 }
 async function ensureNotificationPermission(showMessage){
   const LN=localNotificationsPlugin();
@@ -2379,12 +2629,12 @@ async function syncLocalNotifications(showMessage){
 }
 function scheduleNotificationsDebounced(){
   clearTimeout(notifScheduleTimer);
-  notifScheduleTimer=setTimeout(()=>syncLocalNotifications(false),900);
+  notifScheduleTimer=setTimeout(()=>{syncLocalNotifications(false);scheduleSmartNotifications();},900);
 }
 function setNotificationStatus(text){const el=document.getElementById('notifStatus');if(el)el.textContent=text;}
 async function toggleLocalNotifications(){
   const cfg=loadNotificationSettings();
-  if(!cfg.enabled){if(!(await ensureNotificationPermission(true)))return;cfg.enabled=true;}else cfg.enabled=false;
+  if(!cfg.enabled){if(!(await ensureNotificationPermission(true)))return;cfg.enabled=true;}else{cfg.enabled=false;cfg.pdfReminder=false;}
   storeNotificationSettings(cfg);updateNotificationSettingsUI();await syncLocalNotifications(false);
 }
 function saveNotificationSettings(){
@@ -2400,7 +2650,7 @@ function saveNotificationSettings(){
 async function updateNotificationSettingsUI(){
   const cfg=loadNotificationSettings();
   const btn=document.getElementById('notifToggleBtn');
-  const panel=document.getElementById('notificationSettings');
+  const panel=document.getElementById('notificationOptions');
   if(btn)btn.innerHTML='<svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> '+(cfg.enabled?'Desactivar notificaciones':'Activar notificaciones');
   if(panel)panel.style.display=cfg.enabled?'block':'none';
   const time=document.getElementById('notifTime');if(time)time.value=cfg.time||'09:00';
@@ -2420,7 +2670,27 @@ async function testLocalNotification(){
     setNotificationStatus('Prueba programada. Debería llegar en unos segundos.');
   }catch(e){console.error(e);alert('No se pudo enviar la notificación de prueba.');}
 }
-function initLocalNotifications(){updateNotificationSettingsUI();scheduleNotificationsDebounced();}
+function initLocalNotifications(){
+  updateNotificationSettingsUI();scheduleNotificationsDebounced();
+  const LN=localNotificationsPlugin();
+  if(!LN||monthlyPdfNotificationListenerReady||!LN.addListener)return;
+  monthlyPdfNotificationListenerReady=true;
+  LN.addListener('localNotificationActionPerformed',event=>{
+    const extra=event&&event.notification&&event.notification.extra;
+    if(!extra)return;
+    if(extra.kind==='monthlyPdf'){
+      setTimeout(()=>{
+        navigateApp('settings');
+        openMonthlyMetrics(extra.month||todayYM());
+      },150);
+    }else if(extra.kind==='debtReminder'&&extra.movementId){
+      setTimeout(()=>{
+        navigateApp('list');
+        openEdit(extra.movementId);
+      },150);
+    }
+  });
+}
 
 /* ====== Sacudida del teléfono / acelerómetro ====== */
 const SHAKE_KEY='bois_shake_enabled_v1';
@@ -2443,9 +2713,8 @@ function isShakeEnabled(){return localStorage.getItem(SHAKE_KEY)==='1';}
 function setShakeStatus(msg){const el=document.getElementById('shakeStatus');if(el)el.textContent=msg;}
 function updateShakeSettingsUI(){
   const enabled=isShakeEnabled();
-  const btn=document.getElementById('shakeToggleBtn');
-  const panel=document.getElementById('shakeSettings');
-  if(btn)btn.innerHTML='<svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 5 7l3 3"/><path d="m16 4 3 3-3 3"/><path d="M5 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4"/><path d="M4 17h4"/><path d="M16 17h4"/></svg> '+(enabled?'Desactivar giroscopio':'Activar giroscopio');
+  const input=document.getElementById('shakeToggleInput');
+  if(input)input.checked=enabled;
   if(enabled)setShakeStatus(shakeListenerHandle||shakeFallbackActive?'Sensor activo. Sacudí el teléfono durante 2 segundos para abrir el juego.':'Preparando el sensor…');
 }
 function shakeAcceleration(event){
@@ -3034,7 +3303,11 @@ async function copyGsCode(){
     alert('No se pudo copiar el código. Mantené presionado el botón o abrí el archivo GOOGLE-SHEETS-APPS-SCRIPT.gs.');
   }
 }
-function setCloud(msg){['cloudStatus','cloudStatus2'].forEach(idd=>{const e=document.getElementById(idd);if(e)e.textContent=msg;});}
+function setCloud(msg){
+  ['cloudStatus','cloudStatus2'].forEach(idd=>{const e=document.getElementById(idd);if(e)e.textContent=msg;});
+  const row=document.getElementById('cloudStatusRow');
+  if(row)row.textContent=cloudUrl?'Conectado':'No conectado';
+}
 function toggleGoalMenu(e){if(e)e.stopPropagation();const m=$('#goalMenu');if(m)m.classList.toggle('show');}
 function closeGoalMenu(){const m=$('#goalMenu');if(m)m.classList.remove('show');}
 function openGoalEdit(){
@@ -3358,8 +3631,8 @@ function updateFiscalUI(){
   const on=!!state.useFiscal;
   document.querySelectorAll('.fiscal-wrap').forEach(el=>{el.style.display=on?'block':'none';});
   document.querySelectorAll('.fiscal-inline').forEach(el=>{el.style.display=on?'grid':'none';});
-  const btn=$('#toggleFiscalBtn');
-  if(btn){btn.innerHTML='<svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h8"/></svg> '+(on?'Desactivar blanco / negro':'Activar blanco / negro');}
+  const input=$('#ft-fiscal');
+  if(input)input.checked=on;
 }
 function setFiscalChoice(prefix,val){
   const input=document.getElementById(prefix+'Fiscal');
@@ -3420,6 +3693,15 @@ function detectCategoryFlexible(text,tp){
 function toggleFiscalFeature(){state.useFiscal=!state.useFiscal;save();updateFiscalUI();render();}
 function fmtDM(s){const d=dateOnly(s);return d?d.split('-').reverse().slice(0,2).join('/'):''}
 function fmtDMTime(s){const d=fmtDM(s),t=timeOnly(s);return d+(t?' '+t:'')}
+function dateSepLabel(dISO){
+  if(!dISO)return '';
+  const today=todayISO();
+  const yd=new Date();yd.setDate(yd.getDate()-1);
+  if(dISO===today)return 'Hoy';
+  if(dISO===iso(yd))return 'Ayer';
+  const p=dISO.split('-');
+  return Number(p[2])+' de '+MESES[Number(p[1])-1].toLowerCase()+' de '+p[0];
+}
 function movSortTime(m){const raw=(m.fecha||m.venc||'').replace(' ','T');const n=Date.parse(raw);return Number.isNaN(n)?0:n}
 function daysUntil(s){
   if(!s)return null;
@@ -3584,6 +3866,7 @@ function ensureCats(){
   const current=Array.isArray(state.cats)?state.cats:[];
   state.cats=uniqueCats(current.concat(referencedCats(state)));
   if(!state.cats.length)state.cats=CATS.slice();
+  if(!state.catMeta||typeof state.catMeta!=='object')state.catMeta={};
 }
 function getCats(){ensureCats();return state.cats}
 function catsForTipo(t){return getCats()}
@@ -3647,9 +3930,11 @@ function renderCatManager(){
 
   list.innerHTML=cats.map((c,i)=>{
     const n=catUsage(c);
+    const meta=catMetaOf(c);
     const upDisabled=i===0?'disabled':'';
     const downDisabled=i===cats.length-1?'disabled':'';
     return '<div class="cat-row">'+
+      '<button type="button" class="cat-avatar" data-cat-index="'+i+'" title="Cambiar ícono y color" style="background:'+meta.color+'">'+catIconSvg(meta.icon,16)+'</button>'+
       '<span class="cat-name">'+esc(c)+'</span>'+
       '<span class="cat-count">'+n+' mov.</span>'+
       '<button type="button" class="cat-move cat-up" data-cat-index="'+i+'" title="Subir" '+upDisabled+'>▲</button>'+
@@ -3659,6 +3944,8 @@ function renderCatManager(){
   }).join('');
 
   list.onclick=function(ev){
+    const avatar=ev.target.closest('.cat-avatar');
+    if(avatar&&list.contains(avatar)){ev.preventDefault();catEditIcon(getCats()[Number(avatar.getAttribute('data-cat-index'))]);return;}
     const up=ev.target.closest('.cat-up');
     if(up&&list.contains(up)){ev.preventDefault();catMoveUp(Number(up.getAttribute('data-cat-index')));return;}
     const down=ev.target.closest('.cat-down');
@@ -3768,6 +4055,7 @@ function finalizeCatDelete(cat,target){
     (state.fijos||[]).forEach(f=>{if(f&&f.cat===cat)f.cat=target;});
   }
   state.cats=getCats().filter(c=>c!==cat);
+  if(state.catMeta)delete state.catMeta[cat];
   catPendingDelete='';
   ensureCats();
   save();
@@ -3776,34 +4064,80 @@ function finalizeCatDelete(cat,target){
   render();
 }
 
-function catAdd(){
+function renderCatPickerBox(opts){
+  let icon=opts.icon,color=opts.color;
   const box=$('#catReassign');
   if(!box)return;
   catPendingDelete='';
   box.style.display='block';
+  const nameField=opts.isNew?'<input id="catNewName" placeholder="Nombre de la categoría" style="margin-bottom:10px">':'';
+  const title=opts.isNew?'Agregar categoría':'Editar «'+esc(opts.cat)+'»';
   box.innerHTML='<div class="reassign-box">'+
-    '<div class="cat-action-title">Agregar categoría</div>'+
-    '<input id="catNewName" placeholder="Nombre de la categoría">'+
+    '<div class="cat-action-title">'+title+'</div>'+
+    nameField+
+    '<div class="icon-grid" id="catIconGrid">'+CAT_ICON_ORDER.map(function(k){
+      const sel=k===icon;
+      return '<button type="button" class="icon-opt'+(sel?' selected':'')+'" data-icon="'+k+'" style="'+(sel?'background:'+color+';color:#fff':'')+'">'+catIconSvg(k,17)+'</button>';
+    }).join('')+'</div>'+
+    '<div class="color-grid" id="catColorGrid">'+CAT_COLORS.map(function(c){
+      return '<button type="button" class="color-opt'+(c===color?' selected':'')+'" data-color="'+c+'" style="background:'+c+'"></button>';
+    }).join('')+'</div>'+
     '<div id="catActionStatus" class="cat-status"></div>'+
     '<div class="cat-action-row">'+
-      '<button type="button" id="catAddConfirmBtn" class="save">Agregar</button>'+
+      '<button type="button" id="catPickSaveBtn" class="save">Guardar</button>'+
       '<button type="button" id="catCancelBtn" class="save secondary">Cancelar</button>'+
     '</div></div>';
-  $('#catAddConfirmBtn').onclick=function(ev){
+
+  const iconGrid=$('#catIconGrid'),colorGrid=$('#catColorGrid');
+  function repaintIcons(){
+    iconGrid.querySelectorAll('.icon-opt').forEach(function(btn){
+      const on=btn.getAttribute('data-icon')===icon;
+      btn.classList.toggle('selected',on);
+      btn.style.background=on?color:'';
+      btn.style.color=on?'#fff':'';
+    });
+  }
+  iconGrid.onclick=function(ev){
+    const btn=ev.target.closest('.icon-opt');
+    if(!btn)return;
+    icon=btn.getAttribute('data-icon');
+    repaintIcons();
+  };
+  colorGrid.onclick=function(ev){
+    const btn=ev.target.closest('.color-opt');
+    if(!btn)return;
+    color=btn.getAttribute('data-color');
+    colorGrid.querySelectorAll('.color-opt').forEach(function(b){b.classList.toggle('selected',b===btn);});
+    repaintIcons();
+  };
+  $('#catPickSaveBtn').onclick=function(ev){
     ev.preventDefault();
-    const input=$('#catNewName');
-    const name=(input.value||'').trim().replace(/\s+/g,' ');
-    const status=$('#catActionStatus');
-    if(!name){status.textContent='Escribí un nombre.';input.focus();return;}
-    if(getCats().some(c=>c.toLowerCase()===name.toLowerCase())){status.textContent='Esa categoría ya existe.';input.focus();return;}
-    state.cats.push(name);
+    if(opts.isNew){
+      const input=$('#catNewName');
+      const name=(input.value||'').trim().replace(/\s+/g,' ');
+      const status=$('#catActionStatus');
+      if(!name){status.textContent='Escribí un nombre.';input.focus();return;}
+      if(getCats().some(function(c){return c.toLowerCase()===name.toLowerCase();})){status.textContent='Esa categoría ya existe.';input.focus();return;}
+      state.cats.push(name);
+      setCatMeta(name,icon,color);
+    }else{
+      setCatMeta(opts.cat,icon,color);
+    }
     save();
     refreshCatSelects();
     renderCatManager();
+    render();
   };
   $('#catCancelBtn').onclick=function(ev){ev.preventDefault();renderCatManager();};
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  setTimeout(()=>$('#catNewName').focus(),0);
+  if(opts.isNew)setTimeout(()=>$('#catNewName').focus(),0);
+}
+function catAdd(){
+  renderCatPickerBox({isNew:true,cat:null,icon:'tag',color:CAT_COLORS[0]});
+}
+function catEditIcon(cat){
+  const meta=catMetaOf(cat);
+  renderCatPickerBox({isNew:false,cat:cat,icon:meta.icon,color:meta.color});
 }
 
 function refreshCatSelects(){ if($('#fCat'))fillCats('#fCat',typeof tipo!=='undefined'?tipo:'gasto'); }
@@ -4118,8 +4452,12 @@ function applyTheme(){
   else if(theme==='blob')document.body.classList.add('blob');
   else if(theme==='mosca')document.body.classList.add('mosca');
   const b=document.getElementById('themeBtn');
-  if(b)b.innerHTML = theme==='dark'?ICsun : theme==='win'?ICwin : theme==='matrix'?ICmatrix : theme==='neo'?ICneo : theme==='blob'?ICblob : theme==='mosca'?ICmosca : ICmoon;
+  if(b)b.innerHTML = theme==='dark'?ICmoon : theme==='win'?ICwin : theme==='matrix'?ICmatrix : theme==='neo'?ICneo : theme==='blob'?ICblob : theme==='mosca'?ICmosca : ICsun;
   document.querySelectorAll('#themeMenu button').forEach(x=>x.classList.toggle('active',x.dataset.theme===theme));
+  const themeLabels={light:'Claro',dark:'Oscuro',win:'Windows',matrix:'Matrix',neo:'Neo',blob:'Blob',mosca:'Mosca'};
+  const themeRow=document.getElementById('themeStatusTxt');
+  if(themeRow)themeRow.textContent=themeLabels[theme]||'Claro';
+  try{if(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform()&&Capacitor.Plugins&&Capacitor.Plugins.Downloads)Capacitor.Plugins.Downloads.setWidgetTheme({theme:theme||'light'});}catch(e){}
   syncMoscaTheme();
 }
 function setTheme(t){theme=t;localStorage.setItem('bois_theme',t);applyTheme();closeThemeMenu();}
@@ -4127,6 +4465,22 @@ function toggleTheme(){const o=['light','dark','win','matrix','neo','blob','mosc
 function toggleThemeMenu(e){if(e)e.stopPropagation();const m=document.getElementById('themeMenu');if(m)m.classList.toggle('show');}
 function closeThemeMenu(){const m=document.getElementById('themeMenu');if(m)m.classList.remove('show');}
 document.addEventListener('click',function(e){if(!e.target.closest('.themewrap'))closeThemeMenu();});
+document.addEventListener('pointerdown',function(e){
+  const btn=e.target.closest('button');
+  if(!btn||btn.disabled)return;
+  const rect=btn.getBoundingClientRect();
+  const size=Math.max(rect.width,rect.height)*1.4;
+  const ripple=document.createElement('span');
+  ripple.className='btn-ripple';
+  ripple.style.width=ripple.style.height=size+'px';
+  ripple.style.left=(e.clientX-rect.left-size/2)+'px';
+  ripple.style.top=(e.clientY-rect.top-size/2)+'px';
+  btn.appendChild(ripple);
+  ripple.addEventListener('animationend',()=>ripple.remove());
+  btn.classList.remove('btn-pop');
+  void btn.offsetWidth;
+  btn.classList.add('btn-pop');
+});
 function shiftMonth(delta){
   const cur=$('#monthSel').value||todayYM();
   let p=cur.split('-').map(Number),y=p[0],m=p[1]+delta;
@@ -4742,6 +5096,17 @@ function updateMic(){
   const indicator=$('#voiceIndicator');if(indicator){indicator.classList.toggle('active',active);if(!active)indicator.classList.remove('speaking');}
   $('#micState').textContent=active?(micStatusText||'Activando micrófono…'):(micErrorMsg||'');
 }
+function refreshMicStatusRow(){
+  try{
+    if(!navigator.permissions||!navigator.permissions.query)return;
+    navigator.permissions.query({name:'microphone'}).then(function(p){
+      const row=$('#micStatusRow');
+      const label=function(){return p.state==='granted'?'Permitido':p.state==='denied'?'Denegado':'No solicitado';};
+      if(row)row.textContent=label();
+      p.onchange=function(){const r=$('#micStatusRow');if(r)r.textContent=label();};
+    }).catch(function(){});
+  }catch(e){}
+}
 async function requestMicPermission(){
   const btn=$('#micPermBtn');
   const status=$('#micPermStatus');
@@ -4755,6 +5120,7 @@ async function requestMicPermission(){
       stream.getTracks().forEach(t=>t.stop());
       if(status)status.textContent='Microfono habilitado. Ya podés usar la carga por voz.';
       if(btn)btn.disabled=false;
+      refreshMicStatusRow();
       return;
     }catch(e){}
   }
@@ -4762,7 +5128,7 @@ async function requestMicPermission(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(SR){
     const r=new SR();
-    r.onstart=()=>{r.stop();if(status)status.textContent='Microfono habilitado.';if(btn)btn.disabled=false;};
+    r.onstart=()=>{r.stop();if(status)status.textContent='Microfono habilitado.';if(btn)btn.disabled=false;refreshMicStatusRow();};
     r.onerror=e=>{
       if(e.error==='not-allowed'||e.error==='service-not-allowed'){
         if(status)status.textContent='Permiso denegado. Andá a Ajustes → Apps → Mi Contabilidad → Permisos → Micrófono.';
@@ -4770,6 +5136,7 @@ async function requestMicPermission(){
         if(status)status.textContent='Microfono habilitado.';
       }
       if(btn)btn.disabled=false;
+      refreshMicStatusRow();
     };
     try{r.start();}catch(e){if(btn)btn.disabled=false;}
     return;
@@ -4813,6 +5180,8 @@ function toggleAlertsBox(){
 let aldiaCerrado=false;
 function render(){
   const ym=$('#monthSel').value||todayYM();
+  const mlab=$('#monthSelLabel');
+  if(mlab){const opt=$('#monthSel').selectedOptions[0];mlab.textContent=opt?opt.textContent:'';}
   const changed=ensureExcedentesThrough(ym);
   autoAcreditarMeDeben();
   save();
@@ -4885,20 +5254,34 @@ function render(){
   if(view==='cal'){renderCalendar(ym);return;}
   if(view==='met'){renderMetrics(ym);return;}
 
+  let lastItemSep='';
   $('#items').innerHTML = displayMovs.length?displayMovs.map(m=>{
     const inSide=incomeSide(m);
     const sign=inSide?'+':'−';
-    let vtxt='Cargado '+fmtDMTime(m.fecha);
-    if(m.tipo==='deuda'&&m.venc)vtxt='Vence '+fmtDM(m.venc)+' · Cargado '+fmtDMTime(m.fecha);
-    else if(m.tipo==='medeben'&&m.venc)vtxt=(m.estado==='pago'?'Acreditado ':'Cobro ')+fmtDM(m.venc)+' · Cargado '+fmtDMTime(m.fecha);
+    let metaTxt=IC.clock+timeOnly(m.fecha);
+    if(m.tipo==='deuda'&&m.venc)metaTxt='Vence '+fmtDM(m.venc)+' · '+IC.clock+timeOnly(m.fecha);
+    else if(m.tipo==='medeben'&&m.venc)metaTxt=(m.estado==='pago'?'Acreditado ':'Cobro ')+fmtDM(m.venc)+' · '+IC.clock+timeOnly(m.fecha);
     const manualTag=isManualExcedente(m)?' <span class="cat-tag">Manual</span>':'';
-    let status='';
-    if(m.tipo==='deuda')status='<button class="pill '+m.estado+'" onclick="togglePago(\''+m.id+'\')">'+(m.estado==='pago'?'Pagado':'Impago')+'</button>';
-    else if(m.tipo==='medeben')status='<button class="pill '+(m.estado==='pago'?'cobrado':'cobrar')+'" onclick="togglePago(\''+m.id+'\')">'+(m.estado==='pago'?'Cobrado':'Cobrar')+'</button>';
-    else if(m.tipo==='gasto')status='<span class="pill pago">Pagado</span>';
+    let badge='';
+    if(m.tipo==='deuda'){
+      const paid=m.estado==='pago';
+      badge='<button type="button" class="pay-badge '+(paid?'paid':'pending')+'" onclick="togglePago(\''+m.id+'\')" title="'+(paid?'Pagado':'Impago')+'" aria-label="'+(paid?'Pagado':'Impago')+'">'+(paid?IC.check:'')+'</button>';
+    }else if(m.tipo==='medeben'){
+      const paid=m.estado==='pago';
+      badge='<button type="button" class="pay-badge '+(paid?'paid':'pending')+'" onclick="togglePago(\''+m.id+'\')" title="'+(paid?'Cobrado':'Cobrar')+'" aria-label="'+(paid?'Cobrado':'Cobrar')+'">'+(paid?IC.check:'')+'</button>';
+    }else if(m.tipo==='gasto'){
+      badge='<span class="pay-badge paid" title="Pagado" aria-label="Pagado">'+IC.check+'</span>';
+    }
     const serviceLink=movementServiceLink(m);
     const linkButton=serviceLink?'<button class="ico service-link" type="button" title="Abrir enlace del servicio" aria-label="Abrir enlace del servicio" onclick="openServiceLink(\''+m.id+'\')">'+SERVICE_LINK_ICON+'</button>':'';
-    return '<div class="item"><div class="item-top"><span class="dot '+m.tipo+'"></span><div class="d1">'+m.desc+' '+(m.fijo?IC.repeat:'')+'</div></div><div class="d2"><div><span class="cat-tag">'+m.cat+'</span>'+fiscalTagHtml(m)+manualTag+'</div><span class="vtxt">'+vtxt+'</span></div><div class="item-foot"><div class="acts">'+status+'<button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div><div class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</div></div></div>';
+    const catMeta=catMetaOf(m.cat);
+    const timeMeta='<div class="item-avatar-meta"><span class="time">'+metaTxt+'</span></div>';
+    const avatarCol='<div class="item-avatar-col"><div class="item-avatar" style="background:'+catMeta.color+'">'+catIconSvg(catMeta.icon,20)+badge+'</div>'+timeMeta+'</div>';
+    const tagsLine=fiscalTagHtml(m)+manualTag;
+    const dISO=dateOnly(m.fecha);
+    let sep='';
+    if(dISO!==lastItemSep){sep='<div class="date-sep">'+esc(dateSepLabel(dISO))+'</div>';lastItemSep=dISO;}
+    return sep+'<div class="item">'+avatarCol+'<div class="item-body"><div class="item-top"><div class="d1">'+m.desc+' '+(m.fijo?IC.repeat:'')+'</div></div><div class="d2">'+(tagsLine?'<div>'+tagsLine+'</div>':'')+'</div><div class="item-foot"><div class="acts"><button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div></div></div><div class="item-amt-col"><span class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</span></div></div>';
   }).join(''):'<div style="padding:30px;text-align:center;color:var(--muted);font-weight:700">'+(searchQuery?'Sin resultados para "'+esc(searchQuery)+'"':'Sin movimientos este mes. Cargá uno arriba')+'</div>';
 }
 
@@ -5134,7 +5517,9 @@ function dayDetail(isoD){
 /* ============ BACKUP ============ */
 function backup(){
   const json=JSON.stringify(state,null,2);
-  const name='contabilidad-backup-'+todayISO()+'.json';
+  const now=new Date();
+  const hhmmss=[now.getHours(),now.getMinutes(),now.getSeconds()].map(n=>String(n).padStart(2,'0')).join('-');
+  const name='contabilidad-backup-'+todayISO()+'_'+hhmmss+'.json';
   if(mcFS()){ mcWrite(name,json).then(ok=>alert(ok?('Copia guardada en la carpeta MiContabilidad de tu teléfono ('+name+')'):'No se pudo guardar el archivo.')); return; }
   const blob=new Blob([json],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
@@ -5193,6 +5578,13 @@ function confirmWipe(){
 }
 
 /* ============ FEATURES ============ */
+function toggleSettingsFold(panelId,button){
+  const panel=document.getElementById(panelId);
+  if(!panel)return;
+  const open=panel.hidden;
+  panel.hidden=!open;
+  if(button)button.setAttribute('aria-expanded',open?'true':'false');
+}
 function toggleFeature(name,val){
   if(!state.features)state.features={};
   state.features[name]=!!val;
@@ -5239,26 +5631,220 @@ function filterBySearch(movs){
 }
 
 /* ============ PDF ============ */
-function exportPDF(){
-  const ym=$('#monthSel')?$('#monthSel').value||todayYM():todayYM();
-  const movs=state.movs.filter(m=>monthKey(m.venc||m.fecha)===ym).sort((a,b)=>movSortTime(b)-movSortTime(a));
-  const ing=movs.filter(isIncome).reduce((s,m)=>s+m.monto,0);
-  const gas=movs.filter(isOutflow).reduce((s,m)=>s+m.monto,0);
-  const pc=$('#printContainer');
-  if(!pc)return;
-  pc.innerHTML=
-    '<div class="ph">Mi Contabilidad — '+esc(labelMonth(ym))+'</div>'+
-    movs.map(m=>{
-      const inSide=incomeSide(m);
-      return '<div class="pi"><span class="pi-d">'+esc(m.desc)+'<span class="pi-cat">'+esc(m.cat)+'</span></span><span class="pi-a '+(inSide?'in':'out')+'">'+(inSide?'+':'−')+money(m.monto)+'</span></div>';
-    }).join('')+
-    '<div class="pt">'+
-      '<span style="color:#15803d">Ingresos: +'+money(ing)+'</span>'+
-      '<span style="color:#b91c1c">Gastos: −'+money(gas)+'</span>'+
-      '<span>Balance: '+(ing-gas>=0?'+':'')+money(ing-gas)+'</span>'+
-    '</div>';
-  pc.style.display='block';
-  setTimeout(()=>{window.print();setTimeout(()=>{pc.style.display='none';},500);},50);
+let lastMonthlyPdf=null;
+let downloadsPluginCache;
+
+function downloadsPlugin(){
+  if(downloadsPluginCache!==undefined)return downloadsPluginCache;
+  try{
+    if(!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform()))return downloadsPluginCache=null;
+    downloadsPluginCache=(Capacitor.Plugins&&Capacitor.Plugins.Downloads)||
+      (Capacitor.registerPlugin?Capacitor.registerPlugin('Downloads'):null);
+    return downloadsPluginCache;
+  }catch(e){return downloadsPluginCache=null;}
+}
+function toggleMonthlyPdfReminderFields(){
+  const enabled=!!($('#monthlyPdfReminder')&&$('#monthlyPdfReminder').checked);
+  const fields=$('#monthlyPdfReminderFields');
+  if(fields)fields.style.opacity=enabled?'1':'.48';
+  ['monthlyPdfDate','monthlyPdfTime'].forEach(id=>{const el=$('#'+id);if(el)el.disabled=!enabled;});
+}
+function nextMonthlyPdfReminderDate(cfg){
+  const stored=String(cfg&&cfg.pdfStart||'').slice(0,10);
+  if(/^\d{4}-\d{2}-\d{2}$/.test(stored))return stored;
+  const day=Math.min(28,Math.max(1,Number(cfg&&cfg.pdfDay)||1));
+  const parts=String(cfg&&cfg.pdfTime||'09:00').split(':').map(Number);
+  const now=new Date();
+  let next=new Date(now.getFullYear(),now.getMonth(),day,parts[0]||0,parts[1]||0,0,0);
+  if(next<=now)next=new Date(now.getFullYear(),now.getMonth()+1,day,parts[0]||0,parts[1]||0,0,0);
+  return iso(next);
+}
+function openMonthlyMetrics(requestedYm){
+  const selected=requestedYm||($('#monthSel')&&$('#monthSel').value)||todayYM();
+  const select=$('#monthlyPdfMonth');
+  if(select){
+    const months=new Set([selected,todayYM()]);
+    if($('#monthSel'))[...$('#monthSel').options].forEach(option=>months.add(option.value));
+    for(let i=0;i<24;i++)months.add(addMonthsYM(todayYM(),-i));
+    select.innerHTML='';
+    [...months].filter(Boolean).sort().reverse().forEach(ym=>{
+      const option=document.createElement('option');
+      option.value=ym;option.textContent=labelMonth(ym);select.appendChild(option);
+    });
+    select.value=selected;
+  }
+  const cfg=loadNotificationSettings();
+  const reminderDate=nextMonthlyPdfReminderDate(cfg);
+  $('#monthlyPdfReminder').checked=!!cfg.pdfReminder;
+  $('#monthlyPdfDate').value=reminderDate;
+  $('#monthlyPdfTime').value=cfg.pdfTime||'09:00';
+  $('#monthlyPdfResult').hidden=true;
+  $('#monthlyPdfReminderStatus').textContent=cfg.pdfReminder
+    ?'Primer aviso: '+reminderDate.split('-').reverse().join('/')+' a las '+cfg.pdfTime+'. Después se repite cada mes.'
+    :'El recordatorio mensual está desactivado.';
+  toggleMonthlyPdfReminderFields();
+  $('#ovMonthlyPdf').classList.add('show');
+}
+async function saveMonthlyPdfReminder(){
+  const enabled=!!$('#monthlyPdfReminder').checked;
+  const cfg=loadNotificationSettings();
+  const date=$('#monthlyPdfDate').value||nextMonthlyPdfReminderDate(cfg);
+  const day=Math.min(28,Math.max(1,Number(date.slice(8,10))||1));
+  const time=$('#monthlyPdfTime').value||'09:00';
+  if(enabled&&localNotificationsPlugin()&&!(await ensureNotificationPermission(true))){
+    $('#monthlyPdfReminder').checked=false;
+    toggleMonthlyPdfReminderFields();
+    return;
+  }
+  cfg.pdfReminder=enabled;cfg.pdfDay=day;cfg.pdfTime=time;cfg.pdfStart=date;
+  if(enabled)cfg.enabled=true;
+  storeNotificationSettings(cfg);
+  updateNotificationSettingsUI();
+  await syncLocalNotifications(false);
+  $('#monthlyPdfReminderStatus').textContent=enabled
+    ?(localNotificationsPlugin()?'Primer aviso: '+date.split('-').reverse().join('/')+' a las '+time+'. Después se repite cada mes.':'Configurado para el día '+day+' de cada mes. Se activará en la APK instalada.')
+    :'El recordatorio mensual está desactivado.';
+}
+function pdfSafeText(value,maxLength){
+  let text=String(value==null?'':value)
+    .replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/…/g,'...')
+    .replace(/[^\x20-\x7e\xa0-\xff]/g,' ');
+  if(maxLength&&text.length>maxLength)text=text.slice(0,Math.max(1,maxLength-3))+'...';
+  return text;
+}
+function pdfEscapeText(value,maxLength){return pdfSafeText(value,maxLength).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');}
+function pdfText(ops,text,x,y,size,bold,color){
+  const rgb=color||[.12,.14,.22];
+  ops.push('BT /F'+(bold?'2':'1')+' '+size+' Tf '+rgb.join(' ')+' rg '+x+' '+y+' Td ('+pdfEscapeText(text)+') Tj ET');
+}
+function pdfRect(ops,x,y,w,h,color){ops.push('q '+color.join(' ')+' rg '+x+' '+y+' '+w+' '+h+' re f Q');}
+function latin1Bytes(text){
+  const bytes=new Uint8Array(text.length);
+  for(let i=0;i<text.length;i++)bytes[i]=text.charCodeAt(i)&255;
+  return bytes;
+}
+function buildMonthlyPdf(ym){
+  const movs=(state.movs||[]).filter(m=>monthKey(m.venc||m.fecha)===ym).sort((a,b)=>movSortTime(b)-movSortTime(a));
+  const ingresos=movs.filter(isIncome).reduce((sum,m)=>sum+(Number(m.monto)||0),0);
+  const salidas=movs.filter(isOutflow).reduce((sum,m)=>sum+(Number(m.monto)||0),0);
+  const pendiente=movs.filter(isPendingOutflow).reduce((sum,m)=>sum+(Number(m.monto)||0),0);
+  const balance=ingresos-salidas;
+  const categories={};
+  movs.filter(isOutflow).forEach(m=>{categories[m.cat||'Sin categoría']=(categories[m.cat||'Sin categoría']||0)+(Number(m.monto)||0);});
+  const categoryRows=Object.keys(categories).map(cat=>({cat,total:categories[cat]})).sort((a,b)=>b.total-a.total);
+  const pages=[];
+  let ops=[],y=0;
+  function startPage(subtitle){
+    ops=[];
+    pdfRect(ops,0,772,595,70,[.06,.09,.16]);
+    pdfRect(ops,0,767,595,5,[.04,.64,.73]);
+    pdfText(ops,'MI CONTABILIDAD',42,809,19,true,[1,1,1]);
+    pdfText(ops,subtitle||('Métricas mensuales - '+labelMonth(ym)),42,787,10,false,[.82,.9,.96]);
+    y=742;
+  }
+  function finishPage(){pages.push(ops.join('\n'));}
+  function ensureSpace(height,subtitle){if(y-height<54){finishPage();startPage(subtitle);}}
+  startPage('Métricas mensuales - '+labelMonth(ym));
+  const boxY=676,boxW=158;
+  [[42,'INGRESOS',money(ingresos),[.04,.55,.36]],[218,'SALIDAS',money(salidas),[.82,.18,.34]],[394,'BALANCE',(balance>=0?'+':'')+money(balance),balance>=0?[.12,.37,.86]:[.82,.18,.34]]].forEach(box=>{
+    pdfRect(ops,box[0],boxY,boxW,54,[.94,.96,.98]);
+    pdfRect(ops,box[0],boxY,5,54,box[3]);
+    pdfText(ops,box[1],box[0]+14,boxY+34,8,true,[.35,.39,.48]);
+    pdfText(ops,box[2],box[0]+14,boxY+14,14,true,box[3]);
+  });
+  pdfText(ops,'Pendiente de pago: '+money(pendiente)+'    Movimientos: '+movs.length,42,653,9,true,[.24,.28,.36]);
+  y=622;
+  pdfText(ops,'GASTOS POR CATEGORÍA',42,y,11,true,[.06,.09,.16]);y-=21;
+  if(!categoryRows.length){pdfText(ops,'Sin salidas registradas en este mes.',42,y,9,false,[.4,.43,.5]);y-=22;}
+  categoryRows.forEach(row=>{
+    ensureSpace(18,'Categorías - '+labelMonth(ym));
+    pdfText(ops,pdfSafeText(row.cat,55),48,y,9,false,[.16,.19,.27]);
+    pdfText(ops,money(row.total),430,y,9,true,[.82,.18,.34]);
+    ops.push('q .84 .86 .9 RG .5 w 42 '+(y-6)+' m 553 '+(y-6)+' l S Q');
+    y-=18;
+  });
+  ensureSpace(36,'Movimientos - '+labelMonth(ym));
+  y-=8;pdfText(ops,'MOVIMIENTOS DEL MES',42,y,11,true,[.06,.09,.16]);y-=23;
+  if(!movs.length){pdfText(ops,'No hay movimientos registrados.',42,y,9,false,[.4,.43,.5]);y-=18;}
+  movs.forEach(m=>{
+    ensureSpace(34,'Movimientos - '+labelMonth(ym));
+    const incoming=incomeSide(m);
+    const date=dateOnly(m.venc||m.fecha).split('-').reverse().join('/');
+    pdfText(ops,date,42,y,8,false,[.4,.43,.5]);
+    pdfText(ops,pdfSafeText(m.desc||'Movimiento',46),103,y,9,true,[.12,.14,.22]);
+    pdfText(ops,(incoming?'+':'-')+money(m.monto),455,y,9,true,incoming?[.04,.55,.36]:[.82,.18,.34]);
+    pdfText(ops,pdfSafeText((m.cat||'Sin categoría')+(m.fijo?' - Recurrente':''),66),103,y-13,7,false,[.4,.43,.5]);
+    ops.push('q .88 .89 .92 RG .5 w 42 '+(y-19)+' m 553 '+(y-19)+' l S Q');
+    y-=34;
+  });
+  finishPage();
+  pages.forEach((page,index)=>{
+    const footer=[];
+    pdfText(footer,'Generado el '+new Date().toLocaleDateString('es-AR')+' - Página '+(index+1)+' de '+pages.length,42,28,7,false,[.45,.47,.53]);
+    pages[index]=page+'\n'+footer.join('\n');
+  });
+
+  const objects=[];
+  objects[1]='<< /Type /Catalog /Pages 2 0 R >>';
+  objects[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
+  objects[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+  const kids=[];
+  pages.forEach((content,index)=>{
+    const pageId=5+index*2,contentId=pageId+1;
+    kids.push(pageId+' 0 R');
+    objects[pageId]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+contentId+' 0 R >>';
+    objects[contentId]='<< /Length '+content.length+' >>\nstream\n'+content+'\nendstream';
+  });
+  objects[2]='<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+pages.length+' >>';
+  let pdf='%PDF-1.4\n%\xe2\xe3\xcf\xd3\n';
+  const offsets=[0];
+  for(let i=1;i<objects.length;i++){offsets[i]=pdf.length;pdf+=i+' 0 obj\n'+objects[i]+'\nendobj\n';}
+  const xref=pdf.length;
+  pdf+='xref\n0 '+objects.length+'\n0000000000 65535 f \n';
+  for(let i=1;i<objects.length;i++)pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';
+  pdf+='trailer\n<< /Size '+objects.length+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF';
+  return latin1Bytes(pdf);
+}
+function bytesToBase64(bytes){
+  let binary='';
+  for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode.apply(null,bytes.subarray(i,i+32768));
+  return btoa(binary);
+}
+async function generateMonthlyPdf(){
+  const ym=$('#monthlyPdfMonth').value||todayYM();
+  const button=$('#generateMonthlyPdfBtn');
+  const resultBox=$('#monthlyPdfResult');
+  button.disabled=true;button.textContent='Generando...';resultBox.hidden=true;
+  try{
+    const bytes=buildMonthlyPdf(ym);
+    const name='Metricas-mensuales-'+ym+'.pdf';
+    const nativeDownloads=downloadsPlugin();
+    if(nativeDownloads){
+      const result=await nativeDownloads.savePdf({name,data:bytesToBase64(bytes)});
+      lastMonthlyPdf={name,uri:result&&result.uri?result.uri:'',webUrl:''};
+      $('#monthlyPdfResultText').textContent='Guardado en Descargas como '+name+'.';
+    }else{
+      if(lastMonthlyPdf&&lastMonthlyPdf.webUrl)URL.revokeObjectURL(lastMonthlyPdf.webUrl);
+      const url=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
+      const link=document.createElement('a');link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();
+      lastMonthlyPdf={name,uri:'',webUrl:url};
+      $('#monthlyPdfResultText').textContent='Descargado como '+name+'.';
+    }
+    resultBox.hidden=false;
+  }catch(e){
+    console.error('Generar PDF:',e);
+    alert('No se pudo generar o guardar el PDF. Intentá nuevamente.');
+  }finally{button.disabled=false;button.textContent='Generar PDF';}
+}
+async function openMonthlyPdfFile(){
+  if(!lastMonthlyPdf)return;
+  try{
+    const nativeDownloads=downloadsPlugin();
+    if(nativeDownloads&&lastMonthlyPdf.uri){await nativeDownloads.openPdf({uri:lastMonthlyPdf.uri});return;}
+    if(lastMonthlyPdf.webUrl){
+      const link=document.createElement('a');link.href=lastMonthlyPdf.webUrl;link.target='_blank';link.rel='noopener';document.body.appendChild(link);link.click();link.remove();
+    }
+  }catch(e){console.error('Abrir PDF:',e);alert('El archivo quedó guardado, pero no encontré una aplicación para abrir PDF.');}
 }
 
 /* ============ ONBOARDING ============ */
@@ -5363,6 +5949,147 @@ async function scheduleSmartNotifications(){
       }catch(e){}
     }
   }
+
+  /* --- Chequeos adicionales: resumen semanal, objetivo, balance, deudas, motivacionales --- */
+  const smartState=loadSmartNotifState();
+  const ym=todayYM();
+  const monthMovs=movs.filter(m=>monthKey(m.venc||m.fecha)===ym);
+  const ingMes=monthMovs.filter(isIncome).reduce((s,m)=>s+(Number(m.monto)||0),0);
+  const gasMes=monthMovs.filter(isOutflow).reduce((s,m)=>s+(Number(m.monto)||0),0);
+  const balMes=ingMes-gasMes;
+  const monday=new Date(now);monday.setHours(0,0,0,0);monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
+  const mondayKey=iso(monday);
+  const gasSemana=movs.filter(m=>isOutflow(m)&&dateOnly(m.fecha)>=mondayKey).reduce((s,m)=>s+(Number(m.monto)||0),0);
+
+  // 1) Resumen semanal de gastos
+  if(gasSemana>0&&smartState.weekKey!==mondayKey){
+    try{
+      await LN.cancel({notifications:[{id:9003}]});
+      await LN.schedule({notifications:[{
+        id:9003,
+        title:'Resumen de la semana',
+        body:'Esta semana gastaste '+money(gasSemana)+'.',
+        schedule:{at:new Date(Date.now()+3600000)},
+        smallIcon:'ic_notification'
+      }]});
+      smartState.weekKey=mondayKey;saveSmartNotifState(smartState);
+    }catch(e){}
+  }
+
+  // 2) Cerca del objetivo de ingresos (80-99%)
+  const goalMin=Number(state.goalMin)||0;
+  if(goalMin>0){
+    const pct=Math.round(ingMes/goalMin*100);
+    if(pct>=80&&pct<100&&smartState.goalNearMonth!==ym){
+      try{
+        await LN.cancel({notifications:[{id:9004}]});
+        await LN.schedule({notifications:[{
+          id:9004,
+          title:'Estás cerca de tu objetivo',
+          body:'Llevás '+money(ingMes)+' de '+money(goalMin)+' ('+pct+'%). ¡Ya casi llegás!',
+          schedule:{at:new Date(Date.now()+3600000)},
+          smallIcon:'ic_notification'
+        }]});
+        smartState.goalNearMonth=ym;saveSmartNotifState(smartState);
+      }catch(e){}
+    }
+    // 4) Objetivo cumplido
+    if(ingMes>=goalMin&&smartState.goalReachedMonth!==ym){
+      try{
+        await LN.cancel({notifications:[{id:9006}]});
+        await LN.schedule({notifications:[{
+          id:9006,
+          title:'¡Objetivo cumplido!',
+          body:'Llegaste a '+money(ingMes)+' de '+money(goalMin)+' este mes. Lo hiciste muy bien.',
+          schedule:{at:new Date(Date.now()+3600000)},
+          smallIcon:'ic_notification'
+        }]});
+        smartState.goalReachedMonth=ym;saveSmartNotifState(smartState);
+      }catch(e){}
+    }
+  }
+
+  // 3) Balance bajo o negativo
+  const todayKey=todayISO();
+  if(balMes<0&&smartState.lowBalanceDay!==todayKey){
+    try{
+      await LN.cancel({notifications:[{id:9005}]});
+      await LN.schedule({notifications:[{
+        id:9005,
+        title:'Cuidado con tu balance',
+        body:'Tu balance de '+labelMonth(ym)+' está en '+money(balMes)+'.',
+        schedule:{at:new Date(Date.now()+3600000)},
+        smallIcon:'ic_notification'
+      }]});
+      smartState.lowBalanceDay=todayKey;saveSmartNotifState(smartState);
+    }catch(e){}
+  }
+
+  // 5) Deuda vencida sin pagar (recordatorio cada 4 días mientras siga impaga)
+  const overdue=movs.filter(m=>isPendingOutflow(m)&&m.venc&&daysUntil(m.venc)<0).sort((a,b)=>daysUntil(a.venc)-daysUntil(b.venc));
+  if(overdue.length){
+    const target=overdue.find(m=>{
+      const last=smartState.overdue&&smartState.overdue[m.id];
+      if(!last)return true;
+      return (Date.now()-new Date(last).getTime())>=4*86400000;
+    });
+    if(target){
+      try{
+        await LN.cancel({notifications:[{id:9007}]});
+        const diasVencido=Math.abs(daysUntil(target.venc));
+        await LN.schedule({notifications:[{
+          id:9007,
+          title:'Deuda pendiente',
+          body:'Todavía no pagaste "'+target.desc+'" ('+money(target.monto)+'), vencida hace '+diasVencido+(diasVencido===1?' día':' días')+'.',
+          schedule:{at:new Date(Date.now()+3600000)},
+          extra:{kind:'debtReminder',movementId:target.id||''},
+          smallIcon:'ic_notification'
+        }]});
+        if(!smartState.overdue)smartState.overdue={};
+        smartState.overdue[target.id]=new Date().toISOString();
+        saveSmartNotifState(smartState);
+      }catch(e){}
+    }
+  }
+
+  // 6) Motivacional: ingreso reciente (últimos 3 días)
+  const recentIncome=movs.filter(m=>m.tipo==='ingreso'&&dateOnly(m.fecha)>=iso(new Date(Date.now()-3*86400000)))
+    .sort((a,b)=>movSortTime(b)-movSortTime(a))[0];
+  if(recentIncome&&smartState.lastIncomeId!==recentIncome.id){
+    try{
+      await LN.cancel({notifications:[{id:9008}]});
+      await LN.schedule({notifications:[{
+        id:9008,
+        title:'¡Felicitaciones!',
+        body:'Registraste un ingreso de '+money(recentIncome.monto)+' ('+recentIncome.desc+'). ¡Seguí así!',
+        schedule:{at:new Date(Date.now()+3600000)},
+        smallIcon:'ic_notification'
+      }]});
+      smartState.lastIncomeId=recentIncome.id;saveSmartNotifState(smartState);
+    }catch(e){}
+  }
+
+  // 7) Resumen del día, todas las noches a las 21:00
+  const gastoHoy=movs.filter(m=>isOutflow(m)&&dateOnly(m.fecha)===todayKey).reduce((s,m)=>s+(Number(m.monto)||0),0);
+  const dailyAt=new Date(now.getFullYear(),now.getMonth(),now.getDate(),21,0,0,0);
+  if(gastoHoy>0&&dailyAt>now){
+    try{
+      await LN.cancel({notifications:[{id:9009}]});
+      await LN.schedule({notifications:[{
+        id:9009,
+        title:'Resumen de gastos de hoy',
+        body:'Hoy gastaste '+money(gastoHoy)+'.',
+        schedule:{at:dailyAt,allowWhileIdle:true},
+        smallIcon:'ic_notification'
+      }]});
+    }catch(e){}
+  }
+}
+function loadSmartNotifState(){
+  try{return JSON.parse(localStorage.getItem('bois_smart_notif_state')||'{}')||{};}catch(e){return {};}
+}
+function saveSmartNotifState(s){
+  try{localStorage.setItem('bois_smart_notif_state',JSON.stringify(s||{}));}catch(e){}
 }
 
 /* ============ INIT ============ */
@@ -5384,6 +6111,7 @@ initLocalNotifications();
 initShakeFeature();
 updateBottomNav(view);
 updateFeaturesUI();
+refreshMicStatusRow();
 maybeShowOnboarding();
 scheduleSmartNotifications();
 </script>

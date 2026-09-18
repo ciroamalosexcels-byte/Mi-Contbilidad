@@ -15,7 +15,8 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 - Los servicios recurrentes aceptan un `link` opcional; si existe, la lista muestra un botón de enlace junto a Editar. Sólo se admiten URLs HTTP/HTTPS y se agrega `https://` cuando falta
 - Excedente del mes: lleva el sobrante al mes siguiente. Si el usuario lo edita, tiene `excedenteManual:true`.
 - Búsqueda en tiempo real sobre la lista (filtra por desc/cat)
-- Export PDF del mes (`window.print()` con `@media print` dedicado)
+- Métricas mensuales: modal para generar un PDF real del mes, descargarlo y abrirlo. En Android se guarda en la carpeta pública Descargas mediante el puente nativo `DownloadsPlugin`
+- Recordatorio configurable por día y hora para generar la métrica mensual; al tocar la notificación abre directamente el modal
 - Gráficos extendidos: Métricas muestra 6 meses en vez de 3 cuando está activado
 - Recordatorios inteligentes: notificación si pasan 3+ días sin movimientos; aviso de fin de mes si hay gastos fijos sin registrar (IDs 9001/9002)
 - Onboarding: modal de 4 slides al primer uso (`localStorage` key `bois_onboarded_v1`); slide 4 permite agregar/quitar categorías con chips interactivos
@@ -57,6 +58,8 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 - `GOOGLE-SHEETS-APPS-SCRIPT.gs` — script Apps Script para sync con Sheets
 - `www/assets/` — recursos estáticos (íconos, sonidos, etc.)
 - `www/minijuego/` — minijuego incluido en la app
+- `Logo-App.jpg` — ícono launcher de la aplicación Android
+- `native/downloads/` — puente Android para guardar y abrir los PDF desde Descargas
 
 ## Convenciones
 - `save()` → persiste state a localStorage
@@ -75,9 +78,12 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 - Todas las modales se cierran al tocar fuera (un solo `querySelectorAll('.ov')` con `closeOverlay`)
 - `-webkit-text-size-adjust:100%` en body para evitar zoom automático en mobile (afectaba a todos los temas excepto blob)
 - Neo: colores claros (`#c1efb4`, `#ffdad6`, `#bee9ff`, `#ffdb6e`) en dots, KPI vals y "Falta pagar"
+- En Funciones extras y Métricas mensuales no usar texto completamente en mayúsculas; mantener tipografía compacta y márgenes laterales cómodos en mobile
 - Sin emojis en ninguna parte del código ni la UI — usar SVGs o texto plano
 
 ## Fixes importantes ya hechos
+> Cada entrada nueva que se agregue acá debe incluir fecha y hora (ej: `2026-09-17 14:30`).
+- `2026-09-17 20:38` Tema blob: se eliminó un bloque de CSS sin commitear (`#coolvetica-font`) que forzaba "Simply Rounded" solo en botones/inputs/títulos de blob, mezclándose con "Plus Jakarta Sans" en el resto del texto. Blob vuelve a usar Plus Jakarta Sans en todo, como antes.
 - `overflow-x:clip` en `body.mosca` (no `hidden`, rompería `position:fixed`)
 - `overflow:clip` en `.app-bottom-nav` MOSCA (evita BFC que interfería con `will-change:transform`)
 - `user-scalable=no` en viewport meta (zoom accidental en mobile)
