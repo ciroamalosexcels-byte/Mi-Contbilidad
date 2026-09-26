@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FlyFinanzas</title>
+<title>Flyfinanzas</title>
 <link rel="icon" type="image/jpeg" href="assets/logo-app.jpg?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -306,10 +306,12 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:14p
 .goal{border-radius:var(--r);padding:2px 16px;margin-bottom:12px}
 .bar{height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:2px}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:.4s}
+.daily-budget-card{display:none;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;margin:-2px 0 12px;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
+.daily-budget-card.show{display:flex}.daily-budget-card .daily-copy{min-width:0}.daily-budget-card .daily-title{font-size:.76rem;color:var(--muted);font-weight:800}.daily-budget-card .daily-detail{font-size:.72rem;color:var(--muted);font-weight:700;margin-top:2px}.daily-budget-card .daily-value{font-size:1.05rem;font-weight:900;color:var(--ok);white-space:nowrap}.daily-budget-card.over .daily-value{color:var(--rojo)}
 
 .alerts{margin-bottom:12px}
 .alert-head{font-weight:900;font-size:1rem;margin-bottom:9px;display:flex;align-items:center;gap:8px;color:var(--txt)}
-.alert-head.toggle{cursor:pointer;user-select:none;background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px;padding:11px 14px}
+.alert-head.toggle{cursor:pointer;user-select:none;background:transparent;border:none;box-shadow:none;border-radius:0;padding:8px 18px 8px 24px;margin-bottom:5px}
 .alert-head.toggle .chev{margin-left:auto;font-size:.9rem;color:var(--muted);transition:.15s}
 .alert-head.toggle.closed .chev{transform:rotate(-90deg)}
 .catbox{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
@@ -325,6 +327,7 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:14p
 .al .amt{font-weight:900;white-space:nowrap}
 .al button{background:var(--ok);color:#063;padding:7px 12px;font-size:.82rem}
 body.dark .al button{color:#04231a}
+#alertsPayBody .al,#alertsCollectBody .al{padding-left:24px}
 .empty-ok{border-radius:14px;padding:14px 40px 14px 14px;text-align:center;color:var(--ok);font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px}
 
 .voicetrigger{width:100%;color:#fff;padding:14px;font-size:1rem;margin-bottom:16px;border-radius:var(--r);background:linear-gradient(120deg,var(--accent2),var(--accent));border:1px solid var(--line)}
@@ -354,20 +357,27 @@ body.dark .al button{color:#04231a}
 .item{display:flex;flex-direction:row;align-items:flex-start;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line);position:relative}
 .item-avatar-col{display:flex;flex-direction:column;align-items:center;gap:5px;flex:none}
 .item-avatar{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;position:relative}
-.item-avatar-meta{position:absolute;left:26px;bottom:11px;width:42px;height:34px;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
-.item-avatar-meta .time{display:inline-flex;align-items:center;gap:3px;font-size:.86rem;font-weight:800;color:var(--txt);white-space:nowrap}
-.item-avatar-meta .time svg{width:17px;height:17px}
+.item-avatar-meta{width:42px;min-height:14px;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+.item-avatar-meta .time{display:inline-flex;align-items:center;gap:3px;font-size:.68rem;font-weight:800;color:var(--muted);white-space:nowrap}
+.item-avatar-meta .time svg{width:11px;height:11px}
 .pay-badge{position:absolute;right:-3px;bottom:-3px;width:18px;height:18px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:var(--line);color:transparent;border:2px solid transparent}
 .pay-badge.paid{background:#fff;border-color:var(--ok);color:var(--ok)}
+.pay-badge.pending{background:#fff;border-color:var(--rojo);color:var(--rojo)}
 .pay-badge svg{width:10px;height:10px}
-.item-body{flex:1;min-width:0;display:flex;flex-direction:column;align-items:stretch;margin-top:10px}
+.item-body{flex:1;min-width:0;display:flex;flex-direction:column;align-items:stretch;margin-top:3px}
 .item-top{display:flex;align-items:center;gap:8px}
 .item-foot{display:flex;align-items:center;margin-top:8px;gap:8px}
-.item-amt-col{flex:none;align-self:center;display:flex;align-items:center;margin-left:auto;padding-left:8px;margin-top:10px}
+.item-amt-col{flex:none;align-self:center;display:flex;align-items:center;margin-left:auto;padding-left:8px;margin-top:3px}
 .item:last-child{border-bottom:none}
+.item.movement-focus{position:relative;z-index:2;animation:movement-focus-pulse 1.05s ease-in-out 3}
+@keyframes movement-focus-pulse{0%,100%{background:transparent;box-shadow:inset 0 0 0 0 transparent}50%{background:color-mix(in srgb,var(--accent) 14%,var(--glass2));box-shadow:inset 0 0 0 2px var(--accent)}}
 .dot{width:10px;height:10px;border-radius:50%;flex:none}
 .dot.ingreso{background:var(--c-ing)}.dot.gasto{background:var(--c-gas)}.dot.deuda{background:var(--c-deb)}.dot.medeben{background:var(--c-md)}
-.item .d1{font-weight:800;line-height:1.2;display:flex;align-items:center;gap:6px}
+.item .d1{font-weight:800;line-height:1.2;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.movement-title-meta{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:.67rem;font-weight:800;white-space:nowrap}
+.movement-repeat{display:inline-flex;align-items:center;color:var(--muted)}
+.movement-due{display:inline-flex;align-items:center;padding:2px 6px;border-radius:99px;background:rgba(224,69,123,.12);border:1px solid rgba(224,69,123,.25);color:var(--rojo)}
+.movement-due.receivable{background:rgba(10,165,196,.12);border-color:rgba(10,165,196,.25);color:var(--c-md)}
 .item .d2{font-size:.74rem;color:var(--muted);font-weight:700;margin-top:5px;display:flex;flex-direction:column;gap:5px;align-self:stretch;width:100%;box-sizing:border-box}
 .item .d2 .vtxt{font-size:.7rem}
 .item .amt{font-weight:900;white-space:nowrap;font-size:1.08rem}
@@ -772,12 +782,18 @@ body.win{ --k-ing:#00a800; --k-gas:#c00000; --k-bal:#0000aa; --k-amar:#a07a00; -
 
 /* administrador de categorías */
 .cat-list{display:flex;flex-direction:column;gap:7px;max-height:46vh;overflow:auto;margin:6px 0 12px}
-.cat-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--glass2)}
+.cat-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--glass2);touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none}
+.cat-row *{-webkit-user-select:none;user-select:none}
+.cat-row.dragging{position:fixed!important;z-index:120!important;pointer-events:none;opacity:.94;border-color:var(--accent);box-shadow:0 16px 38px rgba(0,0,0,.3);animation:cat-wobble .28s ease}
+.cat-list.drag-active{user-select:none}
+.cat-placeholder{border:1px dashed var(--accent);border-radius:10px;background:color-mix(in srgb,var(--accent) 10%,transparent)}
+@keyframes cat-wobble{0%{transform:scale(1) rotate(0)}35%{transform:scale(1.025) rotate(-1.2deg)}70%{transform:scale(1.025) rotate(1.2deg)}100%{transform:scale(1.02) rotate(0)}}
 .cat-row .cat-name{flex:1;font-weight:800}
 .cat-row .cat-count{font-size:.72rem;color:var(--muted);font-weight:800;white-space:nowrap}
+.cat-row .cat-edit{background:transparent;border:none;color:var(--muted);cursor:pointer;padding:4px;display:flex}
 .cat-row .cat-del{background:transparent;border:none;color:var(--k-gas);cursor:pointer;padding:4px;display:flex}
 .cat-avatar{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;color:#fff;border:none;cursor:pointer;padding:0}
-.icon-grid{display:flex;flex-wrap:wrap;gap:8px}
+.icon-grid{display:flex;flex-wrap:wrap;gap:8px;max-height:190px;overflow:auto;padding:2px}
 .icon-opt{width:38px;height:38px;border-radius:50%;background:var(--glass2);border:1px solid var(--line);color:var(--muted);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
 .icon-opt.selected{border-color:transparent}
 .color-grid{display:flex;flex-wrap:wrap;gap:8px}
@@ -799,6 +815,7 @@ body.win{ --k-ing:#00a800; --k-gas:#c00000; --k-bal:#0000aa; --k-amar:#a07a00; -
 .cat-target-option.selected .cat-target-check{opacity:1}
 .cat-action-row button:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
 .save.secondary{background:var(--glass2)!important;color:var(--txt)!important}
+@media(max-width:480px){.cat-row{gap:7px;padding:9px}.cat-row .cat-count{display:none}}
 body.win .cat-row,body.win .reassign-box,body.win .cat-target-option{border:2px solid #000!important}
 body.win .cat-target-option.selected{background:#d6d6ee!important;box-shadow:inset 0 0 0 2px #0000aa!important}
 </style>
@@ -1722,13 +1739,17 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
 .onb-dot{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .18s}
 .onb-dot.onb-dot-active{background:var(--accent)}
 .onb-btns{display:flex;gap:10px}
-.onb-cat-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;min-height:36px}
+.onb-cat-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;min-height:36px;max-height:180px;overflow:auto}
 .onb-chip{display:flex;align-items:center;gap:5px;background:var(--glass2);border:1px solid var(--line);border-radius:20px;padding:5px 10px 5px 12px;font-size:.82rem;font-weight:700}
 .onb-chip button{background:none;border:none;cursor:pointer;padding:0;color:var(--muted);display:flex;align-items:center;line-height:1}
 .onb-chip button:hover{color:var(--danger,#e53e3e)}
 .onb-cat-add{display:flex;gap:8px}
 .onb-cat-add input{flex:1;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--glass2);color:var(--txt);font-size:.86rem;font-weight:700;outline:none}
 .onb-cat-add button{padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff;border:none;cursor:pointer;display:flex;align-items:center}
+.settings-inline{padding:12px 14px;border-bottom:1px solid var(--line)}
+.settings-inline-head{display:flex;align-items:center;gap:10px;font-weight:800;margin-bottom:8px}.settings-inline-head .ic{flex:none}.settings-inline-fields{display:flex;gap:8px}.settings-inline-fields input{flex:1;min-width:0}.settings-inline-fields button{margin:0;flex:none;padding:10px 14px}
+#ovSettingsOnboarding{place-items:end center;background:rgba(0,0,0,.3)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.settings-tour-modal{max-width:360px;width:100%;margin-bottom:80px;padding:22px}.settings-tour-actions{display:flex;gap:8px;margin:12px 0}.settings-tour-actions button{flex:1;margin:0}.settings-tour-status{min-height:1.2em;text-align:center;color:var(--muted);font-size:.78rem;font-weight:800;margin-bottom:10px}.settings-tour-nav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:13px;margin-top:2px}.settings-tour-nav .onb-dots{margin:0}.settings-tour-link{display:inline;padding:2px 0;color:var(--txt);font-size:.8rem;font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}.settings-tour-link.disabled{opacity:.3;pointer-events:none}.settings-tour-skip{display:block;width:max-content;margin:13px auto 0;color:var(--muted);font-size:.78rem;font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.settings-tour-highlight{position:relative;z-index:72!important;background:var(--card)!important;box-shadow:0 0 0 3px var(--accent),0 8px 24px rgba(0,0,0,.22)!important;border-radius:12px}
 /* === PRINT === */
 @media print{
   body>*{display:none!important}
@@ -1794,6 +1815,7 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
   </div>
   <div class="bar"><i id="goalBar"></i></div>
 </div>
+<div class="daily-budget-card" id="dailyBudgetCard"></div>
 
 <div class="alerts" id="alerts"></div>
 
@@ -1826,7 +1848,8 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
       <div class="settings-group-label">Preferencias</div>
       <div class="settings-card">
         <button class="settings-row" type="button" onclick="toggleThemeMenu(event)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg><span>Apariencia</span><span class="srow-val" id="themeStatusTxt">Claro</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
-        <button class="settings-row" type="button" onclick="openCatManager()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3h9a2 2 0 0 1 2 2v.5l2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 8h7"/><path d="M7 12h10"/><path d="M7 16h6"/></svg><span>Categorías</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row" id="categorySettingsRow" type="button" onclick="openCatManager()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3h9a2 2 0 0 1 2 2v.5l2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 8h7"/><path d="M7 12h10"/><path d="M7 16h6"/></svg><span>Categorías</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="settings-inline" id="dailyBudgetSetting"><div class="settings-inline-head"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/><path d="M12 8v8"/></svg><span>Presupuesto diario</span></div><div class="settings-inline-fields"><input id="dailyBudgetInput" class="money-input" inputmode="numeric" placeholder="Sin límite" aria-label="Presupuesto diario"><button class="save" type="button" onclick="saveDailyBudget()">Guardar</button></div><div class="sub" id="dailyBudgetStatus" style="margin-top:6px"></div></div>
         <button class="settings-row settings-fold-head" id="notifFoldBtn" type="button" aria-expanded="false" onclick="toggleSettingsFold('notificationSettings',this)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span>Recordatorios</span><svg class="settings-fold-chevron srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
         <div id="notificationSettings" class="settings-fold-panel" hidden>
           <button id="notifToggleBtn" onclick="toggleLocalNotifications()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> Activar notificaciones</button>
@@ -1840,10 +1863,11 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
               <label class="notif-check"><input id="notifToday" type="checkbox" onchange="saveNotificationSettings()"> Avisar el mismo día</label>
               <label class="notif-check"><input id="notifReceivables" type="checkbox" onchange="saveNotificationSettings()"> Recordar cobros de “Me deben”</label>
               <label class="notif-check"><input id="notifMonthly" type="checkbox" onchange="saveNotificationSettings()"> Enviar resumen de gastos al finalizar el mes</label>
+              <label class="notif-check"><input id="notifFriendly" type="checkbox" onchange="saveNotificationSettings()"> Usar mensajes claros y amigables</label>
             </div>
             <div class="notif-actions">
               <button class="save secondary" type="button" onclick="testLocalNotification()">Probar notificación</button>
-              <button class="save secondary" type="button" onclick="syncLocalNotifications(true)">Actualizar recordatorios</button>
+              <button class="save secondary" type="button" onclick="refreshAllNotifications(true)">Actualizar recordatorios</button>
             </div>
             <div id="notifStatus" class="notif-status">Las notificaciones se programan únicamente en la APK instalada.</div>
           </div>
@@ -1854,7 +1878,7 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
     <div class="settings-group">
       <div class="settings-group-label">Integraciones y permisos</div>
       <div class="settings-card">
-        <button class="settings-row" type="button" onclick="openCloud()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg><span>Google Sheets</span><span class="srow-val" id="cloudStatusRow">No conectado</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row" id="driveSettingsRow" type="button" onclick="openCloud()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg><span>Google Drive</span><span class="srow-val" id="cloudStatusRow">No conectado</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
         <button class="settings-row" id="micPermBtn" type="button" onclick="requestMicPermission()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg><span>Micrófono</span><span class="srow-val" id="micStatusRow">No solicitado</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
       </div>
       <div id="micPermStatus" class="shake-status" style="display:none;padding:6px 3px 0;font-size:.8rem"></div>
@@ -1876,7 +1900,7 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
     <div class="settings-group">
       <div class="settings-group-label">Funciones avanzadas</div>
       <div class="settings-card">
-        <label class="settings-row"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 5 7l3 3"/><path d="m16 4 3 3-3 3"/><path d="M5 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4"/><path d="M4 17h4"/><path d="M16 17h4"/></svg><span>Giroscopio</span><span class="toggle-sw"><input type="checkbox" id="shakeToggleInput" onchange="toggleShakeFeature()"><span class="sw-track"></span></span></label>
+        <label class="settings-row" id="shakeSettingsRow"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4 5 7l3 3"/><path d="m16 4 3 3-3 3"/><path d="M5 7h4a3 3 0 0 1 3 3v4a3 3 0 0 0 3 3h4"/><path d="M4 17h4"/><path d="M16 17h4"/></svg><span>Giroscopio</span><span class="toggle-sw"><input type="checkbox" id="shakeToggleInput" onchange="toggleShakeFeature()"><span class="sw-track"></span></span></label>
         <button class="settings-row settings-fold-head" id="featuresFoldBtn" type="button" aria-expanded="false" onclick="toggleSettingsFold('featureSettings',this)"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg><span>Funciones adicionales</span><svg class="settings-fold-chevron srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
         <div id="featureSettings" class="settings-fold-panel" hidden>
           <div class="feature-toggles" id="featureToggles">
@@ -1894,6 +1918,7 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
       <div class="settings-group-label">Ayuda</div>
       <div class="settings-card">
         <button class="settings-row" type="button" onclick="showOnboarding()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>Ver tutorial de nuevo</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button class="settings-row" type="button" onclick="showSettingsOnboarding()"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg><span>Configuración guiada</span><svg class="srow-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
       </div>
     </div>
 
@@ -1934,13 +1959,29 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
   </button>
 </nav>
 
+<!-- TUTORIAL GUIADO DE CONFIGURACIÓN -->
+<div class="ov" id="ovSettingsOnboarding">
+  <div class="modal onb-modal settings-tour-modal">
+    <div id="settingsOnb0" class="onb-slide onb-active"><div class="onb-title">Configurá la app a tu manera</div><div class="onb-body">Te mostramos las opciones principales. Ningún permiso se solicita sin que vos lo elijas.</div></div>
+    <div id="settingsOnb1" class="onb-slide"><div class="onb-title">Creá tus categorías</div><div class="onb-body">Entrá en Categorías para agregar las que necesites. Usá el lápiz para cambiar el nombre, color o ícono. Para reordenar, mantené apretada cualquier parte libre de una categoría hasta que se levante y arrastrala hacia arriba o abajo.</div><div class="settings-tour-actions"><button class="save" type="button" onclick="settingsTourCategories()">Ver categorías</button><button class="save secondary" type="button" onclick="nextSettingsOnboarding()">Ahora no</button></div></div>
+    <div id="settingsOnb2" class="onb-slide"><div class="onb-title">Copia en Google Drive</div><div class="onb-body">Podés guardar una copia automática en tu propio Drive. Apps Script crea la carpeta Mi Contabilidad y el archivo backup.json; la app nunca recibe tu contraseña de Google.</div><div class="settings-tour-actions"><button class="save" type="button" onclick="settingsTourDrive()">Configurar Drive</button><button class="save secondary" type="button" onclick="nextSettingsOnboarding()">Ahora no</button></div></div>
+    <div id="settingsOnb3" class="onb-slide"><div class="onb-title">Carga por voz</div><div class="onb-body">El micrófono se usa únicamente cuando decidís cargar un movimiento hablando.</div><div class="settings-tour-actions"><button class="save" type="button" onclick="settingsTourMic()">Sí, activar</button><button class="save secondary" type="button" onclick="nextSettingsOnboarding()">Ahora no</button></div></div>
+    <div id="settingsOnb4" class="onb-slide"><div class="onb-title">Recordatorios</div><div class="onb-body">Activá avisos de vencimientos, cobros, resúmenes y presupuesto. Funcionan en la APK instalada.</div><div class="settings-tour-actions"><button class="save" type="button" onclick="settingsTourNotifications()">Sí, activar</button><button class="save secondary" type="button" onclick="nextSettingsOnboarding()">Ahora no</button></div></div>
+    <div id="settingsOnb5" class="onb-slide"><div class="onb-title">Giroscopio</div><div class="onb-body">Podés usar el movimiento del teléfono como acceso rápido. Esta opción sólo funciona en dispositivos compatibles.</div><div class="settings-tour-actions"><button class="save" type="button" onclick="settingsTourGyroscope()">Sí, activar</button><button class="save secondary" type="button" onclick="nextSettingsOnboarding()">Ahora no</button></div></div>
+    <div id="settingsOnb6" class="onb-slide"><div class="onb-title">Presupuesto diario</div><div class="onb-body">Definí un límite para saber cuánto te queda disponible durante el día. Podés dejarlo vacío y configurarlo más adelante.</div></div>
+    <div class="settings-tour-status" id="settingsTourStatus"></div>
+    <div class="settings-tour-nav"><a class="settings-tour-link" id="settingsOnbBackBtn" role="button" tabindex="0" onclick="previousSettingsOnboarding()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();previousSettingsOnboarding()}">Anterior</a><div class="onb-dots" id="settingsOnbDots"></div><a class="settings-tour-link" id="settingsOnbNextBtn" role="button" tabindex="0" onclick="nextSettingsOnboarding()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();nextSettingsOnboarding()}">Siguiente</a></div>
+    <a class="settings-tour-skip" role="button" tabindex="0" onclick="skipSettingsOnboarding()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();skipSettingsOnboarding()}">Saltar tutorial</a>
+  </div>
+</div>
+
 <!-- MODAL ONBOARDING -->
 <div class="ov" id="ovOnboarding">
   <div class="modal onb-modal">
     <div id="onb0" class="onb-slide onb-active">
       <div class="onb-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/><path d="M14 15h4"/></svg></div>
-      <div class="onb-title">Bienvenido a Mi Contabilidad</div>
-      <div class="onb-body">Registrá ingresos, gastos, deudas y cobros. Todo queda en tu teléfono, sin cuenta, sin nube.</div>
+      <div class="onb-title">Bienvenido a Flyfinanzas</div>
+      <div class="onb-body">Registrá ingresos, gastos, deudas y cobros. Todo queda en tu teléfono; la copia en tu Google Drive es opcional.</div>
     </div>
     <div id="onb1" class="onb-slide">
       <div class="onb-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><path d="M12 18v4"/><path d="M8 22h8"/></svg></div>
@@ -2020,7 +2061,6 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
     <div class="row between" style="margin-bottom:8px">
       <h3 style="margin:0"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 3h9a2 2 0 0 1 2 2v.5l2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 8h7"/><path d="M7 12h10"/><path d="M7 16h6"/></svg> Categorías</h3>
     </div>
-    <div class="sub" style="margin-bottom:8px">Antes de borrar una categoría, tenés que elegir a qué otra categoría van a migrar sus movimientos.</div>
     <div id="catReassign" style="display:none"></div>
     <div id="catList" class="cat-list"></div>
     <button class="save" style="margin:0" type="button" onclick="catAdd()">+ Agregar categoría</button>
@@ -2031,17 +2071,17 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
 <!-- MODAL CLOUD -->
 <div class="ov" id="ovCloud">
   <div class="modal">
-    <h3><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg> Sincronizar con Google Sheets</h3>
+    <h3><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9Z"/></svg> Copia en Google Drive</h3>
     <div class="g">
-      <div class="sub">Primero copiá el código GS, pegalo en Apps Script y después ingresá la URL de la implementación (termina en <b>/exec</b>).</div>
-      <button class="save" style="margin:0;background:var(--glass2);color:var(--txt)" onclick="copyGsCode()">Copiar código GS</button>
+      <div class="sub">Copiá el código, pegalo en Apps Script y ejecutá <b>setupDriveStorage</b> para autorizar Drive. Después implementalo como aplicación web e ingresá la URL terminada en <b>/exec</b>.</div>
+      <button class="save" style="margin:0;background:var(--glass2);color:var(--txt)" onclick="copyGsCode()">Copiar código de Drive</button>
       <div class="sub" id="gsCopyStatus" style="font-weight:800"></div>
       <div><label>URL de la app web</label><input id="cloudUrl" placeholder="https://script.google.com/macros/s/.../exec"></div>
       <div class="row" style="gap:8px">
         <button class="save" style="flex:1;margin:0" onclick="connectCloud()">Conectar / Sincronizar</button>
         <button class="save" style="background:var(--glass2);color:var(--txt);margin:0" onclick="disconnectCloud()">Desconectar</button>
       </div>
-      <button class="save" style="margin:0" onclick="saveCloudNow()">Guardar datos actuales en Sheets</button>
+      <button class="save" style="margin:0" onclick="saveCloudNow()">Guardar datos actuales en Drive</button>
       <div class="sub" id="cloudStatus2" style="font-weight:800"></div>
       <div class="sub" style="font-size:.78rem;line-height:1.4;display:flex;gap:6px;align-items:flex-start"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h16a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> La URL es como una contraseña: cualquiera que la tenga puede ver y editar tus datos. No la compartas.</div>
     </div>
@@ -2313,7 +2353,9 @@ document.addEventListener('pointerdown',primeAppSounds,{once:true,capture:true})
 /* ============ DATOS ============ */
 const KEY='bois_conta_blank_v1';
 const CATS=['Ingresos','Vivienda y servicios','Comida y supermercado','Transporte','Salud, compras y otros'];
+const SERVICE_CATS=['Internet','Celular','Electricidad','Gas','Agua','TV/Streaming'];
 const CATEGORY_SET_VERSION=1;
+const SERVICE_CATEGORY_VERSION=1;
 const EXCEDENTE_CAT='Ingresos';
 const EXCEDENTE_DESC='Excedente del mes pasado';
 const EXCEDENTE_ZERO_UNTIL_YM='2026-06';
@@ -2327,6 +2369,19 @@ const DICC={
   ingresos:['sueldo','biomarketing','aguinaldo','changa','changas','venta','vendi','vendí','mercado libre','mercdo','vendido','cobro','cobré','cobre','ingreso','trabajo'],
   'salud, compras y otros':['farmacia','medico','médico','psicologo','psicólogo','salud','ropa','regalo','entretenimiento','libreria','librería','cuota','cuotas','deuda','banco','tarjeta','credito','crédito','prestamo','préstamo','otro']
 };
+const SERVICE_RULES={
+  'Internet':['nave','telecentro','iplan','starlink','fibertel'],
+  'Celular':['claro','personal','movistar','tuenti'],
+  'Electricidad':['edea','edenor','edesur','eden','edelap'],
+  'Gas':['camuzzi','metrogas','naturgy'],
+  'Agua':['osse','absa','aysa'],
+  'TV/Streaming':['flow','directv','dgo','netflix','spotify','disney plus','disney+','max','hbo max','prime video','youtube premium','paramount plus','apple tv']
+};
+const SERVICE_META={
+  'Internet':{icon:'wifi',color:'#00cfe8'},'Celular':{icon:'phone',color:'#7367f0'},
+  'Electricidad':{icon:'bill',color:'#f7b924'},'Gas':{icon:'home',color:'#ff9f43'},
+  'Agua':{icon:'drop',color:'#5b8dfc'},'TV/Streaming':{icon:'phone',color:'#ff6b9d'}
+};
 
 const HIST2=[];
 const MC_HAD_LOCAL_AT_START=!!localStorage.getItem(KEY);
@@ -2337,6 +2392,7 @@ let state=load();
 (state.fijos||[]).forEach(f=>{if(!f.fiscal)f.fiscal='negro';});
 if(state.useFiscal===undefined)state.useFiscal=true;
 if(!state.features)state.features={graficosExt:true,busqueda:true,pdf:true,notifInteligentes:true};
+if(state.dailyBudget===undefined)state.dailyBudget=0;
 localStorage.setItem(KEY,JSON.stringify(state));
 let tipo='gasto';
 let editId=null;
@@ -2358,7 +2414,7 @@ const CAT_ICONS={
   gift:'<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 9V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v3"/><path d="M12 5v16"/><path d="M12 5c-1.5-3-6-3-6 0s4.5 0 6 0Z"/><path d="M12 5c1.5-3 6-3 6 0s-4.5 0-6 0Z"/>',
   plane:'<path d="M2 12 21 4l-7 19-3-8-8-3Z"/>',
   paw:'<circle cx="6" cy="10" r="2"/><circle cx="11" cy="7" r="2"/><circle cx="16" cy="7" r="2"/><circle cx="19" cy="11" r="2"/><path d="M6 20c-1.5 0-2.5-1.5-1.5-3.5S8 13 12 13s6.5 1 7.5 3.5S17.5 20 16 20c-1.5 0-2.5-1-4-1s-2.5 1-4 1Z"/>',
-  car:'<path d="M5 16V9l2-4h10l2 4v7"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/>',
+  car:'<path d="M5 17H3v-6l2-5h12l3 5h1v6h-2"/><path d="M5 11h15"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
   drop:'<path d="M12 2s7 7.5 7 12a7 7 0 0 1-14 0c0-4.5 7-12 7-12Z"/>',
   beauty:'<rect x="9" y="2" width="6" height="7" rx="1"/><path d="M10 9h4l-1 4h-2z"/><rect x="8" y="13" width="8" height="9" rx="2"/>',
   muscle:'<rect x="2" y="9" width="3" height="6" rx="1"/><rect x="19" y="9" width="3" height="6" rx="1"/><path d="M5 12h1"/><path d="M18 12h1"/><rect x="6" y="7" width="3" height="10" rx="1"/><rect x="15" y="7" width="3" height="10" rx="1"/><path d="M9 12h6"/>',
@@ -2369,11 +2425,21 @@ const CAT_ICONS={
   piggy:'<path d="M4 10a6 6 0 0 1 12 0v1h2l1 3-1 1h-1v2l-2 1v-1H8v1l-2-1v-2H4Z"/><circle cx="14" cy="10" r=".6" fill="currentColor"/>',
   book:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22Z"/><path d="M4 4.5v15A2.5 2.5 0 0 1 6.5 17H20"/>',
   coffee:'<path d="M4 3h13v9a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Z"/><path d="M17 6h2a2 2 0 0 1 0 4h-2"/><path d="M4 20h13"/>',
+  medical:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6Z"/>',
+  vegetable:'<path d="M3 12h18a9 9 0 0 1-18 0Z"/><path d="M7 12a5 5 0 0 1 9-3"/><path d="M13 8c-4 0-6-2-6-5 4 0 6 2 6 5Z"/><path d="M12 21v-3"/>',
+  bicycle:'<circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="m5.5 17.5 4-8h4l5 8"/><path d="m9.5 9.5 4 8h-8"/><path d="M12 6h3"/>',
+  fuel:'<path d="M4 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"/><path d="M3 22h14"/><path d="M7 6h6v5H7Z"/><path d="m16 8 3 3v7a2 2 0 0 0 4 0V9l-2-2"/>',
+  wallet:'<path d="M3 6h16a2 2 0 0 1 2 2v11H5a2 2 0 0 1-2-2Z"/><path d="M3 8V5a2 2 0 0 1 2-2h12v3"/><path d="M16 12h5v4h-5a2 2 0 0 1 0-4Z"/>',
+  laptop:'<rect x="4" y="4" width="16" height="12" rx="2"/><path d="M2 20h20"/>',
+  gamepad:'<path d="M6 8h12a4 4 0 0 1 4 4v4a3 3 0 0 1-5 2l-2-2H9l-2 2a3 3 0 0 1-5-2v-4a4 4 0 0 1 4-4Z"/><path d="M7 11v4"/><path d="M5 13h4"/><path d="M17 12h.01"/><path d="M19 14h.01"/>',
+  shirt:'<path d="m8 3-5 3 3 5 2-1v11h8V10l2 1 3-5-5-3c0 2-2 3-4 3S8 5 8 3Z"/>',
+  scissors:'<circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="m8.5 8.5 12 7.5"/><path d="m8.5 15.5 12-7.5"/>',
+  music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
   question:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 5.8 1c-.6 1.3-2.4 1.6-2.9 3"/><path d="M12 17h.01"/>',
   tag:'<path d="M12 2 22 12l-10 10L2 12V2Z"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/>'
 };
-const CAT_ICON_ORDER=['cart','utensils','home','bank','health','bus','family','gift','plane','paw','car','drop','beauty','muscle','phone','bill','wifi','briefcase','piggy','book','coffee','question','tag'];
-const CAT_COLORS=['#5b8dfc','#28c76f','#ff9f43','#ea5455','#7367f0','#00cfe8','#20c997','#ff6b9d','#f7b924','#82868b'];
+const CAT_ICON_ORDER=['cart','utensils','vegetable','home','bank','medical','health','bus','car','bicycle','fuel','family','gift','plane','paw','drop','beauty','scissors','muscle','shirt','phone','bill','wifi','laptop','gamepad','music','briefcase','wallet','piggy','book','coffee','question','tag'];
+const CAT_COLORS=['#2563eb','#16a34a','#dc2626','#eab308','#f97316','#9333ea','#db2777','#0891b2','#111827','#5b8dfc','#28c76f','#ff9f43','#ea5455','#7367f0','#00cfe8','#20c997','#ff6b9d','#f7b924','#64748b','#92400e'];
 function catIconSvg(key,size){
   const k=CAT_ICONS[key]?key:'tag';
   const s=size||17;
@@ -2387,9 +2453,11 @@ function defaultCatIconKey(name){
   if(/restaurant|bar|caf[eé]/.test(n))return 'coffee';
   if(/transporte|colectivo|uber|taxi|combustible|nafta/.test(n))return 'bus';
   if(/auto|moto|coche/.test(n))return 'car';
-  if(/salud|m[eé]dic|farmacia|doctor/.test(n))return 'health';
+  if(/salud|m[eé]dic|farmacia|doctor/.test(n))return 'medical';
   if(/gimnasio|gym|deporte/.test(n))return 'muscle';
   if(/compra/.test(n))return 'cart';
+  if(/verdura|fruta|vegetal/.test(n))return 'vegetable';
+  if(/bicicleta|bici/.test(n))return 'bicycle';
   if(/mascota|perro|gato|veterinari/.test(n))return 'paw';
   if(/viaje|vuelo|avi[oó]n|vacacion/.test(n))return 'plane';
   if(/regalo/.test(n))return 'gift';
@@ -2419,6 +2487,7 @@ function setCatMeta(cat,icon,color){
 
 
 const SERVICE_LINK_ICON='<svg class="ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>';
+const STATUS_X_ICON='<svg class="ic" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
 
 function load(){
   const raw=localStorage.getItem(KEY);
@@ -2467,6 +2536,7 @@ async function mcBootstrap(){
       if(fs && Array.isArray(fs.movs) && !MC_HAD_LOCAL_AT_START){
         state=mergeImportedCategories(fs);
         ensureCats();
+        migrateServiceCategories();
         ensureDateTimes();
         if(zeroExcedentesThroughJune2026()){}
         localStorage.setItem(KEY,JSON.stringify(state));
@@ -2482,7 +2552,7 @@ async function mcBootstrap(){
 
 /* ===== Notificaciones locales del teléfono ===== */
 const NOTIF_KEY='bois_local_notifications_v1';
-const NOTIF_DEFAULTS={enabled:false,time:'09:00',before:true,today:true,receivables:true,monthly:true,pdfReminder:false,pdfDay:1,pdfTime:'09:00',pdfStart:''};
+const NOTIF_DEFAULTS={enabled:false,time:'09:00',before:true,today:true,receivables:true,monthly:true,friendly:true,pdfReminder:false,pdfDay:1,pdfTime:'09:00',pdfStart:''};
 let notifScheduleTimer=null;
 let notifSyncRunning=false;
 let monthlyPdfNotificationListenerReady=false;
@@ -2531,11 +2601,11 @@ function makeDueNotifications(event,cfg,now){
   const prefix=isRecv?'Cobro pendiente':'Vencimiento';
   if(cfg.before){
     const at=notificationDate(due,-3,cfg.time);
-    if(at&&at>now){list.push({id:notificationId('before|'+event.key),title:prefix+' en 3 días',body:notificationBody(event),schedule:{at,allowWhileIdle:true},extra:{movementId:event.id||'',kind:isRecv?'receivable':'debt',date:due}});}
+    if(at&&at>now){list.push({id:notificationId('before|'+event.key),title:cfg.friendly?(isRecv?'Tenés un cobro cerca':'Se acerca un vencimiento'):prefix+' en 3 días',body:cfg.friendly?(String(event.desc||'Movimiento')+' es en 3 días por '+money(Number(event.monto)||0)+'.'):notificationBody(event),schedule:{at,allowWhileIdle:true},extra:{movementId:event.id||'',kind:isRecv?'receivable':'debt',date:due}});}
   }
   if(cfg.today){
     const at=notificationDate(due,0,cfg.time);
-    if(at&&at>now){list.push({id:notificationId('today|'+event.key),title:isRecv?'Cobro pendiente hoy':'Vence hoy',body:notificationBody(event),schedule:{at,allowWhileIdle:true},extra:{movementId:event.id||'',kind:isRecv?'receivable':'debt',date:due}});}
+    if(at&&at>now){list.push({id:notificationId('today|'+event.key),title:cfg.friendly?(isRecv?'Hoy podrías recibir un cobro':'Hoy vence '+String(event.desc||'un pago')):(isRecv?'Cobro pendiente hoy':'Vence hoy'),body:cfg.friendly?('Monto: '+money(Number(event.monto)||0)+'. Tocá para verlo en tu lista.'):notificationBody(event),schedule:{at,allowWhileIdle:true},extra:{movementId:event.id||'',kind:isRecv?'receivable':'debt',date:due}});}
   }
   return list;
 }
@@ -2571,7 +2641,7 @@ function buildLocalNotifications(cfg){
     if(at<=now){m++;if(m>11){m=0;y++;}at=new Date(y,m+1,0,parts[0]||0,parts[1]||0,0,0);}
     const ym=y+'-'+String(m+1).padStart(2,'0');
     const total=(state.movs||[]).filter(x=>monthKey(x.venc||x.fecha)===ym&&isOutflow(x)).reduce((s,x)=>s+(Number(x.monto)||0),0);
-    notifications.push({id:notificationId('monthly|'+ym),title:'Resumen de '+MESES[m],body:'Gastaste '+money(total)+' durante el mes.',schedule:{at,allowWhileIdle:true},extra:{kind:'monthly',month:ym}});
+    notifications.push({id:notificationId('monthly|'+ym),title:cfg.friendly?'Así cerraste '+MESES[m]:'Resumen de '+MESES[m],body:'Gastaste '+money(total)+' durante el mes.',schedule:{at,allowWhileIdle:true},extra:{kind:'monthly',month:ym}});
   }
   if(cfg.pdfReminder){
     const day=Math.min(28,Math.max(1,Number(cfg.pdfDay)||1));
@@ -2584,7 +2654,7 @@ function buildLocalNotifications(cfg){
       notifications.push({
         id:notificationId('monthly-pdf|'+ym),
         title:'Ya está lista tu métrica de '+MESES[at.getMonth()],
-        body:'Abrí Mi Contabilidad para generar el PDF de '+labelMonth(ym)+'.',
+        body:'Abrí Flyfinanzas para generar el PDF de '+labelMonth(ym)+'.',
         schedule:{at,allowWhileIdle:true},
         extra:{kind:'monthlyPdf',month:ym}
       });
@@ -2629,13 +2699,14 @@ async function syncLocalNotifications(showMessage){
 }
 function scheduleNotificationsDebounced(){
   clearTimeout(notifScheduleTimer);
-  notifScheduleTimer=setTimeout(()=>{syncLocalNotifications(false);scheduleSmartNotifications();},900);
+  notifScheduleTimer=setTimeout(()=>refreshAllNotifications(false),900);
 }
+async function refreshAllNotifications(showMessage){await syncLocalNotifications(!!showMessage);await scheduleSmartNotifications();}
 function setNotificationStatus(text){const el=document.getElementById('notifStatus');if(el)el.textContent=text;}
 async function toggleLocalNotifications(){
   const cfg=loadNotificationSettings();
   if(!cfg.enabled){if(!(await ensureNotificationPermission(true)))return;cfg.enabled=true;}else{cfg.enabled=false;cfg.pdfReminder=false;}
-  storeNotificationSettings(cfg);updateNotificationSettingsUI();await syncLocalNotifications(false);
+  storeNotificationSettings(cfg);updateNotificationSettingsUI();await refreshAllNotifications(false);
 }
 function saveNotificationSettings(){
   const cfg=loadNotificationSettings();
@@ -2645,6 +2716,7 @@ function saveNotificationSettings(){
   cfg.today=!!(document.getElementById('notifToday')&&document.getElementById('notifToday').checked);
   cfg.receivables=!!(document.getElementById('notifReceivables')&&document.getElementById('notifReceivables').checked);
   cfg.monthly=!!(document.getElementById('notifMonthly')&&document.getElementById('notifMonthly').checked);
+  cfg.friendly=!!(document.getElementById('notifFriendly')&&document.getElementById('notifFriendly').checked);
   storeNotificationSettings(cfg);scheduleNotificationsDebounced();updateNotificationSettingsUI();
 }
 async function updateNotificationSettingsUI(){
@@ -2654,7 +2726,7 @@ async function updateNotificationSettingsUI(){
   if(btn)btn.innerHTML='<svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> '+(cfg.enabled?'Desactivar notificaciones':'Activar notificaciones');
   if(panel)panel.style.display=cfg.enabled?'block':'none';
   const time=document.getElementById('notifTime');if(time)time.value=cfg.time||'09:00';
-  const fields={notifBefore:'before',notifToday:'today',notifReceivables:'receivables',notifMonthly:'monthly'};
+  const fields={notifBefore:'before',notifToday:'today',notifReceivables:'receivables',notifMonthly:'monthly',notifFriendly:'friendly'};
   Object.keys(fields).forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!cfg[fields[id]];});
   if(!cfg.enabled){setNotificationStatus('Notificaciones desactivadas.');return;}
   const LN=localNotificationsPlugin();
@@ -2666,7 +2738,8 @@ async function testLocalNotification(){
   const LN=localNotificationsPlugin();if(!LN)return;
   try{
     const at=new Date(Date.now()+5000);
-    await LN.schedule({notifications:[{id:notificationId('test'),title:'Mi Contabilidad',body:'Las notificaciones están funcionando correctamente.',schedule:{at,allowWhileIdle:true}}]});
+    const cfg=loadNotificationSettings();
+    await LN.schedule({notifications:[{id:notificationId('test'),title:cfg.friendly?'Todo listo':'Flyfinanzas',body:cfg.friendly?'Te vamos a avisar con tiempo y sin complicaciones.':'Las notificaciones están funcionando correctamente.',schedule:{at,allowWhileIdle:true}}]});
     setNotificationStatus('Prueba programada. Debería llegar en unos segundos.');
   }catch(e){console.error(e);alert('No se pudo enviar la notificación de prueba.');}
 }
@@ -2683,11 +2756,13 @@ function initLocalNotifications(){
         navigateApp('settings');
         openMonthlyMetrics(extra.month||todayYM());
       },150);
-    }else if(extra.kind==='debtReminder'&&extra.movementId){
+    }else if((extra.kind==='debtReminder'||extra.kind==='debt'||extra.kind==='receivable')&&extra.movementId){
       setTimeout(()=>{
         navigateApp('list');
         openEdit(extra.movementId);
       },150);
+    }else if(extra.kind==='monthly'){
+      setTimeout(()=>navigateApp('met'),150);
     }
   });
 }
@@ -2809,26 +2884,26 @@ function shakeOpenVoice(){closeShakeActions();setTimeout(openVoice,80);}
 function initShakeFeature(){updateShakeSettingsUI();if(isShakeEnabled())startShakeDetection(false);}
 window.addEventListener('pageshow',()=>{sessionStorage.removeItem('bois_fly_game_launching');if(isShakeEnabled()&&!shakeListenerHandle&&!shakeFallbackActive)startShakeDetection(false);});
 
-/* ====== Sincronización Google Sheets ====== */
-const GOOGLE_SHEETS_GS_CODE = `/**
- * PUENTE CONTABILIDAD <-> GOOGLE SHEETS · V9
- * Compatible con Ciro Contabilidad V9 y con estructuras anteriores.
+/* ====== Copia automática en Google Drive ====== */
+const GOOGLE_DRIVE_GS_CODE = `/**
+ * MI CONTABILIDAD <-> GOOGLE DRIVE
+ * Guarda el estado completo en Mi Contabilidad/backup.json.
  *
  * INSTALACIÓN
- * 1. Abrí la planilla > Extensiones > Apps Script.
- * 2. Reemplazá el código por este archivo.
+ * 1. Abrí script.google.com y creá un proyecto. Si usabas la planilla anterior,
+ *    también podés abrir su proyecto desde Extensiones > Apps Script para migrarla.
+ * 2. Reemplazá el código, ejecutá setupDriveStorage() y autorizá Drive.
  * 3. Implementar > Nueva implementación > Aplicación web.
  *    - Ejecutar como: Yo
  *    - Quién tiene acceso: Cualquier persona
  * 4. Copiá la URL terminada en /exec y pegala en la app.
  *
  * IMPORTANTE
- * - Guarda todas las propiedades conocidas del movimiento en columnas.
- * - También guarda el objeto completo en la columna \"json\" para no perder
- *   campos nuevos que se agreguen en futuras versiones.
- * - Guarda todas las propiedades generales del estado en Config, en fragmentos,
- *   evitando el límite de caracteres por celda.
- * - Mantiene compatibilidad con las estructuras viejas.
+ * - La app no recibe tu contraseña ni acceso general a Drive.
+ * - El bloque de compatibilidad con Movimientos y Config sólo se usa para una
+ *   migración inicial. Las hojas anteriores no se modifican ni se eliminan.
+ * - Para actualizar una instalación existente, creá una versión nueva de la
+ *   misma implementación y conservá la URL /exec.
  */
 
 const SHEET_MOV = 'Movimientos';
@@ -3279,15 +3354,132 @@ function sortDeep_(value) {
   }
   return value;
 }
+
+/* GOOGLE DRIVE V1
+ * Estas funciones reemplazan el almacenamiento anterior y conservan sus
+ * lectores únicamente para migrar Movimientos y Config la primera vez.
+ */
+const DRIVE_FOLDER_NAME = 'Mi Contabilidad';
+const DRIVE_FILE_NAME = 'backup.json';
+const DRIVE_FOLDER_PROP = 'MC_DRIVE_FOLDER_ID';
+const DRIVE_FILE_PROP = 'MC_DRIVE_FILE_ID';
+const STORAGE_BACKEND = 'drive-json-v1';
+const MAX_JSON_BYTES = 8 * 1024 * 1024;
+
+function driveProps_() { return PropertiesService.getScriptProperties(); }
+function driveFolder_(create) {
+  const props = driveProps_();
+  const savedId = props.getProperty(DRIVE_FOLDER_PROP);
+  if (savedId) { try { const saved = DriveApp.getFolderById(savedId); if (!saved.isTrashed()) return saved; } catch (_) {} }
+  const matches = DriveApp.getFoldersByName(DRIVE_FOLDER_NAME);
+  const found = [];
+  while (matches.hasNext()) { const item = matches.next(); if (!item.isTrashed()) found.push(item); }
+  if (found.length > 1) throw new Error('Hay más de una carpeta Mi Contabilidad en Drive. Dejá una sola para continuar.');
+  const folder = found[0] || (create ? DriveApp.createFolder(DRIVE_FOLDER_NAME) : null);
+  if (folder) props.setProperty(DRIVE_FOLDER_PROP, folder.getId());
+  return folder;
+}
+function driveFile_(create) {
+  const props = driveProps_();
+  const savedId = props.getProperty(DRIVE_FILE_PROP);
+  if (savedId) { try { const saved = DriveApp.getFileById(savedId); if (!saved.isTrashed()) return saved; } catch (_) {} }
+  const folder = driveFolder_(create);
+  if (!folder) return null;
+  const matches = folder.getFilesByName(DRIVE_FILE_NAME);
+  const found = [];
+  while (matches.hasNext()) { const item = matches.next(); if (!item.isTrashed()) found.push(item); }
+  if (found.length > 1) throw new Error('Hay más de un backup.json en Mi Contabilidad. Dejá uno solo para continuar.');
+  const file = found[0] || (create ? folder.createFile(DRIVE_FILE_NAME, '{}', MimeType.PLAIN_TEXT) : null);
+  if (file) props.setProperty(DRIVE_FILE_PROP, file.getId());
+  return file;
+}
+function driveDefaultState_() {
+  return { movs: [], fijos: [], cats: [], goalMin: 0, goalMax: 0, useFiscal: false, schemaVersion: SCHEMA_VERSION, storageBackend: STORAGE_BACKEND };
+}
+function readState_() {
+  const file = driveFile_(false);
+  if (file) {
+    const state = JSON.parse(file.getBlob().getDataAsString('UTF-8') || '{}');
+    validateState_(state);
+    return state;
+  }
+  let legacy = null;
+  try {
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    if (spreadsheet && (spreadsheet.getSheetByName(SHEET_MOV) || spreadsheet.getSheetByName(SHEET_CFG))) {
+      legacy = readConfigState_();
+      legacy.movs = readMovements_();
+      if (!Array.isArray(legacy.fijos)) legacy.fijos = [];
+      if (!Array.isArray(legacy.cats)) legacy.cats = [];
+    }
+  } catch (_) {}
+  return legacy ? writeState_(legacy) : driveDefaultState_();
+}
+function writeState_(state) {
+  validateState_(state);
+  const stored = JSON.parse(JSON.stringify(state));
+  stored.schemaVersion = SCHEMA_VERSION;
+  stored.storageBackend = STORAGE_BACKEND;
+  stored.lastSavedAt = new Date().toISOString();
+  const text = JSON.stringify(stored);
+  if (Utilities.newBlob(text).getBytes().length > MAX_JSON_BYTES) throw new Error('La copia supera el límite de 8 MB.');
+  const file = driveFile_(true);
+  const previous = file.getBlob().getDataAsString('UTF-8');
+  try {
+    file.setContent(text);
+    validateState_(JSON.parse(file.getBlob().getDataAsString('UTF-8')));
+  } catch (err) {
+    try { file.setContent(previous); } catch (_) {}
+    throw err;
+  }
+  return stored;
+}
+function doGet() {
+  const lock = LockService.getScriptLock();
+  try { lock.waitLock(15000); return json_(readState_()); }
+  catch (err) { console.error(err && err.stack ? err.stack : err); return json_({ ok: false, error: err && err.message ? String(err.message) : 'No se pudo leer Drive.' }); }
+  finally { try { lock.releaseLock(); } catch (_) {} }
+}
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
+    if (!e || !e.postData || typeof e.postData.contents !== 'string') throw new Error('Solicitud sin contenido.');
+    const stored = writeState_(JSON.parse(e.postData.contents));
+    return json_({ ok: true, schemaVersion: SCHEMA_VERSION, storageBackend: STORAGE_BACKEND, movimientos: stored.movs.length, guardadoEn: stored.lastSavedAt });
+  } catch (err) {
+    console.error(err && err.stack ? err.stack : err);
+    return json_({ ok: false, error: err && err.message ? String(err.message) : 'No se pudo guardar en Drive.' });
+  } finally { try { lock.releaseLock(); } catch (_) {} }
+}
+function setupDriveStorage() {
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(15000);
+    const state = readState_();
+    const stored = driveFile_(false) ? state : writeState_(state);
+    const result = { ok: true, carpeta: DRIVE_FOLDER_NAME, archivo: DRIVE_FILE_NAME, movimientos: stored.movs.length, storageBackend: STORAGE_BACKEND };
+    Logger.log(JSON.stringify(result, null, 2));
+    return result;
+  } finally { try { lock.releaseLock(); } catch (_) {} }
+}
+function testPuenteContabilidad() {
+  const before = readState_();
+  const after = writeState_(before);
+  const result = { ok: JSON.stringify(before.movs) === JSON.stringify(after.movs), movimientos: after.movs.length, storageBackend: STORAGE_BACKEND };
+  Logger.log(JSON.stringify(result, null, 2));
+  if (!result.ok) throw new Error('La prueba de lectura y escritura no coincidió.');
+  return result;
+}
 `;
 async function copyGsCode(){
   const status=document.getElementById('gsCopyStatus');
   try{
     if(navigator.clipboard && window.isSecureContext){
-      await navigator.clipboard.writeText(GOOGLE_SHEETS_GS_CODE);
+      await navigator.clipboard.writeText(GOOGLE_DRIVE_GS_CODE);
     }else{
       const ta=document.createElement('textarea');
-      ta.value=GOOGLE_SHEETS_GS_CODE;
+      ta.value=GOOGLE_DRIVE_GS_CODE;
       ta.setAttribute('readonly','');
       ta.style.position='fixed';
       ta.style.opacity='0';
@@ -3297,10 +3489,10 @@ async function copyGsCode(){
       document.body.removeChild(ta);
       if(!ok)throw new Error('No se pudo copiar automáticamente.');
     }
-    if(status)status.textContent='Código GS copiado al portapapeles.';
+    if(status)status.textContent='Código de Google Drive copiado.';
   }catch(err){
     if(status)status.textContent='No se pudo copiar automáticamente.';
-    alert('No se pudo copiar el código. Mantené presionado el botón o abrí el archivo GOOGLE-SHEETS-APPS-SCRIPT.gs.');
+    alert('No se pudo copiar el código. Abrí el archivo GOOGLE-DRIVE-APPS-SCRIPT.gs del proyecto.');
   }
 }
 function setCloud(msg){
@@ -3322,6 +3514,31 @@ function saveGoalEdit(){
   state.goalMin=min;state.goalMax=min;
   save();$('#ovGoal').classList.remove('show');render();
 }
+function dailyBudgetSnapshot(day){
+  const limit=Math.max(0,Number(state.dailyBudget)||0);
+  const date=day||todayISO();
+  const spent=(state.movs||[]).filter(m=>isOutflow(m)&&dateOnly(m.fecha)===date).reduce((sum,m)=>sum+(Number(m.monto)||0),0);
+  return {limit,spent,remaining:limit-spent,percent:limit?Math.round(spent/limit*100):0};
+}
+function updateDailyBudgetSettings(){
+  const input=$('#dailyBudgetInput'),status=$('#dailyBudgetStatus');
+  if(input)input.value=state.dailyBudget?Number(state.dailyBudget).toLocaleString('es-AR',{maximumFractionDigits:0}):'';
+  if(status)status.textContent=state.dailyBudget?'Límite actual: '+money(state.dailyBudget)+' por día.':'Sin límite diario configurado.';
+}
+function saveDailyBudget(){
+  const input=$('#dailyBudgetInput');
+  state.dailyBudget=Math.max(0,parseMoneyInput(input&&input.value)||0);
+  save();updateDailyBudgetSettings();render();
+}
+function renderDailyBudget(selectedMonth){
+  const card=$('#dailyBudgetCard');if(!card)return;
+  const snapshot=dailyBudgetSnapshot();
+  const visible=snapshot.limit>0&&selectedMonth===todayYM();
+  card.classList.toggle('show',visible);card.classList.toggle('over',visible&&snapshot.remaining<0);
+  if(!visible){card.innerHTML='';return;}
+  const value=snapshot.remaining>=0?money(snapshot.remaining):'−'+money(Math.abs(snapshot.remaining));
+  card.innerHTML='<div class="daily-copy"><div class="daily-title">Disponible hoy</div><div class="daily-detail">Gastaste '+money(snapshot.spent)+' de '+money(snapshot.limit)+'</div></div><div class="daily-value">'+value+'</div>';
+}
 function openQuickAdd(){
   updateFiscalUI();
   resetFiscalChoice('f');
@@ -3335,9 +3552,11 @@ function openSettings(){
   updateNotificationSettingsUI();
   updateShakeSettingsUI();
   updateFeaturesUI();
+  updateDailyBudgetSettings();
   setView('settings');
   const list=document.querySelector('.list');
   if(list)list.scrollIntoView({behavior:'smooth',block:'start'});
+  maybeShowSettingsOnboarding();
 }
 function closeSettings(){if(view==='settings')setView('list');}
 function openCloud(){const i=$('#cloudUrl');if(i)i.value=cloudUrl;$('#ovCloud').classList.add('show');}
@@ -3349,9 +3568,9 @@ function saveCloudNow(){
     cloudUrl=input;
     localStorage.setItem('bois_cloud_url_v2',cloudUrl);
   }
-  if(!cloudUrl){alert('Primero pegá la URL de Google Sheets / Apps Script.');return;}
+  if(!cloudUrl){alert('Primero pegá la URL de Google Apps Script conectada a Drive.');return;}
   clearTimeout(pushTimer);
-  setCloud('Guardando datos actuales en Sheets…');
+  setCloud('Guardando datos actuales en Drive…');
   cloudPush();
 }
 function schedulePush(){if(!cloudUrl)return;clearTimeout(pushTimer);setCloud('Guardando…');pushTimer=setTimeout(cloudPush,800);}
@@ -3384,9 +3603,9 @@ async function cloudPush(){
     setCloud(d&&d.ok?'Sincronizado':'Error al guardar');
     if(!d||!d.ok)throw new Error((d&&d.error)||'Apps Script no confirmó el guardado.');
   }catch(err){
-    console.error('Google Sheets POST:',err);
+    console.error('Google Drive POST:',err);
     setCloud('Error de conexión');
-    alert('No se pudo guardar en Google Sheets.\n\n'+(err&&err.message?err.message:'Revisá la URL y el despliegue.'));
+    alert('No se pudo guardar en Google Drive.\n\n'+(err&&err.message?err.message:'Revisá la URL y el despliegue.'));
   }
 }
 function applyCloudState(d){
@@ -3401,6 +3620,7 @@ function applyCloudState(d){
   next.useFiscal=typeof d.useFiscal==='undefined'?!!state.useFiscal:!!d.useFiscal;
   state=next;
   ensureCats();
+  migrateServiceCategories();
   ensureDateTimes();
   if(zeroExcedentesThroughJune2026()){}
   localStorage.setItem(KEY,JSON.stringify(state));
@@ -3412,6 +3632,7 @@ function cloudPull(cb){
   if(!cloudUrl){if(cb)cb(false);return;}
   setCloud('Cargando…');
   cloudRequest(cloudUrl).then(d=>{
+    if(d&&d.ok===false)throw new Error(d.error||'Apps Script no pudo leer Google Drive.');
     if(applyCloudState(d)){
       setCloud('Sincronizado');buildMonths();render();if(cb)cb(true);
     }else{setCloud('Respuesta inesperada');if(cb)cb(false);}
@@ -3423,15 +3644,16 @@ function connectCloud(){
   cloudUrl=url;localStorage.setItem('bois_cloud_url_v2',url);
   setCloud('Conectando…');
   cloudRequest(url).then(d=>{
+    if(d&&d.ok===false)throw new Error(d.error||'Apps Script no pudo leer Google Drive.');
     if(!d||!Array.isArray(d.movs))throw 0;
     if(d.movs.length===0){cloudPush();setCloud('Conectado. Subiendo tus datos');}
-    else if(confirm('La planilla ya tiene '+d.movs.length+' movimientos.\n\nAceptar = usar los de la planilla.\nCancelar = subir los de este dispositivo.')){
-      if(!applyCloudState(d))throw new Error('La respuesta de Sheets no tiene un estado válido.');
+    else if(confirm('La copia de Drive tiene '+d.movs.length+' movimientos.\n\nAceptar = usar los de Drive.\nCancelar = subir los de este dispositivo.')){
+      if(!applyCloudState(d))throw new Error('La respuesta de Drive no tiene un estado válido.');
       setCloud('Sincronizado');
     } else { cloudPush(); }
     buildMonths();render();
     $('#ovCloud').classList.remove('show');
-  }).catch(err=>{console.error('Google Sheets GET:',err);setCloud('No pude conectar');alert('No pude conectar.\n\n'+(err&&err.message?err.message:'Revisá que la app web esté desplegada con acceso Cualquier persona y que la URL termine en /exec.'));});
+  }).catch(err=>{console.error('Google Drive GET:',err);setCloud('No pude conectar');alert('No pude conectar.\n\n'+(err&&err.message?err.message:'Ejecutá setupDriveStorage, autorizá Drive y revisá que la app web tenga acceso Cualquier persona y una URL /exec.'));});
 }
 
 function seed(){
@@ -3611,6 +3833,8 @@ function closeOverlay(overlay){
   if(overlay.id==='ovVoice'&&typeof closeVoice==='function')closeVoice();
   else if(overlay.id==='ovQuick'&&typeof closeQuickAdd==='function')closeQuickAdd();
   else if(overlay.id==='ovShake'&&typeof closeShakeActions==='function')closeShakeActions();
+  else if(overlay.id==='ovSettingsOnboarding'&&typeof skipSettingsOnboarding==='function')skipSettingsOnboarding();
+  else if(overlay.id==='ovOnboarding'&&typeof closeOnboarding==='function')closeOnboarding();
   else overlay.classList.remove('show');
 }
 function initModalCloseButtons(){
@@ -3678,17 +3902,13 @@ function detectCuotasText(text){
   return 0;
 }
 function detectCategoryFlexible(text,tp){
-  const raw=(text||'').toLowerCase();
-  const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  const nraw=norm(raw);
+  const nraw=' '+normalizeCatText(text)+' ';
   const current=catsForTipo(tp||'gasto');
   for(const c of current){
-    const nc=norm(c);
-    if(nc&&nraw.includes(nc))return c;
-    const parts=nc.split(/[^a-z0-9]+/).filter(Boolean);
-    if(parts.length&&parts.every(p=>nraw.includes(p)))return c;
+    const nc=normalizeCatText(c);
+    if(nc&&nraw.includes(' '+nc+' '))return c;
   }
-  return detectCat(text)||defaultCat(tp||'gasto');
+  return detectCat(text,tp)||defaultCat(tp||'gasto');
 }
 function toggleFiscalFeature(){state.useFiscal=!state.useFiscal;save();updateFiscalUI();render();}
 function fmtDM(s){const d=dateOnly(s);return d?d.split('-').reverse().slice(0,2).join('/'):''}
@@ -3858,21 +4078,57 @@ function migrateToBaseCategories(){
 function mergeImportedCategories(data){
   const imported=(data&&typeof data==='object'&&!Array.isArray(data))?data:{};
   const own=Array.isArray(imported.cats)?imported.cats:[];
-  imported.cats=uniqueCats(CATS.concat(own,referencedCats(imported)));
+  const aliases=imported.catAliases&&typeof imported.catAliases==='object'?imported.catAliases:{};
+  const required=[EXCEDENTE_CAT].concat(CATS.slice(1).filter(cat=>!aliases[cat]),SERVICE_CATS.filter(cat=>!aliases[cat]));
+  imported.cats=uniqueCats(own.concat(referencedCats(imported),required));
   imported.categorySetVersion=CATEGORY_SET_VERSION;
+  if(imported.serviceCategoryVersion===undefined)imported.serviceCategoryVersion=0;
   return imported;
+}
+function normalizeCatText(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9+]+/g,' ').trim().replace(/\s+/g,' ')}
+function categoryAlias(base){
+  const alias=state.catAliases&&state.catAliases[base];
+  const current=Array.isArray(state.cats)?state.cats:[];
+  return current.find(cat=>cat===(alias||base))||current.find(cat=>cat===base)||alias||base;
+}
+function serviceCategoryFor(text,tp){
+  if(tp==='ingreso'||tp==='medeben')return null;
+  const normalized=' '+normalizeCatText(text)+' ';
+  for(const cat of SERVICE_CATS){
+    const words=SERVICE_RULES[cat]||[];
+    if(words.some(word=>normalized.includes(' '+normalizeCatText(word)+' ')))return categoryAlias(cat);
+  }
+  return null;
+}
+function migrateServiceCategories(){
+  if(Number(state.serviceCategoryVersion||0)>=SERVICE_CATEGORY_VERSION)return false;
+  ensureCats();
+  SERVICE_CATS.forEach(cat=>{if(!state.cats.some(c=>c.toLowerCase()===cat.toLowerCase()))state.cats.push(cat);});
+  if(!state.catAliases||typeof state.catAliases!=='object')state.catAliases={};
+  CATS.concat(SERVICE_CATS).forEach(cat=>{if(!state.catAliases[cat])state.catAliases[cat]=cat;});
+  SERVICE_CATS.forEach(cat=>{if(!state.catMeta[cat])state.catMeta[cat]=SERVICE_META[cat];});
+  const migrateItem=item=>{
+    if(!item||item.cat!=='Vivienda y servicios')return;
+    const serviceCat=serviceCategoryFor(item.desc,item.tipo);
+    if(serviceCat)item.cat=serviceCat;
+  };
+  (state.movs||[]).forEach(migrateItem);
+  (state.fijos||[]).forEach(migrateItem);
+  state.serviceCategoryVersion=SERVICE_CATEGORY_VERSION;
+  return true;
 }
 function ensureCats(){
   const current=Array.isArray(state.cats)?state.cats:[];
   state.cats=uniqueCats(current.concat(referencedCats(state)));
   if(!state.cats.length)state.cats=CATS.slice();
   if(!state.catMeta||typeof state.catMeta!=='object')state.catMeta={};
+  if(!state.catAliases||typeof state.catAliases!=='object')state.catAliases={};
 }
 function getCats(){ensureCats();return state.cats}
 function catsForTipo(t){return getCats()}
 function fillCats(sel,t){$(sel).innerHTML=catsForTipo(t||'gasto').map(c=>'<option>'+esc(c)+'</option>').join('')}
 function hasOption(sel,val){return [...$(sel).options].some(o=>o.value===val)}
-function defaultCat(t){return (t==='ingreso'||t==='medeben')?'Ingresos':t==='gasto'?'Comida y supermercado':'Salud, compras y otros'}
+function defaultCat(t){return categoryAlias((t==='ingreso'||t==='medeben')?'Ingresos':t==='gasto'?'Comida y supermercado':'Salud, compras y otros')}
 function setSelectDefault(sel,t,prefer){
   const el=$(sel); const wanted=prefer||defaultCat(t);
   if(hasOption(sel,wanted))el.value=wanted;
@@ -3898,6 +4154,7 @@ function deleteCategory(){
 
 /* ===== Administrador de categorías ===== */
 let catPendingDelete='';
+let catDragSuppressClick=0;
 
 function openCatManager(){
   const ov=$('#ovCats');
@@ -3931,38 +4188,90 @@ function renderCatManager(){
   list.innerHTML=cats.map((c,i)=>{
     const n=catUsage(c);
     const meta=catMetaOf(c);
-    const upDisabled=i===0?'disabled':'';
-    const downDisabled=i===cats.length-1?'disabled':'';
-    return '<div class="cat-row">'+
-      '<button type="button" class="cat-avatar" data-cat-index="'+i+'" title="Cambiar ícono y color" style="background:'+meta.color+'">'+catIconSvg(meta.icon,16)+'</button>'+
+    return '<div class="cat-row" data-cat-index="'+i+'">'+
+      '<button type="button" class="cat-avatar" data-cat-index="'+i+'" title="Editar nombre, ícono y color" style="background:'+meta.color+'">'+catIconSvg(meta.icon,16)+'</button>'+
       '<span class="cat-name">'+esc(c)+'</span>'+
       '<span class="cat-count">'+n+' mov.</span>'+
-      '<button type="button" class="cat-move cat-up" data-cat-index="'+i+'" title="Subir" '+upDisabled+'>▲</button>'+
-      '<button type="button" class="cat-move cat-down" data-cat-index="'+i+'" title="Bajar" '+downDisabled+'>▼</button>'+
-      '<button type="button" class="cat-del" data-cat-index="'+i+'" title="Borrar categoría" aria-label="Borrar '+esc(c)+'">'+IC.trash+'</button>'+
+      '<button type="button" class="cat-edit" data-cat-index="'+i+'" title="Editar categoría" aria-label="Editar '+esc(c)+'">'+IC.pencil+'</button>'+
+      (c===EXCEDENTE_CAT?'<span style="width:24px"></span>':'<button type="button" class="cat-del" data-cat-index="'+i+'" title="Borrar categoría" aria-label="Borrar '+esc(c)+'">'+IC.trash+'</button>')+
       '</div>';
   }).join('');
 
   list.onclick=function(ev){
+    if(Date.now()<catDragSuppressClick){ev.preventDefault();ev.stopPropagation();return;}
     const avatar=ev.target.closest('.cat-avatar');
     if(avatar&&list.contains(avatar)){ev.preventDefault();catEditIcon(getCats()[Number(avatar.getAttribute('data-cat-index'))]);return;}
-    const up=ev.target.closest('.cat-up');
-    if(up&&list.contains(up)){ev.preventDefault();catMoveUp(Number(up.getAttribute('data-cat-index')));return;}
-    const down=ev.target.closest('.cat-down');
-    if(down&&list.contains(down)){ev.preventDefault();catMoveDown(Number(down.getAttribute('data-cat-index')));return;}
+    const edit=ev.target.closest('.cat-edit');
+    if(edit&&list.contains(edit)){ev.preventDefault();catEditIcon(getCats()[Number(edit.getAttribute('data-cat-index'))]);return;}
     const btn=ev.target.closest('.cat-del');
     if(!btn||!list.contains(btn))return;
     ev.preventDefault();
     ev.stopPropagation();
     const i=Number(btn.getAttribute('data-cat-index'));
     const cat=getCats()[i];
-    if(cat!==undefined)showCatDeletePanel(cat);
+      if(cat!==undefined)showCatDeletePanel(cat);
   };
+  initCatLongPressDrag(list,cats.slice());
+}
+
+function initCatLongPressDrag(list,originalCats){
+  list.querySelectorAll('.cat-row').forEach(row=>{
+    let timer=null,active=false,scrolling=false,startX=0,startY=0,lastY=0,pointerId=null,offsetY=0,placeholder=null;
+    const clear=()=>{if(timer){clearTimeout(timer);timer=null;}};
+    const finish=()=>{
+      clear();
+      if(!active)return;
+      active=false;
+      list.classList.remove('drag-active');
+      row.classList.remove('dragging');
+      row.style.left='';row.style.top='';row.style.width='';row.style.height='';
+      if(placeholder&&placeholder.parentNode)placeholder.replaceWith(row);
+      state.cats=[...list.querySelectorAll('.cat-row')].map(el=>originalCats[Number(el.dataset.catIndex)]).filter(Boolean);
+      save();refreshCatSelects();renderCatManager();
+      catDragSuppressClick=Date.now()+500;
+    };
+    row.addEventListener('pointerdown',ev=>{
+      if(ev.button!==undefined&&ev.button!==0)return;
+      pointerId=ev.pointerId;startX=ev.clientX;startY=ev.clientY;lastY=ev.clientY;scrolling=false;
+      try{row.setPointerCapture(pointerId);}catch(e){}
+      if(ev.target.closest('button'))return;
+      timer=setTimeout(()=>{
+        const rect=row.getBoundingClientRect();
+        offsetY=startY-rect.top;
+        placeholder=document.createElement('div');placeholder.className='cat-placeholder';placeholder.style.height=rect.height+'px';
+        row.parentNode.insertBefore(placeholder,row);
+        row.style.left=rect.left+'px';row.style.top=rect.top+'px';row.style.width=rect.width+'px';row.style.height=rect.height+'px';
+        active=true;list.classList.add('drag-active');row.classList.add('dragging');
+        try{if(navigator.vibrate)navigator.vibrate(25);}catch(e){}
+      },450);
+    });
+    row.addEventListener('pointermove',ev=>{
+      if(!active){
+        if(Math.hypot(ev.clientX-startX,ev.clientY-startY)>8){clear();scrolling=true;}
+        if(scrolling&&ev.pointerType==='touch'){ev.preventDefault();list.scrollTop+=lastY-ev.clientY;lastY=ev.clientY;}
+        return;
+      }
+      ev.preventDefault();
+      row.style.top=(ev.clientY-offsetY)+'px';
+      const target=document.elementFromPoint(ev.clientX,ev.clientY);
+      const targetRow=target&&target.closest?target.closest('.cat-row'):null;
+      if(targetRow&&targetRow!==row&&list.contains(targetRow)){
+        const rect=targetRow.getBoundingClientRect();
+        list.insertBefore(placeholder,ev.clientY<rect.top+rect.height/2?targetRow:targetRow.nextSibling);
+      }
+      const bounds=list.getBoundingClientRect();
+      if(ev.clientY<bounds.top+32)list.scrollTop-=12;
+      else if(ev.clientY>bounds.bottom-32)list.scrollTop+=12;
+    });
+    row.addEventListener('pointerup',finish);
+    row.addEventListener('pointercancel',finish);
+    row.addEventListener('lostpointercapture',finish);
+  });
 }
 
 function showCatDeletePanel(cat){
   const cats=getCats();
-  if(!cats.includes(cat))return;
+  if(!cats.includes(cat)||cat===EXCEDENTE_CAT)return;
   const box=$('#catReassign');
   if(!box)return;
   catPendingDelete=cat;
@@ -4050,12 +4359,14 @@ function confirmReassign(i){
 }
 
 function finalizeCatDelete(cat,target){
+  if(cat===EXCEDENTE_CAT)return;
   if(target){
     (state.movs||[]).forEach(m=>{if(m&&m.cat===cat)m.cat=target;});
     (state.fijos||[]).forEach(f=>{if(f&&f.cat===cat)f.cat=target;});
   }
   state.cats=getCats().filter(c=>c!==cat);
   if(state.catMeta)delete state.catMeta[cat];
+  if(state.catAliases)Object.keys(state.catAliases).forEach(base=>{if(state.catAliases[base]===cat)state.catAliases[base]=target;});
   catPendingDelete='';
   ensureCats();
   save();
@@ -4070,7 +4381,8 @@ function renderCatPickerBox(opts){
   if(!box)return;
   catPendingDelete='';
   box.style.display='block';
-  const nameField=opts.isNew?'<input id="catNewName" placeholder="Nombre de la categoría" style="margin-bottom:10px">':'';
+  const locked=!opts.isNew&&opts.cat===EXCEDENTE_CAT;
+  const nameField='<input id="catNewName" value="'+esc(opts.cat||'')+'" placeholder="Nombre de la categoría" style="margin-bottom:10px" '+(locked?'disabled':'')+'>'+(locked?'<div class="cat-action-help" style="margin-bottom:8px">Ingresos conserva su nombre porque identifica el excedente mensual.</div>':'');
   const title=opts.isNew?'Agregar categoría':'Editar «'+esc(opts.cat)+'»';
   box.innerHTML='<div class="reassign-box">'+
     '<div class="cat-action-title">'+title+'</div>'+
@@ -4112,16 +4424,27 @@ function renderCatPickerBox(opts){
   };
   $('#catPickSaveBtn').onclick=function(ev){
     ev.preventDefault();
+    const input=$('#catNewName');
+    const name=(input.value||'').trim().replace(/\s+/g,' ');
+    const status=$('#catActionStatus');
+    if(!name){status.textContent='Escribí un nombre.';input.focus();return;}
+    if(getCats().some(function(c){return c!==opts.cat&&c.toLowerCase()===name.toLowerCase();})){status.textContent='Esa categoría ya existe.';input.focus();return;}
     if(opts.isNew){
-      const input=$('#catNewName');
-      const name=(input.value||'').trim().replace(/\s+/g,' ');
-      const status=$('#catActionStatus');
-      if(!name){status.textContent='Escribí un nombre.';input.focus();return;}
-      if(getCats().some(function(c){return c.toLowerCase()===name.toLowerCase();})){status.textContent='Esa categoría ya existe.';input.focus();return;}
       state.cats.push(name);
       setCatMeta(name,icon,color);
     }else{
-      setCatMeta(opts.cat,icon,color);
+      const oldName=opts.cat;
+      const finalName=locked?oldName:name;
+      const index=state.cats.indexOf(oldName);
+      if(index>=0)state.cats[index]=finalName;
+      (state.movs||[]).forEach(m=>{if(m&&m.cat===oldName)m.cat=finalName;});
+      (state.fijos||[]).forEach(f=>{if(f&&f.cat===oldName)f.cat=finalName;});
+      if(state.catMeta)delete state.catMeta[oldName];
+      if(state.catAliases){
+        Object.keys(state.catAliases).forEach(base=>{if(state.catAliases[base]===oldName)state.catAliases[base]=finalName;});
+        if(CATS.concat(SERVICE_CATS).includes(oldName))state.catAliases[oldName]=finalName;
+      }
+      setCatMeta(finalName,icon,color);
     }
     save();
     refreshCatSelects();
@@ -4130,7 +4453,7 @@ function renderCatPickerBox(opts){
   };
   $('#catCancelBtn').onclick=function(ev){ev.preventDefault();renderCatManager();};
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  if(opts.isNew)setTimeout(()=>$('#catNewName').focus(),0);
+  if(!locked)setTimeout(()=>$('#catNewName').focus(),0);
 }
 function catAdd(){
   renderCatPickerBox({isNew:true,cat:null,icon:'tag',color:CAT_COLORS[0]});
@@ -4140,7 +4463,11 @@ function catEditIcon(cat){
   renderCatPickerBox({isNew:false,cat:cat,icon:meta.icon,color:meta.color});
 }
 
-function refreshCatSelects(){ if($('#fCat'))fillCats('#fCat',typeof tipo!=='undefined'?tipo:'gasto'); }
+function refreshCatSelects(){
+  [['#fCat',typeof tipo!=='undefined'?tipo:'gasto'],['#mCat',typeof mTipo!=='undefined'?mTipo:'gasto'],['#eCat','gasto']].forEach(pair=>{
+    const el=$(pair[0]);if(!el)return;const current=el.value;fillCats(pair[0],pair[1]);if(current&&hasOption(pair[0],current))el.value=current;
+  });
+}
 let theme=localStorage.getItem('bois_theme')||'light';
 if(theme==='organic'){theme='blob';localStorage.setItem('bois_theme','blob');}
 const ICsun='<svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.9 4.9l1.4 1.4"/><path d="M17.7 17.7l1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.9 19.1l1.4-1.4"/><path d="M17.7 6.3l1.4-1.4"/></svg>';const ICmoon='<svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
@@ -4525,7 +4852,7 @@ function toggleOpts(src){
   if(cl)cl.textContent=(tipo==='ingreso'||tipo==='medeben')?'Primer cobro':'Primera cuota';
 }
 function autoCat(){
-  const c=detectCat($('#fDesc').value);
+  const c=detectCat($('#fDesc').value,tipo);
   if(c&&hasOption('#fCat',c))$('#fCat').value=c;
 }
 function updateBottomNav(active){
@@ -4845,21 +5172,24 @@ function extractAmount(t){
   return sp>0?sp:null;
 }
 
-function detectCat(text){
+function detectCat(text,tp){
   const d=(text||'').toLowerCase();
   const toks=d.split(/[^a-záéíóúñü0-9]+/).filter(Boolean);
   const current=(typeof getCats==='function'?getCats():CATS)||[];
-  const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  const nd=norm(d);
+  const nd=' '+normalizeCatText(d)+' ';
   for(const c of current){
-    const nc=norm(c);
-    if(nc&&nd.includes(nc))return c;
+    const nc=normalizeCatText(c);
+    if(nc&&nd.includes(' '+nc+' '))return c;
   }
+  const serviceCat=serviceCategoryFor(d,tp||'gasto');
+  if(serviceCat){const match=current.find(c=>c.toLowerCase()===serviceCat.toLowerCase());if(match)return match;}
   for(const cat in DICC){
     for(const w of DICC[cat]){
       const hit = w.indexOf(' ')>=0 ? d.indexOf(w)>=0 : toks.indexOf(w)>=0;
       if(hit){
-        const match=current.find(c=>c.toLowerCase()===cat)||CATS.find(c=>c.toLowerCase()===cat);
+        const base=CATS.find(c=>c.toLowerCase()===cat);
+        const wanted=base?categoryAlias(base):cat;
+        const match=current.find(c=>c.toLowerCase()===String(wanted).toLowerCase());
         if(match)return match;
       }
     }
@@ -5131,7 +5461,7 @@ async function requestMicPermission(){
     r.onstart=()=>{r.stop();if(status)status.textContent='Microfono habilitado.';if(btn)btn.disabled=false;refreshMicStatusRow();};
     r.onerror=e=>{
       if(e.error==='not-allowed'||e.error==='service-not-allowed'){
-        if(status)status.textContent='Permiso denegado. Andá a Ajustes → Apps → Mi Contabilidad → Permisos → Micrófono.';
+        if(status)status.textContent='Permiso denegado. Andá a Ajustes → Apps → Flyfinanzas → Permisos → Micrófono.';
       }else{
         if(status)status.textContent='Microfono habilitado.';
       }
@@ -5166,14 +5496,31 @@ function toggleMic(){
   beginMicRecognition();
 }
 
-function toggleAlertsBox(){
-  const body=$('#alertsBody');
-  const head=document.querySelector('.alert-head.toggle');
+function toggleAlertsBox(kind){
+  const isCollect=kind==='collect';
+  const body=$(isCollect?'#alertsCollectBody':'#alertsPayBody');
+  const head=$(isCollect?'#alertsCollectHead':'#alertsPayHead');
   if(!body||!head)return;
   const open=body.style.display==='none';
   body.style.display=open?'block':'none';
   head.classList.toggle('closed',!open);
-  localStorage.setItem('bois_alerts_open',open?'1':'0');
+  localStorage.setItem(isCollect?'bois_collect_alerts_open':'bois_alerts_open',open?'1':'0');
+}
+function focusMovement(mid){
+  const movement=(state.movs||[]).find(m=>String(m.id)===String(mid));
+  if(!movement)return;
+  const targetMonth=monthKey(movement.venc||movement.fecha)||todayYM();
+  searchQuery='';const search=$('#searchInput');if(search)search.value='';
+  buildMonths();
+  const month=$('#monthSel');if(month&&hasOption('#monthSel',targetMonth))month.value=targetMonth;
+  setView('list');
+  setTimeout(()=>{
+    const target=[...document.querySelectorAll('#items .item')].find(el=>el.dataset.movementId===String(mid));
+    if(!target)return;
+    target.classList.remove('movement-focus');void target.offsetWidth;target.classList.add('movement-focus');
+    target.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>target.classList.remove('movement-focus'),3400);
+  },80);
 }
 
 /* ============ RENDER ============ */
@@ -5211,6 +5558,7 @@ function render(){
   const pct=state.goalMin?Math.min(100,Math.round(ing/state.goalMin*100)):0;
   $('#goalBar').style.width=pct+'%';
   $('#goalTxt').textContent=money(ing)+' de '+money(state.goalMin)+' · '+pct+'%';
+  renderDailyBudget(ym);
 
   // Alertas
   const pend=state.movs.filter(m=>isPendingOutflow(m)&&m.venc)
@@ -5229,20 +5577,22 @@ function render(){
         else if(m.d===0){cls='r';txt='Vence HOY';}
         else if(m.d<=3){cls='o';txt='Vence en '+m.d+(m.d!==1?' días':' día');}
         else{cls='y';txt='Vence en '+m.d+' días';}
-        return '<div class="al '+cls+'"><div><div class="desc">'+esc(m.desc)+'<span class="due-badge" style="margin-left:6px">'+fmtDM(m.venc)+'</span></div><div class="when">'+txt+'</div></div><div class="amt">'+money(m.monto)+'</div><button onclick="togglePago(\''+m.id+'\')">'+IC.check+'Pagué</button></div>';
+        return '<div class="al '+cls+'" role="button" tabindex="0" onclick="focusMovement(\''+m.id+'\')" onkeydown="if(event.key===\'Enter\'){focusMovement(\''+m.id+'\')}"><div><div class="desc">'+esc(m.desc)+'<span class="due-badge" style="margin-left:6px">'+fmtDM(m.venc)+'</span></div><div class="when">'+txt+'</div></div><div class="amt">'+money(m.monto)+'</div><button onclick="event.stopPropagation();togglePago(\''+m.id+'\')">'+IC.check+'Pagué</button></div>';
       }).join('');
-    alHtml+='<div class="alert-head toggle '+(open?'':'closed')+'" onclick="toggleAlertsBox()">'+IC.bell+' Cuentas por pagar <span class="badge">'+pend.length+'</span><span class="chev">▾</span></div>'+
-      '<div id="alertsBody" style="display:'+(open?'block':'none')+'">'+body+'</div>';
+    alHtml+='<div class="alert-head toggle '+(open?'':'closed')+'" id="alertsPayHead" onclick="toggleAlertsBox(\'pay\')">'+IC.bell+' A pagar <span class="badge">'+pend.length+'</span><span class="chev">▾</span></div>'+
+      '<div id="alertsPayBody" style="display:'+(open?'block':'none')+'">'+body+'</div>';
   }
   if(cobrar.length){
+    const open=localStorage.getItem('bois_collect_alerts_open')!=='0';
     const body=cobrar.map(m=>{
         let txt='';
         if(m.d<0)txt='A acreditar hace '+Math.abs(m.d)+(Math.abs(m.d)!==1?' días':' día');
         else if(m.d===0)txt='Se acredita HOY';
         else txt='Cobro en '+m.d+(m.d!==1?' días':' día');
-        return '<div class="al g"><div><div class="desc">'+esc(m.desc)+'</div><div class="when">'+txt+' · '+labelMonth(monthKey(m.venc))+'</div></div><div class="amt">'+money(m.monto)+'</div><button onclick="togglePago(\''+m.id+'\')">'+IC.check+'Cobré</button></div>';
+        return '<div class="al g" role="button" tabindex="0" onclick="focusMovement(\''+m.id+'\')" onkeydown="if(event.key===\'Enter\'){focusMovement(\''+m.id+'\')}"><div><div class="desc">'+esc(m.desc)+'<span class="due-badge" style="margin-left:6px">'+fmtDM(m.venc)+'</span></div><div class="when">'+txt+'</div></div><div class="amt">'+money(m.monto)+'</div><button onclick="event.stopPropagation();togglePago(\''+m.id+'\')">'+IC.check+'Cobré</button></div>';
       }).join('');
-    alHtml+='<div class="alert-head" style="margin-top:'+(pend.length?'14px':'0')+'">'+IC.bell+' Por cobrar <span class="badge" style="background:var(--ok)">'+cobrar.length+'</span></div>'+body;
+    alHtml+='<div class="alert-head toggle '+(open?'':'closed')+'" id="alertsCollectHead" style="margin-top:'+(pend.length?'10px':'0')+'" onclick="toggleAlertsBox(\'collect\')">'+IC.bell+' A cobrar <span class="badge" style="background:var(--ok)">'+cobrar.length+'</span><span class="chev">▾</span></div>'+
+      '<div id="alertsCollectBody" style="display:'+(open?'block':'none')+'">'+body+'</div>';
   }
   if(!alHtml && !aldiaCerrado)alHtml='<div class="empty-ok"><span>'+IC.check+'Estás al día. No hay vencimientos ni cobros próximos.</span><button class="aldia-x" title="Cerrar" onclick="aldiaCerrado=true;render()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>';
   alE.innerHTML=alHtml;
@@ -5258,30 +5608,34 @@ function render(){
   $('#items').innerHTML = displayMovs.length?displayMovs.map(m=>{
     const inSide=incomeSide(m);
     const sign=inSide?'+':'−';
-    let metaTxt=IC.clock+timeOnly(m.fecha);
-    if(m.tipo==='deuda'&&m.venc)metaTxt='Vence '+fmtDM(m.venc)+' · '+IC.clock+timeOnly(m.fecha);
-    else if(m.tipo==='medeben'&&m.venc)metaTxt=(m.estado==='pago'?'Acreditado ':'Cobro ')+fmtDM(m.venc)+' · '+IC.clock+timeOnly(m.fecha);
+    const loadedTime=timeOnly(m.fecha);
+    const metaTxt=loadedTime?IC.clock+loadedTime:'';
+    let dueMeta='';
+    if(m.tipo==='deuda'&&m.venc)dueMeta='<span class="movement-due">Vence '+fmtDM(m.venc)+'</span>';
+    else if(m.tipo==='medeben'&&m.venc)dueMeta='<span class="movement-due receivable">'+(m.estado==='pago'?'Acreditado ':'Cobro ')+fmtDM(m.venc)+'</span>';
     const manualTag=isManualExcedente(m)?' <span class="cat-tag">Manual</span>':'';
     let badge='';
     if(m.tipo==='deuda'){
       const paid=m.estado==='pago';
-      badge='<button type="button" class="pay-badge '+(paid?'paid':'pending')+'" onclick="togglePago(\''+m.id+'\')" title="'+(paid?'Pagado':'Impago')+'" aria-label="'+(paid?'Pagado':'Impago')+'">'+(paid?IC.check:'')+'</button>';
+      badge='<button type="button" class="pay-badge '+(paid?'paid':'pending')+'" onclick="togglePago(\''+m.id+'\')" title="'+(paid?'Pagado':'Impago')+'" aria-label="'+(paid?'Pagado':'Impago')+'">'+(paid?IC.check:STATUS_X_ICON)+'</button>';
     }else if(m.tipo==='medeben'){
       const paid=m.estado==='pago';
-      badge='<button type="button" class="pay-badge '+(paid?'paid':'pending')+'" onclick="togglePago(\''+m.id+'\')" title="'+(paid?'Cobrado':'Cobrar')+'" aria-label="'+(paid?'Cobrado':'Cobrar')+'">'+(paid?IC.check:'')+'</button>';
+      badge='<button type="button" class="pay-badge '+(paid?'paid':'pending')+'" onclick="togglePago(\''+m.id+'\')" title="'+(paid?'Cobrado':'Cobro pendiente')+'" aria-label="'+(paid?'Cobrado':'Cobro pendiente')+'">'+(paid?IC.check:STATUS_X_ICON)+'</button>';
     }else if(m.tipo==='gasto'){
       badge='<span class="pay-badge paid" title="Pagado" aria-label="Pagado">'+IC.check+'</span>';
     }
     const serviceLink=movementServiceLink(m);
     const linkButton=serviceLink?'<button class="ico service-link" type="button" title="Abrir enlace del servicio" aria-label="Abrir enlace del servicio" onclick="openServiceLink(\''+m.id+'\')">'+SERVICE_LINK_ICON+'</button>':'';
     const catMeta=catMetaOf(m.cat);
-    const timeMeta='<div class="item-avatar-meta"><span class="time">'+metaTxt+'</span></div>';
+    const timeMeta=metaTxt?'<div class="item-avatar-meta"><span class="time">'+metaTxt+'</span></div>':'';
     const avatarCol='<div class="item-avatar-col"><div class="item-avatar" style="background:'+catMeta.color+'">'+catIconSvg(catMeta.icon,20)+badge+'</div>'+timeMeta+'</div>';
+    const repeatMeta=m.fijo?'<span class="movement-repeat" title="Recurrente">'+IC.repeat+'</span>':'';
+    const titleMeta=(repeatMeta||dueMeta)?'<span class="movement-title-meta">'+repeatMeta+dueMeta+'</span>':'';
     const tagsLine=fiscalTagHtml(m)+manualTag;
     const dISO=dateOnly(m.fecha);
     let sep='';
     if(dISO!==lastItemSep){sep='<div class="date-sep">'+esc(dateSepLabel(dISO))+'</div>';lastItemSep=dISO;}
-    return sep+'<div class="item">'+avatarCol+'<div class="item-body"><div class="item-top"><div class="d1">'+m.desc+' '+(m.fijo?IC.repeat:'')+'</div></div><div class="d2">'+(tagsLine?'<div>'+tagsLine+'</div>':'')+'</div><div class="item-foot"><div class="acts"><button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div></div></div><div class="item-amt-col"><span class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</span></div></div>';
+    return sep+'<div class="item" data-movement-id="'+esc(m.id)+'">'+avatarCol+'<div class="item-body"><div class="item-top"><div class="d1"><span class="movement-desc">'+esc(m.desc)+'</span>'+titleMeta+'</div></div><div class="d2">'+(tagsLine?'<div>'+tagsLine+'</div>':'')+'</div><div class="item-foot"><div class="acts"><button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div></div></div><div class="item-amt-col"><span class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</span></div></div>';
   }).join(''):'<div style="padding:30px;text-align:center;color:var(--muted);font-weight:700">'+(searchQuery?'Sin resultados para "'+esc(searchQuery)+'"':'Sin movimientos este mes. Cargá uno arriba')+'</div>';
 }
 
@@ -5533,7 +5887,7 @@ function restore(e){
     const imported=JSON.parse(r.result);
     if(!imported||typeof imported!=='object'||Array.isArray(imported))throw new Error('Formato inválido');
     state=mergeImportedCategories(imported);
-    ensureCats();ensureDateTimes();if(zeroExcedentesThroughJune2026()){}
+    ensureCats();migrateServiceCategories();ensureDateTimes();if(zeroExcedentesThroughJune2026()){}
     save();buildMonths();render();
     alert('Copia restaurada. Se agregaron también todas las categorías incluidas en la copia.');
   }catch(x){alert('Archivo inválido')}finally{input.value='';}};
@@ -5568,7 +5922,7 @@ async function wipe(){
   render();
   setCloud('Desconectado');
   closeSettings();
-  alert('Todos los datos fueron borrados. La conexión con Google Sheets también se desconectó para evitar que vuelvan a cargarse.');
+  alert('Todos los datos fueron borrados. La conexión con Google Drive también se desconectó para evitar que vuelvan a cargarse.');
 }
 function confirmWipe(){
   const first=confirm('¿Querés borrar TODOS los movimientos, servicios, objetivos y configuraciones guardadas?');
@@ -5700,7 +6054,7 @@ async function saveMonthlyPdfReminder(){
   if(enabled)cfg.enabled=true;
   storeNotificationSettings(cfg);
   updateNotificationSettingsUI();
-  await syncLocalNotifications(false);
+  await refreshAllNotifications(false);
   $('#monthlyPdfReminderStatus').textContent=enabled
     ?(localNotificationsPlugin()?'Primer aviso: '+date.split('-').reverse().join('/')+' a las '+time+'. Después se repite cada mes.':'Configurado para el día '+day+' de cada mes. Se activará en la APK instalada.')
     :'El recordatorio mensual está desactivado.';
@@ -5849,6 +6203,53 @@ async function openMonthlyPdfFile(){
 
 /* ============ ONBOARDING ============ */
 const ONB_KEY='bois_onboarded_v1';
+const SETTINGS_ONB_KEY='bois_settings_onboarded_v1';
+let settingsOnbSlide=0;
+const SETTINGS_ONB_TARGETS=['','#categorySettingsRow','#driveSettingsRow','#micPermBtn','#notifFoldBtn','#shakeSettingsRow','#dailyBudgetSetting'];
+function showSettingsOnboarding(){
+  if(view!=='settings')setView('settings');
+  settingsOnbSlide=0;updateSettingsOnboarding();
+  const ov=$('#ovSettingsOnboarding');if(ov)ov.classList.add('show');
+}
+function maybeShowSettingsOnboarding(){
+  if(!localStorage.getItem(ONB_KEY)||localStorage.getItem(SETTINGS_ONB_KEY))return;
+  setTimeout(()=>{if(view==='settings'&&!document.querySelector('.ov.show'))showSettingsOnboarding();},450);
+}
+function updateSettingsOnboarding(){
+  [0,1,2,3,4,5,6].forEach(i=>{const slide=$('#settingsOnb'+i);if(slide)slide.classList.toggle('onb-active',i===settingsOnbSlide);});
+  const dots=$('#settingsOnbDots');if(dots)dots.innerHTML=[0,1,2,3,4,5,6].map(i=>'<span class="onb-dot '+(i===settingsOnbSlide?'onb-dot-active':'')+'"></span>').join('');
+  const back=$('#settingsOnbBackBtn'),next=$('#settingsOnbNextBtn'),status=$('#settingsTourStatus');
+  if(back){back.classList.toggle('disabled',settingsOnbSlide===0);back.setAttribute('aria-disabled',settingsOnbSlide===0?'true':'false');}
+  if(next)next.textContent='Siguiente';
+  if(status)status.textContent='';
+  document.querySelectorAll('.settings-tour-highlight').forEach(el=>el.classList.remove('settings-tour-highlight'));
+  const selector=SETTINGS_ONB_TARGETS[settingsOnbSlide];
+  const target=selector?$(selector):null;
+  if(target){target.classList.add('settings-tour-highlight');setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),50);}
+}
+function nextSettingsOnboarding(){
+  if(settingsOnbSlide<6){settingsOnbSlide++;updateSettingsOnboarding();}
+  else skipSettingsOnboarding();
+}
+function previousSettingsOnboarding(){if(settingsOnbSlide>0){settingsOnbSlide--;updateSettingsOnboarding();}}
+function skipSettingsOnboarding(){
+  localStorage.setItem(SETTINGS_ONB_KEY,'1');
+  document.querySelectorAll('.settings-tour-highlight').forEach(el=>el.classList.remove('settings-tour-highlight'));
+  const ov=$('#ovSettingsOnboarding');if(ov)ov.classList.remove('show');
+}
+function setSettingsTourStatus(text){const el=$('#settingsTourStatus');if(el)el.textContent=text;}
+function settingsTourCategories(){openCatManager();}
+function settingsTourDrive(){openCloud();}
+async function settingsTourMic(){await requestMicPermission();setSettingsTourStatus('Listo. Podés cambiar este permiso desde Configuración.');}
+async function settingsTourNotifications(){
+  const cfg=loadNotificationSettings();
+  if(!cfg.enabled)await toggleLocalNotifications();
+  setSettingsTourStatus(loadNotificationSettings().enabled?'Recordatorios activados.':'Podés activarlos más adelante desde Configuración.');
+}
+async function settingsTourGyroscope(){
+  if(!isShakeEnabled())await toggleShakeFeature();
+  setSettingsTourStatus(isShakeEnabled()?'Giroscopio activado.':'No se pudo activar en este dispositivo.');
+}
 function showOnboarding(){
   onbSlide=0;
   updateOnbSlide();
@@ -5905,10 +6306,15 @@ function onbCatAdd(){
 }
 
 /* ============ RECORDATORIOS INTELIGENTES ============ */
+async function cancelSmartNotifications(){
+  const LN=localNotificationsPlugin();if(!LN)return;
+  try{await LN.cancel({notifications:[9001,9002,9003,9004,9005,9006,9007,9008,9009].map(id=>({id}))});}catch(e){}
+}
 async function scheduleSmartNotifications(){
-  if(state.features&&state.features.notifInteligentes===false)return;
   const LN=localNotificationsPlugin();
   if(!LN)return;
+  const notifCfg=loadNotificationSettings();
+  if(!notifCfg.enabled||state.features&&state.features.notifInteligentes===false){await cancelSmartNotifications();return;}
   try{
     const perm=await LN.checkPermissions();
     if(!perm||perm.display!=='granted')return;
@@ -6077,8 +6483,8 @@ async function scheduleSmartNotifications(){
       await LN.cancel({notifications:[{id:9009}]});
       await LN.schedule({notifications:[{
         id:9009,
-        title:'Resumen de gastos de hoy',
-        body:'Hoy gastaste '+money(gastoHoy)+'.',
+        title:notifCfg.friendly?'Tu día en números':'Resumen de gastos de hoy',
+        body:(()=>{const daily=dailyBudgetSnapshot(todayKey);if(!daily.limit)return 'Hoy gastaste '+money(gastoHoy)+'.';return daily.remaining>=0?'Hoy gastaste '+money(gastoHoy)+'. Te quedan '+money(daily.remaining)+' de tu presupuesto diario.':'Hoy gastaste '+money(gastoHoy)+' y superaste tu presupuesto diario por '+money(Math.abs(daily.remaining))+'.';})(),
         schedule:{at:dailyAt,allowWhileIdle:true},
         smallIcon:'ic_notification'
       }]});
@@ -6093,7 +6499,7 @@ function saveSmartNotifState(s){
 }
 
 /* ============ INIT ============ */
-let initChanged=false;if(migrateToBaseCategories())initChanged=true;ensureCats();migrate();cleanV3();noSeguro();hist2();if(ensureDateTimes())initChanged=true;if(zeroExcedentesThroughJune2026())initChanged=true;if(initChanged)save();
+let initChanged=false;if(migrateToBaseCategories())initChanged=true;ensureCats();if(migrateServiceCategories())initChanged=true;migrate();cleanV3();noSeguro();hist2();if(ensureDateTimes())initChanged=true;if(zeroExcedentesThroughJune2026())initChanged=true;if(initChanged)save();
 fillCats('#fCat','ingreso');
 updateFiscalUI();
 applyTheme();

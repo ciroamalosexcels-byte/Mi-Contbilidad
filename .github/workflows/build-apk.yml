@@ -57,18 +57,19 @@ jobs:
 
       - name: Instalar puente nativo de Descargas
         run: |
-          cp native/downloads/MainActivity.java android/app/src/main/java/com/bois/micontabilidad/MainActivity.java
-          cp native/downloads/DownloadsPlugin.java android/app/src/main/java/com/bois/micontabilidad/DownloadsPlugin.java
+          cp native/downloads/MainActivity.java android/app/src/main/java/com/ciro/flyfinanzas/MainActivity.java
+          cp native/downloads/DownloadsPlugin.java android/app/src/main/java/com/ciro/flyfinanzas/DownloadsPlugin.java
 
       - name: Instalar widget de carga por voz
         run: |
-          cp native/widget/QuickVoiceWidgetProvider.java android/app/src/main/java/com/bois/micontabilidad/QuickVoiceWidgetProvider.java
+          cp native/widget/QuickVoiceWidgetProvider.java android/app/src/main/java/com/ciro/flyfinanzas/QuickVoiceWidgetProvider.java
           mkdir -p android/app/src/main/res/layout android/app/src/main/res/xml android/app/src/main/res/drawable
           cp native/widget/widget_quick_voice.xml android/app/src/main/res/layout/widget_quick_voice.xml
           cp native/widget/quick_voice_widget_info.xml android/app/src/main/res/xml/quick_voice_widget_info.xml
           cp native/widget/bg_widget_circle.xml android/app/src/main/res/drawable/bg_widget_circle.xml
           cp native/widget/ic_widget_mic.xml android/app/src/main/res/drawable/ic_widget_mic.xml
           cp native/widget/ic_widget_mic_dark.xml android/app/src/main/res/drawable/ic_widget_mic_dark.xml
+          cp native/widget/ic_widget_mic_pixel.xml android/app/src/main/res/drawable/ic_widget_mic_pixel.xml
           for t in claro oscuro win matrix neo blob mosca; do
             cp native/widget/bg_widget_$t.xml android/app/src/main/res/drawable/bg_widget_$t.xml
           done
@@ -132,7 +133,7 @@ jobs:
           echo "APK_SIZE_BYTES=${SIZE_BYTES}" >> $GITHUB_ENV
 
       - name: Renombrar APK
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk MiContabilidad.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Flyfinanzas.apk
 
       - name: Publicar como GitHub Release
         uses: softprops/action-gh-release@v2
@@ -147,5 +148,5 @@ jobs:
             **Tipo:** Debug (no requiere Play Store)
 
             ⚠️ Antes de instalar: activá "Fuentes desconocidas" en Ajustes → Seguridad
-          files: MiContabilidad.apk
+          files: Flyfinanzas.apk
           make_latest: true

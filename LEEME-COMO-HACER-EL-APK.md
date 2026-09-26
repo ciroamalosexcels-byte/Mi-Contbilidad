@@ -38,7 +38,7 @@ En la página del repo recién creado:
 ## 4) Descargar el APK
 
 1. Cuando el proceso termine con un ✅ verde, hacé clic en él.
-2. Abajo de todo, en **Artifacts**, vas a ver **`MiContabilidad-APK`**.
+2. En la publicación más reciente vas a encontrar **`Flyfinanzas.apk`**.
 3. Descargalo (viene en un `.zip`). Adentro está **`app-debug.apk`**.
 
 ## 5) Instalar en el celular
@@ -60,13 +60,13 @@ Bajás el APK nuevo de Actions y lo reinstalás encima. Tus datos se mantienen.
 
 La app guarda todo solo, en una carpeta **MiContabilidad** del teléfono
 (`datos.json`). Además tenés los botones **Descargar copia** (JSON),
-**Exportar CSV** y **Google Sheets** (opcional). Aunque borres la caché o
+**Exportar CSV** y **Google Drive** (opcional). Aunque borres la caché o
 reinstales, al abrir la app recupera los datos de esa carpeta.
 
 ---
 
 ### Datos técnicos (por si te los preguntan)
-- Nombre app: **Mi Contabilidad** · ID: `com.bois.micontabilidad`
+- Nombre app: **Flyfinanzas** · ID: `com.ciro.flyfinanzas`
 - Hecho con **Capacitor 6** + plugin **Filesystem**.
 - El APK es de tipo *debug* (se instala directo, sin Play Store). Funciona igual
   que uno normal; solo no está firmado para publicar en la tienda.

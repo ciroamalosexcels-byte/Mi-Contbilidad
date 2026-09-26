@@ -1,4 +1,4 @@
-package com.bois.micontabilidad;
+package com.ciro.flyfinanzas;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.os.Looper;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
-    public static final String ACTION_QUICK_VOICE = "com.bois.micontabilidad.ACTION_QUICK_VOICE";
+    public static final String ACTION_QUICK_VOICE = "com.ciro.flyfinanzas.ACTION_QUICK_VOICE";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

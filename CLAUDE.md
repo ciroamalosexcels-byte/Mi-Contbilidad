@@ -1,4 +1,4 @@
-# Mi Contabilidad (Bois)
+# Flyfinanzas (Bois)
 
 > Llamar al usuario por su nombre: **Ciro**. Cada tanto, usar **Cirito**.
 
@@ -11,7 +11,7 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 
 ## Funciones clave
 - Movimientos: `ingreso`, `gasto`, `deuda`, `medeben`
-- Gastos fijos/recurrentes, metas, calendario, métricas, voz, notificaciones, sacudida, Google Sheets sync, export/import JSON
+- Gastos fijos/recurrentes, metas, calendario, métricas, voz, notificaciones, sacudida, copia automática en Google Drive, export/import JSON
 - Los servicios recurrentes aceptan un `link` opcional; si existe, la lista muestra un botón de enlace junto a Editar. Sólo se admiten URLs HTTP/HTTPS y se agrega `https://` cuando falta
 - Excedente del mes: lleva el sobrante al mes siguiente. Si el usuario lo edita, tiene `excedenteManual:true`.
 - Búsqueda en tiempo real sobre la lista (filtra por desc/cat)
@@ -25,7 +25,7 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 ## Temas: `light`, `dark`, `win`, `matrix`, `neo`, `blob`, `mosca` (8-bit)
 
 ## App ID
-- `com.bois.micontabilidad` (Capacitor, `appName`: "Mi Contabilidad", `webDir`: `www`)
+- `com.ciro.flyfinanzas` (Capacitor, `appName`: "Flyfinanzas", `webDir`: `www`)
 
 ## Navegación
 - Barra inferior fija: Lista, Calendario, Métricas, Configuración
@@ -48,14 +48,16 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 - Archivos en `www/assets/sounds/`: `movement-added.mp3`, `action-open.mp3`, `navigation.mp3`
 - No requieren plugins, reproducción nativa del browser
 
-## Google Sheets
-- Script en `GOOGLE-SHEETS-APPS-SCRIPT.gs`, se despliega como web app con URL terminada en `/exec`
-- Hojas: `Movimientos` y `Config`
-- La app tiene botón "Copiar código GS" que copia el script al portapapeles
+## Google Drive
+- Script en `GOOGLE-DRIVE-APPS-SCRIPT.gs`, se despliega como web app con URL terminada en `/exec`
+- Guarda el estado completo en `Mi Contabilidad/backup.json` dentro del Drive del usuario
+- Si existen las hojas anteriores `Movimientos` y `Config`, las migra al primer uso sin modificarlas
+- La app tiene botón "Copiar código de Drive" que copia el script al portapapeles
+- Antes de desplegar, ejecutar `setupDriveStorage()` y autorizar Drive
 - NO usar URL `/dev`, siempre `/exec`; crear nueva versión al modificar el script
 
 ## Archivos adicionales
-- `GOOGLE-SHEETS-APPS-SCRIPT.gs` — script Apps Script para sync con Sheets
+- `GOOGLE-DRIVE-APPS-SCRIPT.gs` — script Apps Script para copia automática en Google Drive
 - `www/assets/` — recursos estáticos (íconos, sonidos, etc.)
 - `www/minijuego/` — minijuego incluido en la app
 - `Logo-App.jpg` — ícono launcher de la aplicación Android

@@ -1,8 +1,8 @@
 {
-  "name": "mi-contabilidad",
+  "name": "flyfinanzas",
   "version": "1.0.0",
   "private": true,
-  "description": "Mi Contabilidad - app de finanzas personales",
+  "description": "Flyfinanzas - app de finanzas personales",
   "devDependencies": {
     "@capacitor/cli": "^6.0.0"
   },

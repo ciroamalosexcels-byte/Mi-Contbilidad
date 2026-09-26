@@ -1,6 +1,6 @@
 {
-  "appId": "com.bois.micontabilidad",
-  "appName": "Mi Contabilidad",
+  "appId": "com.ciro.flyfinanzas",
+  "appName": "Flyfinanzas",
   "webDir": "www",
   "plugins": {
     "CapacitorHttp": {

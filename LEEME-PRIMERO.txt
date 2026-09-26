@@ -6,23 +6,24 @@ También usa nombres de almacenamiento nuevos, por lo que no recuperará automá
 PARA COMPILAR
 1. Subí/reemplazá todos estos archivos en tu repositorio de GitHub.
 2. Esperá a que Actions > Compilar APK termine en verde.
-3. Descargá el artefacto MiContabilidad-APK e instalá app-debug.apk.
+3. Descargá Flyfinanzas.apk desde la publicación más reciente e instalalo.
 
-GOOGLE SHEETS
-1. En tu Google Sheet: Extensiones > Apps Script.
-2. Pegá el contenido de GOOGLE-SHEETS-APPS-SCRIPT.gs.
-3. Implementar > Nueva implementación > Aplicación web.
-4. Ejecutar como: Yo.
-5. Quién tiene acceso: Cualquier persona.
-6. Copiá la URL terminada en /exec y pegala en la app.
+GOOGLE DRIVE
+1. Abrí script.google.com y creá un proyecto. Si usabas la planilla anterior, también podés abrir su Apps Script para migrarla.
+2. Pegá el contenido de GOOGLE-DRIVE-APPS-SCRIPT.gs.
+3. Ejecutá setupDriveStorage() y autorizá el acceso a tu Google Drive.
+4. Implementar > Nueva implementación > Aplicación web.
+5. Ejecutar como: Yo.
+6. Quién tiene acceso: Cualquier persona.
+7. Copiá la URL terminada en /exec y pegala en la app.
 
 IMPORTANTE
 No uses la URL de prueba que termina en /dev. Tiene que terminar exactamente en /exec.
 Cada vez que cambies el Apps Script, creá una nueva versión de la implementación.
 
 
-NOVEDAD: En Google Sheets dentro de la app ahora aparece el botón “Copiar código GS”, que copia al portapapeles el código completo de Apps Script.
+NOVEDAD: En Google Drive dentro de la app aparece el botón “Copiar código de Drive”, que copia al portapapeles el código completo de Apps Script.
 
 
-ACTUALIZACIÓN CLAUDE V9
-La app y el botón “Copiar código GS” usan ahora el puente V9 de Claude: hojas Movimientos y Config, columnas visibles y respaldo JSON por movimiento.
+ACTUALIZACIÓN GOOGLE DRIVE
+El puente guarda el estado completo en Mi Contabilidad/backup.json. Si todavía existen las hojas Movimientos y Config, las importa una sola vez sin modificarlas.

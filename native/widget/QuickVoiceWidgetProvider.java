@@ -1,4 +1,4 @@
-package com.bois.micontabilidad;
+package com.ciro.flyfinanzas;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -43,7 +43,7 @@ public class QuickVoiceWidgetProvider extends AppWidgetProvider {
             case "matrix": bgRes = R.drawable.bg_widget_matrix; break;
             case "neo": bgRes = R.drawable.bg_widget_neo; iconRes = R.drawable.ic_widget_mic_dark; break;
             case "blob": bgRes = R.drawable.bg_widget_blob; break;
-            case "mosca": bgRes = R.drawable.bg_widget_mosca; iconRes = R.drawable.ic_widget_mic_dark; break;
+            case "mosca": bgRes = R.drawable.bg_widget_mosca; iconRes = R.drawable.ic_widget_mic_pixel; break;
             default: bgRes = R.drawable.bg_widget_claro; break;
         }
 
