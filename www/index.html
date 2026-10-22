@@ -305,11 +305,17 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:14p
 .daily-budget-card{display:none;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;margin:-2px 0 12px;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
 .daily-budget-card.show{display:flex}.daily-budget-card .daily-copy{min-width:0}.daily-budget-card .daily-title{font-size:.76rem;color:var(--muted);font-weight:800}.daily-budget-card .daily-detail{font-size:.72rem;color:var(--muted);font-weight:700;margin-top:2px}.daily-budget-card .daily-value{font-size:1.05rem;font-weight:900;color:var(--ok);white-space:nowrap}.daily-budget-card.over .daily-value{color:var(--rojo)}
 
-.alerts{margin-bottom:12px}
+.alerts{display:none;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--glass);box-shadow:var(--shadow)}
+.alerts.open{display:block}
+.alert-section+.alert-section{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}
 .alert-head{font-weight:900;font-size:1rem;margin-bottom:9px;display:flex;align-items:center;gap:8px;color:var(--txt)}
-.alert-head.toggle{cursor:pointer;user-select:none;background:transparent;border:none;box-shadow:none;border-radius:0;padding:8px 18px 8px 24px;margin-bottom:5px}
-.alert-head.toggle .chev{margin-left:auto;font-size:.9rem;color:var(--muted);transition:.15s}
-.alert-head.toggle.closed .chev{transform:rotate(-90deg)}
+.alert-head.combined{padding:2px 10px 7px;margin-bottom:5px}
+.header-right{justify-self:end;min-width:0;position:relative}
+.alert-toggle{position:relative;display:flex;align-items:center;justify-content:center}
+.alert-toggle .ic{width:20px;height:20px}
+.alert-toggle.active{border-color:var(--accent);color:var(--accent)}
+.alert-toggle-count{position:absolute;right:-5px;top:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;display:none;align-items:center;justify-content:center;background:var(--rojo);color:#fff;border:2px solid var(--bg);font-size:.66rem;font-weight:900;line-height:1}
+.alert-toggle-count.show{display:flex}
 .catbox{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
 .catbtn{height:44px;width:44px;background:var(--glass2);border:1px solid var(--line);color:var(--muted);font-size:1.15rem;font-weight:900;display:flex;align-items:center;justify-content:center}
 .catbtn:hover{border-color:var(--accent);color:var(--txt)}
@@ -323,7 +329,7 @@ header{display:flex;justify-content:space-between;align-items:flex-start;gap:14p
 .al .amt{font-weight:900;white-space:nowrap}
 .al button{background:var(--ok);color:#063;padding:7px 12px;font-size:.82rem}
 body.dark .al button{color:#04231a}
-#alertsPayBody .al,#alertsCollectBody .al{padding-left:24px}
+.alerts .al{padding-left:18px}
 .empty-ok{border-radius:14px;padding:14px 40px 14px 14px;text-align:center;color:var(--ok);font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px}
 
 .voicetrigger{width:100%;color:#fff;padding:14px;font-size:1rem;margin-bottom:16px;border-radius:var(--r);background:linear-gradient(120deg,var(--accent2),var(--accent));border:1px solid var(--line)}
@@ -361,16 +367,18 @@ body.dark .al button{color:#04231a}
 .pay-badge.pending{background:#fff;border-color:var(--rojo);color:var(--rojo)}
 .pay-badge svg{width:10px;height:10px}
 .item-body{flex:1;min-width:0;display:flex;flex-direction:column;align-items:stretch;margin-top:3px}
-.item-top{display:flex;align-items:center;gap:8px}
+.item-top{display:flex;align-items:flex-start;gap:8px;min-width:0}
 .item-foot{display:flex;align-items:center;margin-top:8px;gap:8px}
 .item-amt-col{flex:none;align-self:center;display:flex;align-items:center;margin-left:auto;padding-left:8px;margin-top:3px}
 .item:last-child{border-bottom:none}
-.item.movement-focus{position:relative;z-index:2;animation:movement-focus-pulse 1.05s ease-in-out 3}
-@keyframes movement-focus-pulse{0%,100%{background:transparent;box-shadow:inset 0 0 0 0 transparent}50%{background:color-mix(in srgb,var(--accent) 14%,var(--glass2));box-shadow:inset 0 0 0 2px var(--accent)}}
 .dot{width:10px;height:10px;border-radius:50%;flex:none}
 .dot.ingreso{background:var(--c-ing)}.dot.gasto{background:var(--c-gas)}.dot.deuda{background:var(--c-deb)}.dot.medeben{background:var(--c-md)}
-.item .d1{font-weight:800;line-height:1.2;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.movement-title-meta{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:.67rem;font-weight:800;white-space:nowrap}
+.item.movement-focus{position:relative;z-index:2}
+.item.movement-focus::before{content:'';position:absolute;inset:4px 6%;z-index:-1;pointer-events:none;border-radius:50%;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--accent) 42%,transparent) 0%,color-mix(in srgb,var(--accent) 16%,transparent) 45%,transparent 72%);filter:blur(14px);opacity:0;transform:scale(.9);animation:movement-focus-pulse 1.05s ease-in-out 3}
+@keyframes movement-focus-pulse{0%,100%{opacity:0;transform:scale(.9)}50%{opacity:1;transform:scale(1.04)}}
+.item .d1{font-weight:800;line-height:1.2;display:block;flex:1;min-width:0;overflow-wrap:anywhere}
+.movement-desc{display:block}
+.movement-title-meta{display:inline-flex;align-items:center;gap:5px;flex:none;margin-left:auto;color:var(--muted);font-size:.67rem;font-weight:800;white-space:nowrap}
 .movement-repeat{display:inline-flex;align-items:center;color:var(--muted)}
 .movement-due{display:inline-flex;align-items:center;padding:2px 6px;border-radius:99px;background:rgba(224,69,123,.12);border:1px solid rgba(224,69,123,.25);color:var(--rojo)}
 .movement-due.receivable{background:rgba(10,165,196,.12);border-color:rgba(10,165,196,.25);color:var(--c-md)}
@@ -817,7 +825,7 @@ body.win .cat-target-option.selected{background:#d6d6ee!important;box-shadow:ins
 </style>
 
 <style id="ui-request-fixes">
-.topbar{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px;margin-bottom:18px}
+.topbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-bottom:18px}
 .header-left{justify-self:start;min-width:0}.header-center{justify-self:center;width:100%;min-width:0;display:flex;justify-content:center}.header-right-spacer{width:42px;height:42px}
 .monthsel.monthpill{min-width:0}
 .monthsel.monthpill{background:var(--glass2);border:1px solid var(--line);border-radius:999px;padding:4px 8px;gap:4px;box-shadow:var(--shadow);width:100%;justify-content:center;height:46px;overflow:hidden}
@@ -1477,7 +1485,7 @@ body.blob ::selection{background:#f9a63d;color:#fff}
 }
 
 @media(max-width:720px){
-  .topbar{grid-template-columns:auto 1fr;gap:8px}
+  .topbar{grid-template-columns:auto 1fr auto;gap:8px}
   .monthsel.monthpill{max-width:none}
   .monthsel.monthpill select{min-width:0}
   .seg-tabs button{min-width:0;width:100%}
@@ -1789,7 +1797,15 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
       <button class="navm" onclick="shiftMonth(1)" title="Mes siguiente"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
     </div>
   </div>
+  <div class="header-right">
+    <button class="themebtn alert-toggle" id="alertsToggleBtn" type="button" onclick="toggleAlertsPanel()" title="Vencimientos y cobros" aria-label="Mostrar vencimientos y cobros" aria-expanded="false">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      <span class="alert-toggle-count" id="alertsToggleCount"></span>
+    </button>
+  </div>
 </header>
+
+<div class="alerts" id="alerts"></div>
 
 <div class="cards" id="cards"></div>
 
@@ -1811,9 +1827,6 @@ body.blob .monthly-pdf-modal .monthly-save-reminder{background:#3b3b5c!important
   <div class="bar"><i id="goalBar"></i></div>
 </div>
 <div class="daily-budget-card" id="dailyBudgetCard"></div>
-
-<div class="alerts" id="alerts"></div>
-
 
 <div class="list">
   <div class="lh app-section-head">
@@ -2547,7 +2560,8 @@ async function mcBootstrap(){
 
 /* ===== Notificaciones locales del teléfono ===== */
 const NOTIF_KEY='bois_local_notifications_v1';
-const NOTIF_DEFAULTS={enabled:false,time:'09:00',before:true,today:true,receivables:true,monthly:true,friendly:true,pdfReminder:false,pdfDay:1,pdfTime:'09:00',pdfStart:''};
+const DUE_NOTIFICATION_DEFAULT_TIME='09:00';
+const NOTIF_DEFAULTS={enabled:false,time:DUE_NOTIFICATION_DEFAULT_TIME,before:true,today:true,receivables:true,monthly:true,friendly:true,pdfReminder:false,pdfDay:1,pdfTime:'09:00',pdfStart:''};
 let notifScheduleTimer=null;
 let notifSyncRunning=false;
 let monthlyPdfNotificationListenerReady=false;
@@ -2573,7 +2587,7 @@ function notificationId(key){
 function notificationDate(isoDate,dayOffset,time){
   const p=String(isoDate||'').slice(0,10).split('-').map(Number);
   if(p.length!==3||!p[0]||!p[1]||!p[2])return null;
-  const tm=String(time||'09:00').split(':').map(Number);
+  const tm=String(time||DUE_NOTIFICATION_DEFAULT_TIME).split(':').map(Number);
   const d=new Date(p[0],p[1]-1,p[2],tm[0]||0,tm[1]||0,0,0);
   d.setDate(d.getDate()+(dayOffset||0));
   return d;
@@ -2582,8 +2596,8 @@ function nextFixedDate(day,time){
   const now=new Date();
   let y=now.getFullYear(),m=now.getMonth();
   const safe=(yy,mm)=>Math.min(Math.max(1,Number(day)||1),new Date(yy,mm+1,0).getDate());
-  let d=new Date(y,m,safe(y,m),...(String(time||'09:00').split(':').map(Number)),0,0);
-  if(d<=now){m++;if(m>11){m=0;y++;}d=new Date(y,m,safe(y,m),...(String(time||'09:00').split(':').map(Number)),0,0);}
+  let d=new Date(y,m,safe(y,m),...(String(time||DUE_NOTIFICATION_DEFAULT_TIME).split(':').map(Number)),0,0);
+  if(d<=now){m++;if(m>11){m=0;y++;}d=new Date(y,m,safe(y,m),...(String(time||DUE_NOTIFICATION_DEFAULT_TIME).split(':').map(Number)),0,0);}
   return d;
 }
 function notificationBody(m){return String(m.desc||'Movimiento')+' · '+money(Number(m.monto)||0);}
@@ -2631,7 +2645,7 @@ function buildLocalNotifications(cfg){
   events.sort((a,b)=>String(a.venc).localeCompare(String(b.venc))).forEach(e=>{notifications=notifications.concat(makeDueNotifications(e,cfg,now));});
   if(cfg.monthly){
     let y=now.getFullYear(),m=now.getMonth();
-    const parts=String(cfg.time||'09:00').split(':').map(Number);
+    const parts=String(cfg.time||DUE_NOTIFICATION_DEFAULT_TIME).split(':').map(Number);
     let at=new Date(y,m+1,0,parts[0]||0,parts[1]||0,0,0);
     if(at<=now){m++;if(m>11){m=0;y++;}at=new Date(y,m+1,0,parts[0]||0,parts[1]||0,0,0);}
     const ym=y+'-'+String(m+1).padStart(2,'0');
@@ -2706,7 +2720,7 @@ async function toggleLocalNotifications(){
 function saveNotificationSettings(){
   const cfg=loadNotificationSettings();
   const time=document.getElementById('notifTime');
-  cfg.time=time&&time.value?time.value:'09:00';
+  cfg.time=time&&time.value?time.value:DUE_NOTIFICATION_DEFAULT_TIME;
   cfg.before=!!(document.getElementById('notifBefore')&&document.getElementById('notifBefore').checked);
   cfg.today=!!(document.getElementById('notifToday')&&document.getElementById('notifToday').checked);
   cfg.receivables=!!(document.getElementById('notifReceivables')&&document.getElementById('notifReceivables').checked);
@@ -2720,7 +2734,7 @@ async function updateNotificationSettingsUI(){
   const panel=document.getElementById('notificationOptions');
   if(btn)btn.innerHTML='<svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg> '+(cfg.enabled?'Desactivar notificaciones':'Activar notificaciones');
   if(panel)panel.style.display=cfg.enabled?'block':'none';
-  const time=document.getElementById('notifTime');if(time)time.value=cfg.time||'09:00';
+  const time=document.getElementById('notifTime');if(time)time.value=cfg.time||DUE_NOTIFICATION_DEFAULT_TIME;
   const fields={notifBefore:'before',notifToday:'today',notifReceivables:'receivables',notifMonthly:'monthly',notifFriendly:'friendly'};
   Object.keys(fields).forEach(id=>{const el=document.getElementById(id);if(el)el.checked=!!cfg[fields[id]];});
   if(!cfg.enabled){setNotificationStatus('Notificaciones desactivadas.');return;}
@@ -3907,15 +3921,15 @@ function detectCategoryFlexible(text,tp){
 }
 function toggleFiscalFeature(){state.useFiscal=!state.useFiscal;save();updateFiscalUI();render();}
 function fmtDM(s){const d=dateOnly(s);return d?d.split('-').reverse().slice(0,2).join('/'):''}
+function fmtDMCompact(s){const d=dateOnly(s);if(!d)return '';const p=d.split('-').map(Number);return p[2]+'/'+p[1]}
 function fmtDMTime(s){const d=fmtDM(s),t=timeOnly(s);return d+(t?' '+t:'')}
 function dateSepLabel(dISO){
   if(!dISO)return '';
-  const today=todayISO();
-  const yd=new Date();yd.setDate(yd.getDate()-1);
-  if(dISO===today)return 'Hoy';
-  if(dISO===iso(yd))return 'Ayer';
-  const p=dISO.split('-');
-  return Number(p[2])+' de '+MESES[Number(p[1])-1].toLowerCase()+' de '+p[0];
+  const p=dISO.split('-').map(Number);
+  if(p.length!==3||!p[0]||!p[1]||!p[2])return '';
+  const weekdays=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const weekday=weekdays[new Date(p[0],p[1]-1,p[2]).getDay()];
+  return weekday+' '+p[2]+'/'+p[1]+'/'+p[0];
 }
 function movSortTime(m){const raw=(m.fecha||m.venc||'').replace(' ','T');const n=Date.parse(raw);return Number.isNaN(n)?0:n}
 function daysUntil(s){
@@ -5491,15 +5505,15 @@ function toggleMic(){
   beginMicRecognition();
 }
 
-function toggleAlertsBox(kind){
-  const isCollect=kind==='collect';
-  const body=$(isCollect?'#alertsCollectBody':'#alertsPayBody');
-  const head=$(isCollect?'#alertsCollectHead':'#alertsPayHead');
-  if(!body||!head)return;
-  const open=body.style.display==='none';
-  body.style.display=open?'block':'none';
-  head.classList.toggle('closed',!open);
-  localStorage.setItem(isCollect?'bois_collect_alerts_open':'bois_alerts_open',open?'1':'0');
+function toggleAlertsPanel(){
+  const panel=$('#alerts'),button=$('#alertsToggleBtn');
+  if(!panel||!button)return;
+  const open=!panel.classList.contains('open');
+  panel.classList.toggle('open',open);
+  button.classList.toggle('active',open);
+  button.setAttribute('aria-expanded',open?'true':'false');
+  button.setAttribute('aria-label',(open?'Ocultar':'Mostrar')+' vencimientos y cobros');
+  localStorage.setItem('bois_alerts_panel_open',open?'1':'0');
 }
 function focusMovement(mid){
   const movement=(state.movs||[]).find(m=>String(m.id)===String(mid));
@@ -5519,7 +5533,6 @@ function focusMovement(mid){
 }
 
 /* ============ RENDER ============ */
-let aldiaCerrado=false;
 function render(){
   const ym=$('#monthSel').value||todayYM();
   const mlab=$('#monthSelLabel');
@@ -5565,7 +5578,6 @@ function render(){
   const alE=$('#alerts');
   let alHtml='';
   if(pend.length){
-    const open=localStorage.getItem('bois_alerts_open')!=='0';
     const body=pend.map(m=>{
         let cls='y',txt='';
         if(m.d<0){cls='r';txt='Vencido hace '+Math.abs(m.d)+(Math.abs(m.d)!==1?' días':' día');}
@@ -5574,11 +5586,9 @@ function render(){
         else{cls='y';txt='Vence en '+m.d+' días';}
         return '<div class="al '+cls+'" role="button" tabindex="0" onclick="focusMovement(\''+m.id+'\')" onkeydown="if(event.key===\'Enter\'){focusMovement(\''+m.id+'\')}"><div><div class="desc">'+esc(m.desc)+'<span class="due-badge" style="margin-left:6px">'+fmtDM(m.venc)+'</span></div><div class="when">'+txt+'</div></div><div class="amt">'+money(m.monto)+'</div><button onclick="event.stopPropagation();togglePago(\''+m.id+'\')">'+IC.check+'Pagué</button></div>';
       }).join('');
-    alHtml+='<div class="alert-head toggle '+(open?'':'closed')+'" id="alertsPayHead" onclick="toggleAlertsBox(\'pay\')">'+IC.bell+' A pagar <span class="badge">'+pend.length+'</span><span class="chev">▾</span></div>'+
-      '<div id="alertsPayBody" style="display:'+(open?'block':'none')+'">'+body+'</div>';
+    alHtml+='<section class="alert-section"><div class="alert-head combined">'+IC.bell+' A pagar <span class="badge">'+pend.length+'</span></div>'+body+'</section>';
   }
   if(cobrar.length){
-    const open=localStorage.getItem('bois_collect_alerts_open')!=='0';
     const body=cobrar.map(m=>{
         let txt='';
         if(m.d<0)txt='A acreditar hace '+Math.abs(m.d)+(Math.abs(m.d)!==1?' días':' día');
@@ -5586,11 +5596,15 @@ function render(){
         else txt='Cobro en '+m.d+(m.d!==1?' días':' día');
         return '<div class="al g" role="button" tabindex="0" onclick="focusMovement(\''+m.id+'\')" onkeydown="if(event.key===\'Enter\'){focusMovement(\''+m.id+'\')}"><div><div class="desc">'+esc(m.desc)+'<span class="due-badge" style="margin-left:6px">'+fmtDM(m.venc)+'</span></div><div class="when">'+txt+'</div></div><div class="amt">'+money(m.monto)+'</div><button onclick="event.stopPropagation();togglePago(\''+m.id+'\')">'+IC.check+'Cobré</button></div>';
       }).join('');
-    alHtml+='<div class="alert-head toggle '+(open?'':'closed')+'" id="alertsCollectHead" style="margin-top:'+(pend.length?'10px':'0')+'" onclick="toggleAlertsBox(\'collect\')">'+IC.bell+' A cobrar <span class="badge" style="background:var(--ok)">'+cobrar.length+'</span><span class="chev">▾</span></div>'+
-      '<div id="alertsCollectBody" style="display:'+(open?'block':'none')+'">'+body+'</div>';
+    alHtml+='<section class="alert-section"><div class="alert-head combined">'+IC.bell+' A cobrar <span class="badge" style="background:var(--ok)">'+cobrar.length+'</span></div>'+body+'</section>';
   }
-  if(!alHtml && !aldiaCerrado)alHtml='<div class="empty-ok"><span>'+IC.check+'Estás al día. No hay vencimientos ni cobros próximos.</span><button class="aldia-x" title="Cerrar" onclick="aldiaCerrado=true;render()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>';
+  if(!alHtml)alHtml='<div class="empty-ok"><span>'+IC.check+'Estás al día. No hay vencimientos ni cobros próximos.</span></div>';
   alE.innerHTML=alHtml;
+  const alertsOpen=localStorage.getItem('bois_alerts_panel_open')==='1';
+  alE.classList.toggle('open',alertsOpen);
+  const alertButton=$('#alertsToggleBtn'),alertCount=$('#alertsToggleCount'),totalAlerts=pend.length+cobrar.length;
+  if(alertButton){alertButton.classList.toggle('active',alertsOpen);alertButton.setAttribute('aria-expanded',alertsOpen?'true':'false');alertButton.setAttribute('aria-label',(alertsOpen?'Ocultar':'Mostrar')+' vencimientos y cobros');}
+  if(alertCount){alertCount.textContent=String(totalAlerts);alertCount.classList.toggle('show',totalAlerts>0);}
 
   updateSearchBar();
   const displayMovs=filterBySearch(movs);
@@ -5606,8 +5620,8 @@ function render(){
     const loadedTime=timeOnly(m.fecha);
     const metaTxt=loadedTime?IC.clock+loadedTime:'';
     let dueMeta='';
-    if(m.tipo==='deuda'&&m.venc)dueMeta='<span class="movement-due">Vence '+fmtDM(m.venc)+'</span>';
-    else if(m.tipo==='medeben'&&m.venc)dueMeta='<span class="movement-due receivable">'+(m.estado==='pago'?'Acreditado ':'Cobro ')+fmtDM(m.venc)+'</span>';
+    if(m.tipo==='deuda'&&m.venc)dueMeta='<span class="movement-due" title="Vence '+fmtDM(m.venc)+'">'+fmtDMCompact(m.venc)+'</span>';
+    else if(m.tipo==='medeben'&&m.venc)dueMeta='<span class="movement-due receivable" title="'+(m.estado==='pago'?'Acreditado ':'Cobro ')+fmtDM(m.venc)+'">'+fmtDMCompact(m.venc)+'</span>';
     const manualTag=isManualExcedente(m)?' <span class="cat-tag">Manual</span>':'';
     let badge='';
     if(m.tipo==='deuda'){
@@ -5630,7 +5644,7 @@ function render(){
     const dISO=dateOnly(m.fecha);
     let sep='';
     if(dISO!==lastItemSep){sep='<div class="date-sep">'+esc(dateSepLabel(dISO))+'</div>';lastItemSep=dISO;}
-    return sep+'<div class="item" data-movement-id="'+esc(m.id)+'">'+avatarCol+'<div class="item-body"><div class="item-top"><div class="d1"><span class="movement-desc">'+esc(m.desc)+'</span>'+titleMeta+'</div></div><div class="d2">'+(tagsLine?'<div>'+tagsLine+'</div>':'')+'</div><div class="item-foot"><div class="acts"><button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div></div></div><div class="item-amt-col"><span class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</span></div></div>';
+    return sep+'<div class="item" data-movement-id="'+esc(m.id)+'">'+avatarCol+'<div class="item-body"><div class="item-top"><div class="d1"><span class="movement-desc">'+esc(m.desc)+'</span></div>'+titleMeta+'</div><div class="d2">'+(tagsLine?'<div>'+tagsLine+'</div>':'')+'</div><div class="item-foot"><div class="acts"><button class="ico" onclick="openEdit(\''+m.id+'\')">'+IC.pencil+'</button>'+linkButton+'<button class="ico" onclick="delMov(\''+m.id+'\')">'+IC.trash+'</button></div></div></div><div class="item-amt-col"><span class="amt '+(inSide?'in':'out')+'">'+sign+money(m.monto)+'</span></div></div>';
   }).join(''):'<div style="padding:30px;text-align:center;color:var(--muted);font-weight:700">'+(searchQuery?'Sin resultados para "'+esc(searchQuery)+'"':'Sin movimientos este mes. Cargá uno arriba')+'</div>';
 }
 
