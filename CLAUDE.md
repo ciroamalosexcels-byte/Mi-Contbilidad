@@ -85,6 +85,7 @@ App de finanzas personales de Ciro. PWA + APK Android con Capacitor.
 
 ## Fixes importantes ya hechos
 > Cada entrada nueva que se agregue acá debe incluir fecha y hora (ej: `2026-09-17 14:30`).
+- `2026-10-22 16:20` App 100% offline: las fuentes de Google Fonts (Nunito, Poppins, JetBrains Mono, Press Start 2P, Plus Jakarta Sans) ahora están en `www/assets/fonts/gf/` con `fonts.css` local. Antes se cargaban desde internet en el `<head>` y sin conexión la app quedaba en blanco. No volver a agregar recursos externos (CDN, fuentes remotas).
 - `2026-09-17 20:38` Tema blob: se eliminó un bloque de CSS sin commitear (`#coolvetica-font`) que forzaba "Simply Rounded" solo en botones/inputs/títulos de blob, mezclándose con "Plus Jakarta Sans" en el resto del texto. Blob vuelve a usar Plus Jakarta Sans en todo, como antes.
 - `overflow-x:clip` en `body.mosca` (no `hidden`, rompería `position:fixed`)
 - `overflow:clip` en `.app-bottom-nav` MOSCA (evita BFC que interfería con `will-change:transform`)
